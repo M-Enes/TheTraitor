@@ -1,0 +1,57 @@
+﻿cmake_minimum_required(VERSION 3.28)
+project("TheTraitor" VERSION 0.1 LANGUAGES CXX)
+
+# SFML 3 requires C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Enable Hot Reload (Edit and Continue) for Visual Studio
+if(POLICY CMP0141)
+    cmake_policy(SET CMP0141 NEW)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+# Dynamic Linking
+set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
+
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2/lib/cmake/SFML")
+if(UNIX AND NOT APPLE)
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2-linux/lib/cmake/SFML")
+endif()
+
+find_package(SFML 3.0.2 COMPONENTS Graphics System Window Audio Network REQUIRED)
+
+if(UNIX AND NOT APPLE)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out)
+endif()
+
+add_executable(Client "Client.cpp")
+
+target_link_libraries(Client PRIVATE 
+    SFML::Graphics 
+    SFML::System 
+    SFML::Window 
+    SFML::Audio 
+    SFML::Network
+)
+
+if(MSVC)
+    # Hide console in Release, show in Debug
+    target_link_options(Client PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Release>:/ENTRY:mainCRTStartup>")
+    
+    # Copy DLLs to target directory
+    add_custom_command(TARGET Client POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:SFML::Graphics>
+        $<TARGET_FILE:SFML::System>
+        $<TARGET_FILE:SFML::Window>
+        $<TARGET_FILE:SFML::Audio>
+        $<TARGET_FILE:SFML::Network>
+        "$<TARGET_FILE_DIR:Client>"
+    )
+endif()
+
+# For Linux
+if(UNIX AND NOT APPLE)
+    target_compile_options(Client PRIVATE -Wall -Wextra)
+endif()
