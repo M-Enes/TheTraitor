@@ -25,7 +25,8 @@ if(UNIX AND NOT APPLE)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out)
 endif()
 
-add_executable(Client "Client.cpp")
+# ==== Client ====
+add_executable(Client "src/Client.cpp")
 
 target_link_libraries(Client PRIVATE 
     SFML::Graphics 
@@ -54,4 +55,25 @@ endif()
 # For Linux
 if(UNIX AND NOT APPLE)
     target_compile_options(Client PRIVATE -Wall -Wextra)
+endif()
+
+
+# ==== Server ====
+add_executable(Server "src/Server.cpp")
+
+target_link_libraries(Server PRIVATE SFML::System SFML::Network)
+
+if (MSVC)
+    # Copy DLLs to target directory
+    add_custom_command(TARGET Server POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:SFML::System>
+        $<TARGET_FILE:SFML::Network>
+        "$<TARGET_FILE_DIR:Server>"
+    )
+endif()
+
+# For Linux
+if(UNIX AND NOT APPLE)
+    target_compile_options(Server PRIVATE -Wall -Wextra)
 endif()
