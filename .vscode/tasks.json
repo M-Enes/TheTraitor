@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cmake",
+			"label": "CMake: build Client",
+			"command": "build",
+			"targets": [
+				"Client"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake build task for Client"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build Server",
+			"command": "build",
+			"targets": [
+				"Server"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake build task for Server"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build all",
+			"command": "build",
+			"targets": [
+				"all"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake build task for all targets"
+		}
+	]
+}
