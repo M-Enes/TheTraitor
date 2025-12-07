@@ -139,3 +139,11 @@ double BatteryPack::getCharge() const
         return sumOfCharges;
     }
 }
+
+BatteryPack::~BatteryPack()
+{
+    for (Battery *b : cells)
+    {
+        delete b;
+    }
+}

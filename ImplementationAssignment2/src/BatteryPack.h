@@ -67,4 +67,9 @@ public:
      * sum of charges if connection type is parallel.
      */
     double getCharge() const override;
+
+    /**
+     * @brief Destructs the battery pack with releasing heap-allocated batteries vector.
+     */
+    ~BatteryPack() override;
 };
