@@ -1,4 +1,4 @@
-
+#pragma once
 /**
  * @brief A base class representing a battery.
  * * This class manages basic battery properties such as voltage,
