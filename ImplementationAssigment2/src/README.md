@@ -8,6 +8,6 @@ This project implements a C++ object-oriented simulation for batteries and batte
 - [x] **Battery.h**: Header file for the base class.
 - [x] **Battery.cpp**: Implementation of the base class.
 - [x] **BatteryPack.h**: Header file for the derived class.
-- [ ] **BatteryPack.h (Doxygen)**: Adding Doxygen-style comments.
-- [ ] **BatteryPack.cpp**: Implementation of the derived class logic.
+- [x] **BatteryPack.h (Doxygen)**: Adding Doxygen-style comments.
+- [x] **BatteryPack.cpp**: Implementation of the derived class logic.
 - [ ] **BatteryTest.cpp**: Main file for testing the simulation. We can add more test methods in this class
