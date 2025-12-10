@@ -29,5 +29,9 @@ namespace TheTraitor {
 		ViewData viewData;
 		sf::Font font;
 		Button joinGameButton;
+		sf::Text playerNameLabel;
+		sf::Text playerNameTextBox;
+		std::string playerNameTextBoxString;
+		const int playerNameCharLimit = 20;
 	};
 }

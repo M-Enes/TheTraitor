@@ -1,7 +1,7 @@
 #include "InputHandler.h"
 namespace TheTraitor {
 
-	InputHandler::InputHandler(sf::RenderWindow& window) : window(window), inputData{ false, sf::Vector2i(0,0) }
+	InputHandler::InputHandler(sf::RenderWindow& window) : window(window), inputData{ false, sf::Vector2i(0,0), false, ' '}
 	{
 	}
 
@@ -9,6 +9,8 @@ namespace TheTraitor {
 	{
 		inputData.isMouseClicked = false;
 		inputData.mousePosition = sf::Mouse::getPosition(window);
+		inputData.isKeyEntered = false;
+		inputData.keyEntered = ' ';
 
 		while (const std::optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>()) {
@@ -18,6 +20,12 @@ namespace TheTraitor {
 				if (mouseEvent->button == sf::Mouse::Button::Left) {
 					inputData.isMouseClicked = true;
 					inputData.mousePosition = sf::Vector2i(mouseEvent->position);
+				}
+			}
+			else if (const auto& keyEntered = event->getIf<sf::Event::TextEntered>()) {
+				if (keyEntered->unicode < 128) {
+					inputData.isKeyEntered = true;
+					inputData.keyEntered = static_cast<char>(keyEntered->unicode);
 				}
 			}
 		}

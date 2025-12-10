@@ -8,6 +8,8 @@ namespace TheTraitor {
 	struct InputData {
 		bool isMouseClicked;
 		sf::Vector2i mousePosition;
+		bool isKeyEntered;
+		char keyEntered;
 	};
 
 	class InputHandler {
