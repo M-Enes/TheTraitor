@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include "InputHandler.h"
 #include "GameView.h"
+#include "GameState.h"
 
 namespace TheTraitor {
 
@@ -20,6 +21,12 @@ namespace TheTraitor {
 		GameView gameView;
 	private:
 		void update(sf::Time deltaTime);
+		void updateMenu();
+		void updateLobby();
+		void updatePlay();
+		void updateGameover();
+		void updateWin();
 		void render();
+		GameState gameState;
 	};
 }
