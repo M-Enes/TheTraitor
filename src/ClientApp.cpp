@@ -1,21 +1,41 @@
 #include "ClientApp.h"
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+namespace TheTraitor {
 
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
+	void ClientApp::run()
+	{
+		sf::Clock clock;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+		while (window.isOpen()) {
+			sf::Time deltaTime = clock.restart();
+
+			update(deltaTime);
+			render();
+		}
+	}
+
+	void ClientApp::update(sf::Time deltaTime)
+	{
+		inputHandler.handleEvents();
+		const InputData& inputData = inputHandler.getInputData();
+
+		const ViewData& viewData = gameView.handleInput(inputData);
+
+		if (viewData.isActionRequested) {
+			// TODO: send action packet
+		}
+	}
+
+	void ClientApp::render()
+	{
+		window.clear(sf::Color(0, 0, 0, 255));
+		gameView.render();
+		window.display();
+	}
+
+	ClientApp::ClientApp() : window(sf::VideoMode::getDesktopMode(), "The Traitor", sf::Style::None), inputHandler(window), gameView(window)
+	{
+		window.setFramerateLimit(60);
+	}
+
 }
