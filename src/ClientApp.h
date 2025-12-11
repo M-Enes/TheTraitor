@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include "CommonTypes.h"
 #include "InputHandler.h"
 #include "GameView.h"
-#include "GameState.h"
 
 namespace TheTraitor {
 

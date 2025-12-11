@@ -2,17 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "ActionPacket.h"
-#include "InputHandler.h"
-#include "GameState.h"
+#include "CommonTypes.h"
 #include "Button.h"
 
 namespace TheTraitor {
-	
-	struct ViewData {
-		bool isActionRequested;
-		ActionType actionType;
-		GameState gotoState;
-	};
 
 	class GameView
 	{
