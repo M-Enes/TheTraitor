@@ -2,15 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include "ActionPacket.h"
+#include "CommonTypes.h"
 
 namespace TheTraitor {
-
-	struct InputData {
-		bool isMouseClicked;
-		sf::Vector2i mousePosition;
-		bool isKeyEntered;
-		char keyEntered;
-	};
 
 	class InputHandler {
 	public:
