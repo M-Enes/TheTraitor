@@ -90,7 +90,7 @@ namespace TheTraitor {
 	}
 
 	ClientApp::ClientApp() :
-		window(sf::VideoMode::getDesktopMode(), "The Traitor", sf::Style::None),
+		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window),
 		gameState(GameState::MENU)
