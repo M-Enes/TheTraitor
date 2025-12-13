@@ -25,7 +25,7 @@ namespace TheTraitor {
 		joinGameButton.render();
 	}
 
-	void GameView::renderLobby()
+	void GameView::renderLobby(int playerCount)
 	{
 		sf::Text playerCountText(font);
 		playerCountText.setString("Players joined: " + std::to_string(playerCount));
@@ -33,11 +33,6 @@ namespace TheTraitor {
 		playerCountText.setFillColor(sf::Color::White);
 		playerCountText.setPosition(sf::Vector2f(100, 100));
 		window.draw(playerCountText);
-	}
-
-	//newly added function
-	void GameView::setPlayerCount(int count) {
-		playerCount = count; 
 	}
 
 	void GameView::renderPlay()

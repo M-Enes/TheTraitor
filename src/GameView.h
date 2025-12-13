@@ -13,15 +13,13 @@ namespace TheTraitor {
 		GameView(sf::RenderWindow& window);
 		const ViewData& handleInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby();
+		void renderLobby(int playerCount);
 		void renderPlay();
 		void renderGameover();
 		void renderWin();
-		void setPlayerCount(int count); //newly added function
 	private:
 		sf::RenderWindow& window;
 		ViewData viewData;
-		int playerCount = 0; //newly added member variable
 		sf::Font font;
 		Button joinGameButton;
 		sf::Text playerNameLabel;
