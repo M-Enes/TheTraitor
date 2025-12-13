@@ -16,6 +16,7 @@ namespace TheTraitor {
 		bool isActionRequested;
 		ActionType actionType;
 		GameState gotoState;
+		std::string enteredPlayerName;
 	};
 
 	struct InputData {
