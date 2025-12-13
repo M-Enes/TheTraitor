@@ -13,7 +13,7 @@ namespace TheTraitor {
 		GameView(sf::RenderWindow& window);
 		const ViewData& handleInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby(int playerCount); // Modified to get playerCount
+		void renderLobby(const std::vector<std::string>& playerNames);
 		void renderPlay();
 		void renderGameover();
 		void renderWin();
@@ -22,11 +22,12 @@ namespace TheTraitor {
 		ViewData viewData;
 		sf::Font font;
 		Button joinGameButton;
-		sf::Text playerNameLabel;
-		sf::Text playerNameTextBox;
-		std::string playerNameTextBoxString;
+		sf::Text playerNameInputLabel;
+		sf::Text playerNameInputTextBox;
+		std::string playerNameInputTextBoxString;
 		const int playerNameCharLimit = 20;
 		sf::Texture mapTexture; // Texture for the game map
 		sf::Sprite mapSprite; // Sprite to display the game map
+		std::array<sf::Text, 5> playerLabels;
 	};
 }

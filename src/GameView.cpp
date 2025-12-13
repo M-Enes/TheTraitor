@@ -4,12 +4,13 @@ namespace TheTraitor {
 
 	GameView::GameView(sf::RenderWindow& window) :
 		window(window),
-		viewData{ false, ActionType::TradePact, GameState::NONE },
+		viewData{ false, ActionType::TradePact, GameState::NONE, "" },
 		font("assets/fonts/CascadiaMono.ttf"),
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window),
-		playerNameLabel(font),
-		playerNameTextBox(font),
-		playerNameTextBoxString(""),
+		playerNameInputLabel(font),
+		playerNameInputTextBox(font),
+		playerNameInputTextBoxString(""),
+		playerLabels({ font,font,font,font,font }),
 		mapSprite(mapTexture)
  {
 		if (!mapTexture.loadFromFile("assets/textures/map.jpg")) {
@@ -19,25 +20,48 @@ namespace TheTraitor {
 
 		playerNameLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameLabel.setString("Player name");
+	{
 
-		playerNameTextBox.setPosition(sf::Vector2f(600, 300));
-		playerNameTextBox.setString(playerNameTextBoxString);
+		sf::Vector2f labelPosition(100, 200);
+		for (auto& label : playerLabels) {
+			label.setPosition(labelPosition);
+			labelPosition += {0, 100};
+		}
+
+		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
+		playerNameInputLabel.setString("Player name");
+
+		playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
+		playerNameInputTextBox.setString(playerNameInputTextBoxString);
 	}
 
 	void GameView::renderMenu()
 	{
-		window.draw(playerNameLabel);
-		window.draw(playerNameTextBox);
+		window.draw(playerNameInputLabel);
+		window.draw(playerNameInputTextBox);
 		joinGameButton.render();
 	}
 
-	void GameView::renderLobby(int playerCount)
+	void GameView::renderLobby(const std::vector<std::string>& playerNames)
 	{
 		sf::Text playerCountText(font);
-		playerCountText.setString("Players joined: " + std::to_string(playerCount));
+		playerCountText.setString("Players joined: " + std::to_string(playerNames.size()));
 		playerCountText.setCharacterSize(24);
 		playerCountText.setFillColor(sf::Color::White);
 		playerCountText.setPosition(sf::Vector2f(100, 100));
+
+		int i = 0;
+		for (auto& label : playerLabels) {
+			if (playerNames.size() <= i) {
+				label.setString("Waiting for player...");
+			}
+			else {
+				label.setString(playerNames[i]);
+			}
+			window.draw(label);
+			i++;
+		}
+
 		window.draw(playerCountText);
 	}
 
@@ -65,25 +89,26 @@ namespace TheTraitor {
 		joinGameButton.updateHoverEffect(isHovered);
 
 		if (inputData.isMouseClicked && isHovered) {
+			viewData.enteredPlayerName = playerNameInputTextBoxString;
 			viewData.gotoState = GameState::LOBBY;
 		}
 
 		if (inputData.isKeyEntered) {
 			char key = inputData.keyEntered;
 			if (key == 8) { // Backspace
-				if (!playerNameTextBoxString.empty()) {
-					playerNameTextBoxString.pop_back();
+				if (!playerNameInputTextBoxString.empty()) {
+					playerNameInputTextBoxString.pop_back();
 				}
 			}
 			else if (key == 13) { // Enter
 
 			}
 			else {
-				if (playerNameTextBoxString.size() < playerNameCharLimit) {
-					playerNameTextBoxString += key;
+				if (playerNameInputTextBoxString.size() < playerNameCharLimit) {
+					playerNameInputTextBoxString += key;
 				}
 			}
-			playerNameTextBox.setString(playerNameTextBoxString);
+			playerNameInputTextBox.setString(playerNameInputTextBoxString);
 		}
 
 		return viewData;
