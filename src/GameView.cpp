@@ -9,8 +9,14 @@ namespace TheTraitor {
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window),
 		playerNameLabel(font),
 		playerNameTextBox(font),
-		playerNameTextBoxString("")
-	{
+		playerNameTextBoxString(""),
+		mapSprite(mapTexture)
+ {
+		if (!mapTexture.loadFromFile("assets/textures/map.jpg")) {
+			// Handle error
+		}
+
+
 		playerNameLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameLabel.setString("Player name");
 
@@ -35,8 +41,10 @@ namespace TheTraitor {
 		window.draw(playerCountText);
 	}
 
+	// draw the game map
 	void GameView::renderPlay()
 	{
+		window.draw(mapSprite);
 	}
 
 	void GameView::renderGameover()
