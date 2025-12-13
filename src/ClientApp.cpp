@@ -25,6 +25,9 @@ namespace TheTraitor {
 
 	void ClientApp::updateLobby()
 	{
+		//newly added implementation
+		// TODO: Get actual player count from server
+		gameView.setPlayerCount(1); 
 	}
 
 	void ClientApp::updatePlay() {
