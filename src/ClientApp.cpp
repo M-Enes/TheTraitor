@@ -23,11 +23,11 @@ namespace TheTraitor {
 		}
 	}
 
+	// Temporary function to simulate player count update
 	void ClientApp::updateLobby()
 	{
-		//newly added implementation
 		// TODO: Get actual player count from server
-		gameView.setPlayerCount(1); 
+		playerCount = 1;
 	}
 
 	void ClientApp::updatePlay() {
@@ -77,7 +77,7 @@ namespace TheTraitor {
 			gameView.renderMenu();
 			break;
 		case GameState::LOBBY:
-			gameView.renderLobby();
+			gameView.renderLobby(playerCount); // Pass playerCount to renderLobby
 			break;
 		case GameState::PLAY:
 			gameView.renderPlay();
@@ -96,7 +96,8 @@ namespace TheTraitor {
 		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window),
-		gameState(GameState::MENU)
+		gameState(GameState::MENU),
+		playerCount(0)
 	{
 		window.setFramerateLimit(60);
 	}
