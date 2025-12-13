@@ -10,20 +10,27 @@ namespace TheTraitor {
 		playerNameInputLabel(font),
 		playerNameInputTextBox(font),
 		playerNameInputTextBoxString(""),
-		playerLabels({ font,font,font,font,font })
+		playerLabels({ font,font,font,font,font }),
+		mapTexture("assets/textures/map.jpg"),
+		mapSprite(mapTexture)
 	{
-
-		sf::Vector2f labelPosition(100, 200);
-		for (auto& label : playerLabels) {
-			label.setPosition(labelPosition);
-			labelPosition += {0, 100};
-		}
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
+		{
 
-		playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
-		playerNameInputTextBox.setString(playerNameInputTextBoxString);
+			sf::Vector2f labelPosition(100, 200);
+			for (auto& label : playerLabels) {
+				label.setPosition(labelPosition);
+				labelPosition += {0, 100};
+			}
+
+			playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
+			playerNameInputLabel.setString("Player name");
+
+			playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
+			playerNameInputTextBox.setString(playerNameInputTextBoxString);
+		}
 	}
 
 	void GameView::renderMenu()
@@ -56,8 +63,10 @@ namespace TheTraitor {
 		window.draw(playerCountText);
 	}
 
+	// draw the game map
 	void GameView::renderPlay()
 	{
+		window.draw(mapSprite);
 	}
 
 	void GameView::renderGameover()

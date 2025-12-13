@@ -57,6 +57,13 @@ if(UNIX AND NOT APPLE)
     target_compile_options(Client PRIVATE -Wall -Wextra)
 endif()
 
+# Copy assets to the output directory
+add_custom_command(TARGET Client POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/assets
+    $<TARGET_FILE_DIR:Client>/assets
+    COMMENT "Copying assets to output directory"
+)
 
 # ==== Server ====
 add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp "src/ServerMain.cpp")

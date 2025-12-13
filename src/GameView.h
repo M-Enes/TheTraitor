@@ -26,6 +26,8 @@ namespace TheTraitor {
 		sf::Text playerNameInputTextBox;
 		std::string playerNameInputTextBoxString;
 		const int playerNameCharLimit = 20;
+		sf::Texture mapTexture; // Texture for the game map
+		sf::Sprite mapSprite; // Sprite to display the game map
 		std::array<sf::Text, 5> playerLabels;
 	};
 }
