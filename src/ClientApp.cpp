@@ -27,6 +27,9 @@ namespace TheTraitor {
 	void ClientApp::updateLobby()
 	{
 		// TODO: Get actual player names from server
+		sf::sleep(sf::seconds(1));
+		gameState = GameState::PLAY;
+
 	}
 
 	void ClientApp::updatePlay() {
