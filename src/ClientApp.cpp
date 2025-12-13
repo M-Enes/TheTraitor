@@ -19,15 +19,14 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleInput(inputData);
 
 		if (viewData.gotoState == GameState::LOBBY) {
+			playerNames.push_back(viewData.enteredPlayerName);
 			gameState = GameState::LOBBY;
 		}
 	}
 
-	// Temporary function to simulate player count update
 	void ClientApp::updateLobby()
 	{
-		// TODO: Get actual player count from server
-		playerCount = 1;
+		// TODO: Get actual player names from server
 	}
 
 	void ClientApp::updatePlay() {
@@ -77,7 +76,7 @@ namespace TheTraitor {
 			gameView.renderMenu();
 			break;
 		case GameState::LOBBY:
-			gameView.renderLobby(playerCount); // Pass playerCount to renderLobby
+			gameView.renderLobby(playerNames); // Pass playerNames to renderLobby
 			break;
 		case GameState::PLAY:
 			gameView.renderPlay();
@@ -96,10 +95,14 @@ namespace TheTraitor {
 		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window),
-		gameState(GameState::MENU),
-		playerCount(0)
+		gameState(GameState::MENU)
 	{
 		window.setFramerateLimit(60);
+
+		playerNames.push_back("Player 1");
+		playerNames.push_back("Player 2");
+		playerNames.push_back("Player 3");
+		playerNames.push_back("Player 4");
 	}
 
 }

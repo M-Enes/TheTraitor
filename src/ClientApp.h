@@ -28,6 +28,6 @@ namespace TheTraitor {
 		void updateWin();
 		void render();
 		GameState gameState;
-		int playerCount = 0;
+		std::vector<std::string> playerNames;
 	};
 }
