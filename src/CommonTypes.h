@@ -7,7 +7,9 @@ namespace TheTraitor {
 		NONE,
 		MENU,
 		LOBBY,
-		PLAY,
+		DISCUSSION_PHASE,
+		ACTION_PHASE,
+		RESOLUTION_PHASE,
 		GAMEOVER,
 		WIN
 	};

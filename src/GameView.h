@@ -11,10 +11,16 @@ namespace TheTraitor {
 	{
 	public:
 		GameView(sf::RenderWindow& window);
-		const ViewData& handleInput(const InputData& inputData);
+		const ViewData& handleMenuInput(const InputData& inputData);
+		const ViewData& handleLobbyInput(const InputData& inputData);
+		const ViewData& handleDiscussionPhaseInput(const InputData& inputData);
+		const ViewData& handleActionPhaseInput(const InputData& inputData);
+		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
 		void renderMenu();
 		void renderLobby(const std::vector<std::string>& playerNames);
-		void renderPlay();
+		void renderDiscussionPhase();
+		void renderActionPhase();
+		void renderResolutionPhase();
 		void renderGameover();
 		void renderWin();
 	private:
@@ -25,9 +31,14 @@ namespace TheTraitor {
 		sf::Text playerNameInputLabel;
 		sf::Text playerNameInputTextBox;
 		std::string playerNameInputTextBoxString;
-		const int playerNameCharLimit = 20;
-		sf::Texture mapTexture; // Texture for the game map
-		sf::Sprite mapSprite; // Sprite to display the game map
+		const int playerNameCharLimit = 15;
 		std::array<sf::Text, 5> playerLabels;
+		sf::RectangleShape actionMenu;
+		std::vector<std::pair<std::string, Button>> actionMenuButtons;
+		sf::RectangleShape eventLogMenu;
+		std::string eventLogString;
+		sf::Text eventLogLabel;
+
+		void resetViewData();
 	};
 }

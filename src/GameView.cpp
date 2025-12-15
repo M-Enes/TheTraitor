@@ -11,9 +11,43 @@ namespace TheTraitor {
 		playerNameInputTextBox(font),
 		playerNameInputTextBoxString(""),
 		playerLabels({ font,font,font,font,font }),
-		mapTexture("assets/textures/map.jpg"),
-		mapSprite(mapTexture)
+		actionMenu({ 310, (float)window.getSize().y - 40 }),
+		eventLogMenu({ 540, (float)window.getSize().y - 40 }),
+		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n\n"
+			"MuhammedEnesKrc applied Trade Embargo to MuhammedEnesKrc"),
+		eventLogLabel(font, eventLogString, 15)
 	{
+
+		actionMenu.setPosition({ 20, 20 });
+		actionMenu.setFillColor(sf::Color::Black);
+		actionMenu.setOutlineThickness(5);
+		actionMenu.setOutlineColor(sf::Color::White);
+
+		std::array<std::string, 9> actionMenuButtonStrings = {
+			"Trade Pact",
+			"Trade Embargo",
+			"Joint Research",
+			"Spread Misinfo",
+			"Health Aid",
+			"Poison Resources",
+			"Sabotage Factory",
+			"Destroy School",
+			"Spread Plague"
+		};
+
+		float actionMenuButtonPositionY = 100;
+
+		actionMenuButtons.reserve(actionMenuButtonStrings.size());
+		for (const auto& buttonString : actionMenuButtonStrings) {
+			actionMenuButtons.push_back({ buttonString ,{sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window, 24, sf::Color::Black, sf::Color::White, 5, sf::Color::White} });
+			actionMenuButtonPositionY += 100;
+		}
+
+		eventLogMenu.setPosition({ (float)window.getSize().x - 560,20 });
+		eventLogMenu.setFillColor(sf::Color::Color(30, 30, 30));
+
+		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 40 });
+
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
@@ -61,10 +95,26 @@ namespace TheTraitor {
 		window.draw(playerCountText);
 	}
 
-	// draw the game map
-	void GameView::renderPlay()
+	void GameView::renderDiscussionPhase()
 	{
-		window.draw(mapSprite);
+	}
+
+	void GameView::renderActionPhase()
+	{
+
+		window.draw(actionMenu);
+		for (auto& buttonPair : actionMenuButtons) {
+			buttonPair.second.render();
+		}
+
+		// TODO: add game map
+
+		window.draw(eventLogMenu);
+		window.draw(eventLogLabel);
+	}
+
+	void GameView::renderResolutionPhase()
+	{
 	}
 
 	void GameView::renderGameover()
@@ -75,9 +125,8 @@ namespace TheTraitor {
 	{
 	}
 
-	const ViewData& GameView::handleInput(const InputData& inputData) {
-		viewData.isActionRequested = false;
-		viewData.gotoState = GameState::NONE;
+	const ViewData& GameView::handleMenuInput(const InputData& inputData) {
+		resetViewData();
 
 		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
 
@@ -108,5 +157,35 @@ namespace TheTraitor {
 		}
 
 		return viewData;
+	}
+	const ViewData& GameView::handleLobbyInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+	const ViewData& GameView::handleDiscussionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+	const ViewData& GameView::handleActionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+
+	const ViewData& GameView::handleResolutionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+
+	void GameView::resetViewData() {
+		viewData.isActionRequested = false;
+		viewData.gotoState = GameState::NONE;
 	}
 }

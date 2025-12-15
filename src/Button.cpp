@@ -2,17 +2,23 @@
 
 namespace TheTraitor {
 
-	Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Vector2f offset, std::string text, const sf::Font& font, sf::RenderWindow& window) :
+	Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Vector2f offset,
+		std::string text, const sf::Font& font, sf::RenderWindow& window,
+		unsigned int characterSize, sf::Color shapeFillColor, sf::Color shapeOutlineColor, float shapeOutlineThickness,
+		sf::Color labelFillColor, sf::Color labelOutlineColor) :
 		shape(), label(font), window(window)
 	{
 		shape.setSize(size);
 		shape.setPosition(position);
-		shape.setFillColor(sf::Color::White);
+		shape.setFillColor(shapeFillColor);
+		shape.setOutlineColor(shapeOutlineColor);
+		shape.setOutlineThickness(shapeOutlineThickness);
 
 		label.setString(text);
-		label.setCharacterSize(24);
+		label.setCharacterSize(characterSize);
 		label.setPosition(position + offset);
-		label.setFillColor(sf::Color::Black);
+		label.setFillColor(labelFillColor);
+		label.setOutlineColor(labelOutlineColor);
 	}
 
 	bool Button::isMouseOver(sf::Vector2f mousePosition) const

@@ -16,7 +16,7 @@ namespace TheTraitor {
 
 	void ClientApp::updateMenu() {
 		const InputData& inputData = inputHandler.getInputData();
-		const ViewData& viewData = gameView.handleInput(inputData);
+		const ViewData& viewData = gameView.handleMenuInput(inputData);
 
 		if (viewData.gotoState == GameState::LOBBY) {
 			playerNames.push_back(viewData.enteredPlayerName);
@@ -28,16 +28,24 @@ namespace TheTraitor {
 	{
 		// TODO: Get actual player names from server
 		sf::sleep(sf::seconds(1));
-		gameState = GameState::PLAY;
+		gameState = GameState::ACTION_PHASE; // TODO: action set for debugging purposes
 
 	}
 
-	void ClientApp::updatePlay() {
+	void ClientApp::updateDiscussionPhase()
+	{
+	}
+
+	void ClientApp::updateActionPhase() {
 		const InputData& inputData = inputHandler.getInputData();
-		const ViewData& viewData = gameView.handleInput(inputData);
+		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
 		}
+	}
+
+	void ClientApp::updateResolutionPhase()
+	{
 	}
 
 	void ClientApp::updateGameover()
@@ -58,8 +66,14 @@ namespace TheTraitor {
 		case GameState::LOBBY:
 			updateLobby();
 			break;
-		case GameState::PLAY:
-			updatePlay();
+		case GameState::DISCUSSION_PHASE:
+			updateDiscussionPhase();
+			break;
+		case GameState::ACTION_PHASE:
+			updateActionPhase();
+			break;
+		case GameState::RESOLUTION_PHASE:
+			updateResolutionPhase();
 			break;
 		case GameState::GAMEOVER:
 			updateGameover();
@@ -81,8 +95,14 @@ namespace TheTraitor {
 		case GameState::LOBBY:
 			gameView.renderLobby(playerNames); // Pass playerNames to renderLobby
 			break;
-		case GameState::PLAY:
-			gameView.renderPlay();
+		case GameState::DISCUSSION_PHASE:
+			gameView.renderDiscussionPhase();
+			break;
+		case GameState::ACTION_PHASE:
+			gameView.renderActionPhase();
+			break;
+		case GameState::RESOLUTION_PHASE:
+			gameView.renderResolutionPhase();
 			break;
 		case GameState::GAMEOVER:
 			gameView.renderGameover();
@@ -98,7 +118,7 @@ namespace TheTraitor {
 		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window),
-		gameState(GameState::MENU)
+		gameState(GameState::ACTION_PHASE) // currently action for testing purposes
 	{
 		window.setFramerateLimit(60);
 
