@@ -41,7 +41,9 @@ namespace TheTraitor {
 
 		actionMenuButtons.reserve(actionMenuButtonStrings.size());
 		for (const auto& buttonString : actionMenuButtonStrings) {
-			actionMenuButtons.push_back({ buttonString ,{sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window, 24, sf::Color::Black, sf::Color::White, 5, sf::Color::White} });
+			actionMenuButtons.push_back({ buttonString ,{
+				sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window,
+				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White}});
 			actionMenuButtonPositionY += 100;
 		}
 
@@ -117,12 +119,16 @@ namespace TheTraitor {
 			buttonPair.second.render();
 		}
 
+		sf::RectangleShape map({1000,900});
+		map.setPosition({350, 100});
+
 		// TODO: add game map
 
 		window.draw(eventLogMenu);
 		window.draw(roundLabel);
 		window.draw(timerLabel);
 		window.draw(eventLogLabel);
+		window.draw(map);
 		//window.draw(topbar);
 	}
 
@@ -186,6 +192,21 @@ namespace TheTraitor {
 	const ViewData& GameView::handleActionPhaseInput(const InputData& inputData)
 	{
 		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+
+		bool isHovered;
+		for (auto& [name, button] : actionMenuButtons) {
+			isHovered = false;
+			isHovered = button.isMouseOver(position);
+
+			button.updateHoverEffect(isHovered);
+
+			if (inputData.isMouseClicked && isHovered) {
+				// TODO: send the action packet
+			}
+		}
 
 		return viewData;
 	}
