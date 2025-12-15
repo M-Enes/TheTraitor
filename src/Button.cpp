@@ -5,8 +5,8 @@ namespace TheTraitor {
 	Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Vector2f offset,
 		std::string text, const sf::Font& font, sf::RenderWindow& window,
 		unsigned int characterSize, sf::Color shapeFillColor, sf::Color shapeOutlineColor, float shapeOutlineThickness,
-		sf::Color labelFillColor, sf::Color labelOutlineColor) :
-		shape(), label(font), window(window)
+		sf::Color shapeHoverColor, sf::Color labelFillColor, sf::Color labelOutlineColor) :
+		shape(), label(font), window(window), shapeFillColor(shapeFillColor), shapeHoverColor(shapeHoverColor)
 	{
 		shape.setSize(size);
 		shape.setPosition(position);
@@ -32,10 +32,10 @@ namespace TheTraitor {
 	void Button::updateHoverEffect(bool isHovered)
 	{
 		if (isHovered) {
-			shape.setFillColor(sf::Color(200, 200, 200));
+			shape.setFillColor(shapeHoverColor);
 		}
 		else {
-			shape.setFillColor(sf::Color(sf::Color::White));
+			shape.setFillColor(shapeFillColor);
 		}
 	}
 
