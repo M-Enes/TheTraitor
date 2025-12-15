@@ -36,6 +36,8 @@ namespace TheTraitor {
 		sf::RectangleShape actionMenu;
 		std::vector<std::pair<std::string, Button>> actionMenuButtons;
 		sf::RectangleShape eventLogMenu;
+		sf::Text roundLabel;
+		sf::Text timerLabel;
 		std::string eventLogString;
 		sf::Text eventLogLabel;
 

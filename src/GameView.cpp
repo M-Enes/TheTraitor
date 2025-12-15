@@ -13,6 +13,8 @@ namespace TheTraitor {
 		playerLabels({ font,font,font,font,font }),
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
 		eventLogMenu({ 540, (float)window.getSize().y - 40 }),
+		roundLabel(font, "Round 1"),
+		timerLabel(font, "01:02"),
 		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n\n"
 			"MuhammedEnesKrc applied Trade Embargo to MuhammedEnesKrc"),
 		eventLogLabel(font, eventLogString, 15)
@@ -46,7 +48,10 @@ namespace TheTraitor {
 		eventLogMenu.setPosition({ (float)window.getSize().x - 560,20 });
 		eventLogMenu.setFillColor(sf::Color::Color(30, 30, 30));
 
-		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 40 });
+		roundLabel.setPosition({ (float)window.getSize().x - 500, 20 });
+		timerLabel.setPosition({ (float)window.getSize().x - 200, 20 });
+
+		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
 
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
@@ -101,6 +106,11 @@ namespace TheTraitor {
 
 	void GameView::renderActionPhase()
 	{
+		
+		//sf::RectangleShape topbar({1880, 50});
+		//topbar.setPosition({20, 0});
+
+
 
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
@@ -110,7 +120,10 @@ namespace TheTraitor {
 		// TODO: add game map
 
 		window.draw(eventLogMenu);
+		window.draw(roundLabel);
+		window.draw(timerLabel);
 		window.draw(eventLogLabel);
+		//window.draw(topbar);
 	}
 
 	void GameView::renderResolutionPhase()
