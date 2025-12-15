@@ -23,7 +23,9 @@ namespace TheTraitor {
 		void update(sf::Time deltaTime);
 		void updateMenu();
 		void updateLobby();
-		void updatePlay();
+		void updateDiscussionPhase();
+		void updateActionPhase();
+		void updateResolutionPhase();
 		void updateGameover();
 		void updateWin();
 		void render();
