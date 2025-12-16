@@ -48,7 +48,7 @@ namespace TheTraitor {
 		}
 
 		eventLogMenu.setPosition({ (float)window.getSize().x - 560,20 });
-		eventLogMenu.setFillColor(sf::Color::Color(30, 30, 30));
+		eventLogMenu.setFillColor({ 30, 30, 30 });
 
 		roundLabel.setPosition({ (float)window.getSize().x - 500, 20 });
 		timerLabel.setPosition({ (float)window.getSize().x - 200, 20 });
