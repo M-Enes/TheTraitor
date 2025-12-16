@@ -3,10 +3,10 @@
 #include "Action.h"
 
 namespace TheTraitor {
-	class SecretAction : public virtual Action { 
+	class SecretAction : public Action { 
 	public:
-		SecretAction() = delete;
+		virtual ~SecretAction() = default;
 	protected:
-		SecretAction();
+		SecretAction() = default;
 	};
 }

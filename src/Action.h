@@ -1,15 +1,15 @@
 #pragma once
 
 #include <string>
-#include "Player.h"
 
 namespace TheTraitor {
-	class Action {
-	public:
-		Action() = delete;
-		virtual execute(const Player& player1, const Player& player2) = 0;
-		virtual std::string getLogMessage(const Player& player1, const Player& player2) = 0;
-	protected:
-		Action();
-	};
+    class Player;  // forward declaration
+
+    class Action {
+    public:
+        virtual void execute(Player* player1, Player* player2) = 0;
+        virtual std::string getLogMessage(Player* player1, Player* player2) = 0;
+    protected:
+        Action() = default; // allow derived classes to construct
+    };
 }

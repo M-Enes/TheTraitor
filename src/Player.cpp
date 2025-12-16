@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include <random>
 
 #include "Player.h"
@@ -6,9 +7,8 @@
 static int idBase = 0;
 
 
-TheTraitor::Player::Player(std::string name, Country country) {
+TheTraitor::Player::Player(std::string name, TheTraitor::Country country) : country(country) {
     this->name = name;
-    this->country = country;
 
     // Generating a random number
     if (idBase == 0) {
@@ -20,8 +20,22 @@ TheTraitor::Player::Player(std::string name, Country country) {
     
 }
 
+// Default Constructor
+TheTraitor::Player::Player() {
+    this->name = "Unnamed Player";
+    this->country = TheTraitor::Country();
+
+    // Generating a random number
+    if (idBase == 0) {
+        std::srand(std::time(nullptr));
+        idBase = std::rand() % 100000;
+    }
+
+    this->playerID = idBase++;
+}
+
 // Name
-void setName(std::string name) {
+void TheTraitor::Player::setName(std::string name) {
     this->name = name;
 }
 
@@ -39,11 +53,11 @@ TheTraitor::Country TheTraitor::Player::getCountry() const {
 }
 
 // Role
-void TheTraitor::Player::setRole(Role role) {
+void TheTraitor::Player::setRole(Role* role) {
     this->role = role;
 }
 
-TheTraitor::Role TheTraitor::Player::getRole() const {
+TheTraitor::Role* TheTraitor::Player::getRole() const {
     return this->role;
 }
 

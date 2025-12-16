@@ -1,9 +1,12 @@
 #pragma once
 
+#include <cstdbool>
+
 namespace TheTraitor {
 	class Country {
 	public:
 		Country(int economy, int health, int education);
+		Country();
 		int getEconomy();
 		int getHealth();
 		int getEducation();
@@ -13,6 +16,6 @@ namespace TheTraitor {
 		int economy;
 		int health;
 		int education;
-		bool isDestroyed;
+		bool destroyed;
 	};
 } 
