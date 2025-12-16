@@ -195,68 +195,70 @@ namespace TheTraitor {
 	void GameView::drawMap() {
 		sf::Vector2f offset(350, 100);
 
-		// North America
-		sf::ConvexShape northAmerica;
-		northAmerica.setPointCount(6);
-		northAmerica.setPoint(0, sf::Vector2f(50, 50));
-		northAmerica.setPoint(1, sf::Vector2f(300, 50));
-		northAmerica.setPoint(2, sf::Vector2f(350, 200));
-		northAmerica.setPoint(3, sf::Vector2f(200, 400));
-		northAmerica.setPoint(4, sf::Vector2f(100, 350));
-		northAmerica.setPoint(5, sf::Vector2f(20, 150));
-		northAmerica.setFillColor(sf::Color(100, 150, 250));
-		northAmerica.setPosition(offset);
-		window.draw(northAmerica);
+		sf::VertexArray continents(sf::PrimitiveType::Triangles);
 
-		// South America
-		sf::ConvexShape southAmerica;
-		southAmerica.setPointCount(5);
-		southAmerica.setPoint(0, sf::Vector2f(200, 420));
-		southAmerica.setPoint(1, sf::Vector2f(350, 450));
-		southAmerica.setPoint(2, sf::Vector2f(300, 750));
-		southAmerica.setPoint(3, sf::Vector2f(200, 700));
-		southAmerica.setPoint(4, sf::Vector2f(150, 500));
-		southAmerica.setFillColor(sf::Color(250, 200, 100));
-		southAmerica.setPosition(offset);
-		window.draw(southAmerica);
+		// North America - Blue
+		sf::Color northAmericaColor(100, 150, 250);
+		std::vector<sf::Vector2f> northAmericaPoints = {
+			sf::Vector2f(50, 50), sf::Vector2f(300, 50), sf::Vector2f(350, 200),
+			sf::Vector2f(200, 400), sf::Vector2f(100, 350), sf::Vector2f(20, 150)
+		};
+		for (size_t i = 1; i < northAmericaPoints.size() - 1; ++i) {
+			continents.append(sf::Vertex(offset + northAmericaPoints[0], northAmericaColor));
+			continents.append(sf::Vertex(offset + northAmericaPoints[i], northAmericaColor));
+			continents.append(sf::Vertex(offset + northAmericaPoints[i + 1], northAmericaColor));
+		}
 
-		// Africa
-		sf::ConvexShape africa;
-		africa.setPointCount(6);
-		africa.setPoint(0, sf::Vector2f(450, 300));
-		africa.setPoint(1, sf::Vector2f(650, 300));
-		africa.setPoint(2, sf::Vector2f(700, 500));
-		africa.setPoint(3, sf::Vector2f(600, 700));
-		africa.setPoint(4, sf::Vector2f(500, 650));
-		africa.setPoint(5, sf::Vector2f(400, 450));
-		africa.setFillColor(sf::Color(250, 100, 150));
-		africa.setPosition(offset);
-		window.draw(africa);
+		// South America - Orange
+		sf::Color southAmericaColor(250, 200, 100);
+		std::vector<sf::Vector2f> southAmericaPoints = {
+			sf::Vector2f(200, 420), sf::Vector2f(350, 450), sf::Vector2f(300, 750),
+			sf::Vector2f(200, 700), sf::Vector2f(150, 500)
+		};
+		for (size_t i = 1; i < southAmericaPoints.size() - 1; ++i) {
+			continents.append(sf::Vertex(offset + southAmericaPoints[0], southAmericaColor));
+			continents.append(sf::Vertex(offset + southAmericaPoints[i], southAmericaColor));
+			continents.append(sf::Vertex(offset + southAmericaPoints[i + 1], southAmericaColor));
+		}
 
-		// Asia
-		sf::ConvexShape asia;
-		asia.setPointCount(7);
-		asia.setPoint(0, sf::Vector2f(550, 50));
-		asia.setPoint(1, sf::Vector2f(900, 50));
-		asia.setPoint(2, sf::Vector2f(950, 300));
-		asia.setPoint(3, sf::Vector2f(800, 450));
-		asia.setPoint(4, sf::Vector2f(650, 400));
-		asia.setPoint(5, sf::Vector2f(550, 300));
-		asia.setPoint(6, sf::Vector2f(500, 150));
-		asia.setFillColor(sf::Color(150, 250, 150));
-		asia.setPosition(offset);
-		window.draw(asia);
+		// Africa - Pink
+		sf::Color africaColor(250, 100, 150);
+		std::vector<sf::Vector2f> africaPoints = {
+			sf::Vector2f(450, 300), sf::Vector2f(650, 300), sf::Vector2f(700, 500),
+			sf::Vector2f(600, 700), sf::Vector2f(500, 650), sf::Vector2f(400, 450)
+		};
+		for (size_t i = 1; i < africaPoints.size() - 1; ++i) {
+			continents.append(sf::Vertex(offset + africaPoints[0], africaColor));
+			continents.append(sf::Vertex(offset + africaPoints[i], africaColor));
+			continents.append(sf::Vertex(offset + africaPoints[i + 1], africaColor));
+		}
 
-		// Australia
-		sf::ConvexShape australia;
-		australia.setPointCount(4);
-		australia.setPoint(0, sf::Vector2f(750, 550));
-		australia.setPoint(1, sf::Vector2f(950, 550));
-		australia.setPoint(2, sf::Vector2f(900, 750));
-		australia.setPoint(3, sf::Vector2f(750, 700));
-		australia.setFillColor(sf::Color(200, 100, 250));
-		australia.setPosition(offset);
-		window.draw(australia);
+		// Asia - Light Green
+		sf::Color asiaColor(150, 250, 150);
+		std::vector<sf::Vector2f> asiaPoints = {
+			sf::Vector2f(550, 50), sf::Vector2f(900, 50), sf::Vector2f(950, 300),
+			sf::Vector2f(800, 450), sf::Vector2f(650, 400), sf::Vector2f(550, 300),
+			sf::Vector2f(500, 150)
+		};
+		for (size_t i = 1; i < asiaPoints.size() - 1; ++i) {
+			continents.append(sf::Vertex(offset + asiaPoints[0], asiaColor));
+			continents.append(sf::Vertex(offset + asiaPoints[i], asiaColor));
+			continents.append(sf::Vertex(offset + asiaPoints[i + 1], asiaColor));
+		}
+
+		// Australia - Purple
+		sf::Color australiaColor(200, 100, 250);
+		std::vector<sf::Vector2f> australiaPoints = {
+			sf::Vector2f(750, 550), sf::Vector2f(950, 550),
+			sf::Vector2f(900, 750), sf::Vector2f(750, 700)
+		};
+		for (size_t i = 1; i < australiaPoints.size() - 1; ++i) {
+			continents.append(sf::Vertex(offset + australiaPoints[0], australiaColor));
+			continents.append(sf::Vertex(offset + australiaPoints[i], australiaColor));
+			continents.append(sf::Vertex(offset + australiaPoints[i + 1], australiaColor));
+		}
+
+		window.draw(continents);
 	}
 >>>>>>> Stashed changes
 }
