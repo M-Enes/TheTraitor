@@ -63,10 +63,43 @@ namespace TheTraitor {
 		window.draw(playerCountText);
 	}
 
+<<<<<<< Updated upstream
 	// draw the game map
 	void GameView::renderPlay()
 	{
 		window.draw(mapSprite);
+=======
+	void GameView::renderDiscussionPhase()
+	{
+		drawMap();
+	}
+
+	void GameView::renderActionPhase()
+	{
+		
+		//sf::RectangleShape topbar({1880, 50});
+		//topbar.setPosition({20, 0});
+
+
+
+		window.draw(actionMenu);
+		for (auto& buttonPair : actionMenuButtons) {
+			buttonPair.second.render();
+		}
+
+		drawMap();
+
+		window.draw(eventLogMenu);
+		window.draw(roundLabel);
+		window.draw(timerLabel);
+		window.draw(eventLogLabel);
+		//window.draw(topbar);
+	}
+
+	void GameView::renderResolutionPhase()
+	{
+		drawMap();
+>>>>>>> Stashed changes
 	}
 
 	void GameView::renderGameover()
@@ -111,4 +144,119 @@ namespace TheTraitor {
 
 		return viewData;
 	}
+<<<<<<< Updated upstream
+=======
+	const ViewData& GameView::handleLobbyInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+	const ViewData& GameView::handleDiscussionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+	const ViewData& GameView::handleActionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+
+		bool isHovered;
+		for (auto& [name, button] : actionMenuButtons) {
+			isHovered = false;
+			isHovered = button.isMouseOver(position);
+
+			button.updateHoverEffect(isHovered);
+
+			if (inputData.isMouseClicked && isHovered) {
+				// TODO: send the action packet
+			}
+		}
+
+		return viewData;
+	}
+
+	const ViewData& GameView::handleResolutionPhaseInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		return viewData;
+	}
+
+	void GameView::resetViewData() {
+		viewData.isActionRequested = false;
+		viewData.gotoState = GameState::NONE;
+	}
+
+	void GameView::drawMap() {
+		sf::Vector2f offset(350, 100);
+
+		// North America
+		sf::ConvexShape northAmerica;
+		northAmerica.setPointCount(6);
+		northAmerica.setPoint(0, sf::Vector2f(50, 50));
+		northAmerica.setPoint(1, sf::Vector2f(300, 50));
+		northAmerica.setPoint(2, sf::Vector2f(350, 200));
+		northAmerica.setPoint(3, sf::Vector2f(200, 400));
+		northAmerica.setPoint(4, sf::Vector2f(100, 350));
+		northAmerica.setPoint(5, sf::Vector2f(20, 150));
+		northAmerica.setFillColor(sf::Color(100, 250, 50));
+		northAmerica.setPosition(offset);
+		window.draw(northAmerica);
+
+		// South America
+		sf::ConvexShape southAmerica;
+		southAmerica.setPointCount(5);
+		southAmerica.setPoint(0, sf::Vector2f(200, 420));
+		southAmerica.setPoint(1, sf::Vector2f(350, 450));
+		southAmerica.setPoint(2, sf::Vector2f(300, 750));
+		southAmerica.setPoint(3, sf::Vector2f(200, 700));
+		southAmerica.setPoint(4, sf::Vector2f(150, 500));
+		southAmerica.setFillColor(sf::Color(100, 250, 50));
+		southAmerica.setPosition(offset);
+		window.draw(southAmerica);
+
+		// Africa
+		sf::ConvexShape africa;
+		africa.setPointCount(6);
+		africa.setPoint(0, sf::Vector2f(450, 300));
+		africa.setPoint(1, sf::Vector2f(650, 300));
+		africa.setPoint(2, sf::Vector2f(700, 500));
+		africa.setPoint(3, sf::Vector2f(600, 700));
+		africa.setPoint(4, sf::Vector2f(500, 650));
+		africa.setPoint(5, sf::Vector2f(400, 450));
+		africa.setFillColor(sf::Color(100, 250, 50));
+		africa.setPosition(offset);
+		window.draw(africa);
+
+		// Asia
+		sf::ConvexShape asia;
+		asia.setPointCount(7);
+		asia.setPoint(0, sf::Vector2f(550, 50));
+		asia.setPoint(1, sf::Vector2f(900, 50));
+		asia.setPoint(2, sf::Vector2f(950, 300));
+		asia.setPoint(3, sf::Vector2f(800, 450));
+		asia.setPoint(4, sf::Vector2f(650, 400));
+		asia.setPoint(5, sf::Vector2f(550, 300));
+		asia.setPoint(6, sf::Vector2f(500, 150));
+		asia.setFillColor(sf::Color(100, 250, 50));
+		asia.setPosition(offset);
+		window.draw(asia);
+
+		// Australia
+		sf::ConvexShape australia;
+		australia.setPointCount(4);
+		australia.setPoint(0, sf::Vector2f(750, 550));
+		australia.setPoint(1, sf::Vector2f(950, 550));
+		australia.setPoint(2, sf::Vector2f(900, 750));
+		australia.setPoint(3, sf::Vector2f(750, 700));
+		australia.setFillColor(sf::Color(100, 250, 50));
+		australia.setPosition(offset);
+		window.draw(australia);
+	}
+>>>>>>> Stashed changes
 }

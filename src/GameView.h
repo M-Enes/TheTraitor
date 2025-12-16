@@ -18,6 +18,8 @@ namespace TheTraitor {
 		void renderGameover();
 		void renderWin();
 	private:
+		void drawMap();
+
 		sf::RenderWindow& window;
 		ViewData viewData;
 		sf::Font font;
