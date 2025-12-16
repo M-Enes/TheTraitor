@@ -204,7 +204,7 @@ namespace TheTraitor {
 		northAmerica.setPoint(3, sf::Vector2f(200, 400));
 		northAmerica.setPoint(4, sf::Vector2f(100, 350));
 		northAmerica.setPoint(5, sf::Vector2f(20, 150));
-		northAmerica.setFillColor(sf::Color(100, 250, 50));
+		northAmerica.setFillColor(sf::Color(100, 150, 250));
 		northAmerica.setPosition(offset);
 		window.draw(northAmerica);
 
@@ -216,7 +216,7 @@ namespace TheTraitor {
 		southAmerica.setPoint(2, sf::Vector2f(300, 750));
 		southAmerica.setPoint(3, sf::Vector2f(200, 700));
 		southAmerica.setPoint(4, sf::Vector2f(150, 500));
-		southAmerica.setFillColor(sf::Color(100, 250, 50));
+		southAmerica.setFillColor(sf::Color(250, 200, 100));
 		southAmerica.setPosition(offset);
 		window.draw(southAmerica);
 
@@ -229,7 +229,7 @@ namespace TheTraitor {
 		africa.setPoint(3, sf::Vector2f(600, 700));
 		africa.setPoint(4, sf::Vector2f(500, 650));
 		africa.setPoint(5, sf::Vector2f(400, 450));
-		africa.setFillColor(sf::Color(100, 250, 50));
+		africa.setFillColor(sf::Color(250, 100, 150));
 		africa.setPosition(offset);
 		window.draw(africa);
 
@@ -243,7 +243,7 @@ namespace TheTraitor {
 		asia.setPoint(4, sf::Vector2f(650, 400));
 		asia.setPoint(5, sf::Vector2f(550, 300));
 		asia.setPoint(6, sf::Vector2f(500, 150));
-		asia.setFillColor(sf::Color(100, 250, 50));
+		asia.setFillColor(sf::Color(150, 250, 150));
 		asia.setPosition(offset);
 		window.draw(asia);
 
@@ -254,7 +254,7 @@ namespace TheTraitor {
 		australia.setPoint(1, sf::Vector2f(950, 550));
 		australia.setPoint(2, sf::Vector2f(900, 750));
 		australia.setPoint(3, sf::Vector2f(750, 700));
-		australia.setFillColor(sf::Color(100, 250, 50));
+		australia.setFillColor(sf::Color(200, 100, 250));
 		australia.setPosition(offset);
 		window.draw(australia);
 	}
