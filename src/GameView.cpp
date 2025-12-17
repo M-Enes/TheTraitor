@@ -77,9 +77,9 @@ namespace TheTraitor {
 		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
 
 		using N = uint16_t;
-		std::vector<std::vector<sf::Vector2f>> americaPolygonPointsCopy;
-		americaPolygonPointsCopy.push_back(americaPolygonPoints);
-		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsCopy);
+		std::vector<std::vector<sf::Vector2f>> americaPolygonPointsWrapper;
+		americaPolygonPointsWrapper.push_back(americaPolygonPoints);
+		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsWrapper);
 
 		americaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
 		americaVertices.resize(indices.size());
