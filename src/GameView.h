@@ -41,6 +41,7 @@ namespace TheTraitor {
 		std::string eventLogString;
 		sf::Text eventLogLabel;
 		sf::VertexArray americaVertices;
+		sf::VertexArray africaVertices;
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
