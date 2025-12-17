@@ -31,5 +31,22 @@ namespace TheTraitor {
 		sf::Texture mapTexture; // Texture for the game map
 		sf::Sprite mapSprite; // Sprite to display the game map
 		std::array<sf::Text, 5> playerLabels;
+<<<<<<< Updated upstream
+=======
+		sf::RectangleShape actionMenu;
+		std::vector<std::pair<std::string, Button>> actionMenuButtons;
+		sf::RectangleShape eventLogMenu;
+		sf::Text roundLabel;
+		sf::Text timerLabel;
+		std::string eventLogString;
+		sf::Text eventLogLabel;
+		sf::VertexArray americaVertices;
+		sf::VertexArray africaVertices;
+		sf::VertexArray asiaVertices;
+		sf::VertexArray australiaVertices;
+
+		void resetViewData();
+		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
+>>>>>>> Stashed changes
 	};
 }

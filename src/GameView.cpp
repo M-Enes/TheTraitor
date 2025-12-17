@@ -15,6 +15,93 @@ namespace TheTraitor {
 		mapSprite(mapTexture)
 	{
 
+<<<<<<< Updated upstream
+=======
+		actionMenu.setPosition({ 20, 20 });
+		actionMenu.setFillColor(sf::Color::Black);
+		actionMenu.setOutlineThickness(5);
+		actionMenu.setOutlineColor(sf::Color::White);
+
+		std::array<std::string, 9> actionMenuButtonStrings = {
+			"Trade Pact",
+			"Trade Embargo",
+			"Joint Research",
+			"Spread Misinfo",
+			"Health Aid",
+			"Poison Resources",
+			"Sabotage Factory",
+			"Destroy School",
+			"Spread Plague"
+		};
+
+		float actionMenuButtonPositionY = 100;
+
+		actionMenuButtons.reserve(actionMenuButtonStrings.size());
+		for (const auto& buttonString : actionMenuButtonStrings) {
+			actionMenuButtons.push_back({ buttonString ,{
+				sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window,
+				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White} });
+			actionMenuButtonPositionY += 100;
+		}
+
+		eventLogMenu.setPosition({ (float)window.getSize().x - 560,20 });
+		eventLogMenu.setFillColor({ 30, 30, 30 });
+
+		roundLabel.setPosition({ (float)window.getSize().x - 500, 20 });
+		timerLabel.setPosition({ (float)window.getSize().x - 200, 20 });
+
+		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
+
+		using N = uint16_t;
+		std::vector<std::vector<sf::Vector2f>> americaPolygonPointsWrapper;
+		americaPolygonPointsWrapper.push_back(americaPolygonPoints);
+		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsWrapper);
+
+		americaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		americaVertices.resize(indices.size());
+		int i = 0;
+		for (const auto& index : indices) {
+			americaVertices[i] = sf::Vertex{ americaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green };
+			i++;
+		}
+
+		std::vector<std::vector<sf::Vector2f>> africaPolygonPointsWrapper;
+		africaPolygonPointsWrapper.push_back(africaPolygonPoints);
+		std::vector<N> africaIndices = mapbox::earcut<N>(africaPolygonPointsWrapper);
+
+		africaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		africaVertices.resize(africaIndices.size());
+		i = 0;
+		for (const auto& index : africaIndices) {
+			africaVertices[i] = sf::Vertex{ africaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Yellow };
+			i++;
+		}
+
+		std::vector<std::vector<sf::Vector2f>> asiaPolygonPointsWrapper;
+		asiaPolygonPointsWrapper.push_back(asiaPolygonPoints);
+		std::vector<N> asiaIndices = mapbox::earcut<N>(asiaPolygonPointsWrapper);
+
+		asiaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		asiaVertices.resize(asiaIndices.size());
+		i = 0;
+		for (const auto& index : asiaIndices) {
+			asiaVertices[i] = sf::Vertex{ asiaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Blue };
+			i++;
+		}
+
+		std::vector<std::vector<sf::Vector2f>> australiaPolygonPointsWrapper;
+		australiaPolygonPointsWrapper.push_back(australiaPolygonPoints);
+		std::vector<N> australiaIndices = mapbox::earcut<N>(australiaPolygonPointsWrapper);
+
+		australiaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		australiaVertices.resize(australiaIndices.size());
+		i = 0;
+		for (const auto& index : australiaIndices) {
+			australiaVertices[i] = sf::Vertex{ australiaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Red };
+			i++;
+		}
+
+>>>>>>> Stashed changes
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
 		{
@@ -87,7 +174,15 @@ namespace TheTraitor {
 			buttonPair.second.render();
 		}
 
+<<<<<<< Updated upstream
 		drawMap();
+=======
+		window.draw(americaVertices);
+		window.draw(africaVertices);
+		window.draw(asiaVertices);
+		window.draw(australiaVertices);
+
+>>>>>>> Stashed changes
 
 		window.draw(eventLogMenu);
 		window.draw(roundLabel);
@@ -177,6 +272,91 @@ namespace TheTraitor {
 			}
 		}
 
+<<<<<<< Updated upstream
+=======
+		//America
+		if (isPointInPolygon(americaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
+			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+			if (americaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+			if (americaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
+					americaVertices[i].color = fillColor;
+				}
+
+			}
+		}
+		else {
+			if (americaVertices[0].color != sf::Color{ 255,0,0 }) {
+
+				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
+					americaVertices[i].color = sf::Color::Green;
+				}
+			}
+		}
+
+		//Africa
+		if (isPointInPolygon(africaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
+			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+			if (africaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+			if (africaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				for (int i = 0; i < africaVertices.getVertexCount(); i++) {
+					africaVertices[i].color = fillColor;
+				}
+
+			}
+		}
+		else {
+			if (africaVertices[0].color != sf::Color{ 255,0,0 }) {
+
+				for (int i = 0; i < africaVertices.getVertexCount(); i++) {
+					africaVertices[i].color = sf::Color::Yellow;
+				}
+			}
+		}
+
+		//Asia
+		if (isPointInPolygon(asiaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
+			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+			if (asiaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+			if (asiaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				for (int i = 0; i < asiaVertices.getVertexCount(); i++) {
+					asiaVertices[i].color = fillColor;
+				}
+
+			}
+		}
+		else {
+			if (asiaVertices[0].color != sf::Color{ 255,0,0 }) {
+
+				for (int i = 0; i < asiaVertices.getVertexCount(); i++) {
+					asiaVertices[i].color = sf::Color::Blue;
+				}
+			}
+		}
+
+		//Australia
+		if (isPointInPolygon(australiaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
+			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+			if (australiaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+			if (australiaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				for (int i = 0; i < australiaVertices.getVertexCount(); i++) {
+					australiaVertices[i].color = fillColor;
+				}
+
+			}
+		}
+		else {
+			if (australiaVertices[0].color != sf::Color{ 255,0,0 }) {
+
+				for (int i = 0; i < australiaVertices.getVertexCount(); i++) {
+					australiaVertices[i].color = sf::Color::Red;
+				}
+			}
+		}
+
+
+
+>>>>>>> Stashed changes
 		return viewData;
 	}
 
