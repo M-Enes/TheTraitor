@@ -76,30 +76,14 @@ namespace TheTraitor {
 
 		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
 
-		using N = uint16_t;
-		std::vector<std::vector<sf::Vector2f>> americaPolygonPointsWrapper;
-		americaPolygonPointsWrapper.push_back(americaPolygonPoints);
-		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsWrapper);
-
-		americaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
-		americaVertices.resize(indices.size());
-		int i = 0;
-		for (const auto& index : indices) {
-			americaVertices[i] = sf::Vertex{ americaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green };
-			i++;
-		}
-
-		std::vector<std::vector<sf::Vector2f>> africaPolygonPointsWrapper;
-		africaPolygonPointsWrapper.push_back(africaPolygonPoints);
-		std::vector<N> africaIndices = mapbox::earcut<N>(africaPolygonPointsWrapper);
-
-		africaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
-		africaVertices.resize(africaIndices.size());
-		i = 0;
-		for (const auto& index : africaIndices) {
-			africaVertices[i] = sf::Vertex{ africaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green };
-			i++;
-		}
+		allCountries = { {
+		{&americaPolygonPoints, &americaVertices},
+		{&africaPolygonPoints, &africaVertices },
+		{&asiaPolygonPoints,	 &asiaVertices  },
+		{&australiaPolygonPoints, &australiaVertices},
+		{&europePolygonPoints, &europeVertices}
+		} };
+		calculateCountries();
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
@@ -161,6 +145,9 @@ namespace TheTraitor {
 
 		window.draw(americaVertices);
 		window.draw(africaVertices);
+		window.draw(asiaVertices);
+		window.draw(australiaVertices);
+		window.draw(europeVertices);
 
 
 		window.draw(eventLogMenu);
@@ -245,40 +232,23 @@ namespace TheTraitor {
 			}
 		}
 
-		if (isPointInPolygon(americaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
-			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
-			if (americaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
-			if (americaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
-				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
-					americaVertices[i].color = fillColor;
-				}
+		for (const auto& countryPair : allCountries) {
+			if (isPointInPolygon(*countryPair.first, position + sf::Vector2f{ -310.0f,0.0f })) {
+				sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+				if ((*countryPair.second)[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+				if ((*countryPair.second)[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
+						(*countryPair.second)[i].color = fillColor;
+					}
 
-			}
-		}
-		else {
-			if (americaVertices[0].color != sf::Color{ 255,0,0 }) {
-
-				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
-					americaVertices[i].color = sf::Color::Green;
 				}
 			}
-		}
+			else {
+				if ((*countryPair.second)[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
 
-		if (isPointInPolygon(africaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
-			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
-			if (africaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
-			if (africaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
-				for (int i = 0; i < africaVertices.getVertexCount(); i++) {
-					africaVertices[i].color = fillColor;
-				}
-
-			}
-		}
-		else {
-			if (africaVertices[0].color != sf::Color{ 255,0,0 }) {
-
-				for (int i = 0; i < africaVertices.getVertexCount(); i++) {
-					africaVertices[i].color = sf::Color::Green;
+					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
+						(*countryPair.second)[i].color = sf::Color::Green;
+					}
 				}
 			}
 		}
@@ -310,5 +280,23 @@ namespace TheTraitor {
 		}
 
 		return isInside;
+	}
+	void GameView::calculateCountries()
+	{
+		using N = uint16_t;
+
+		for (const auto& countryPair : allCountries) {
+			std::vector<std::vector<sf::Vector2f>> polygonWrapper;
+			polygonWrapper.push_back(*countryPair.first);
+			std::vector<N> indices = mapbox::earcut<N>(polygonWrapper);
+
+			countryPair.second->setPrimitiveType(sf::PrimitiveType::Triangles);
+			countryPair.second->resize(indices.size());
+			int i = 0;
+			for (const auto& index : indices) {
+				(*countryPair.second)[i] = sf::Vertex{ (*countryPair.first)[index] + sf::Vector2f{310.0f, 0.0f}, sf::Color::Green };
+				i++;
+			}
+		}
 	}
 }
