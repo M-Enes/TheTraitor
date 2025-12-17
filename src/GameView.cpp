@@ -82,8 +82,11 @@ namespace TheTraitor {
 		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsCopy);
 
 		americaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		americaVertices.resize(indices.size());
+		int i = 0;
 		for (const auto& index : indices) {
-			americaVertices.append(sf::Vertex{ americaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green });
+			americaVertices[i] = sf::Vertex{ americaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green };
+			i++;
 		}
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
