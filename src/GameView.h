@@ -10,7 +10,7 @@ namespace TheTraitor {
 	class GameView
 	{
 	public:
-		GameView(sf::RenderWindow& window);
+		GameView(sf::RenderWindow& window, std::string executableFolderPath);
 		const ViewData& handleMenuInput(const InputData& inputData);
 		const ViewData& handleLobbyInput(const InputData& inputData);
 		const ViewData& handleDiscussionPhaseInput(const InputData& inputData);

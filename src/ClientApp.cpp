@@ -114,10 +114,10 @@ namespace TheTraitor {
 		window.display();
 	}
 
-	ClientApp::ClientApp() :
+	ClientApp::ClientApp(std::string executableFolderPath) :
 		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
-		gameView(window),
+		gameView(window, executableFolderPath),
 		gameState(GameState::ACTION_PHASE) // currently action for testing purposes
 	{
 		window.setFramerateLimit(60);

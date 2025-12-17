@@ -23,10 +23,10 @@ namespace mapbox {
 
 namespace TheTraitor {
 
-	GameView::GameView(sf::RenderWindow& window) :
+	GameView::GameView(sf::RenderWindow& window, std::string executableFolderPath) :
 		window(window),
 		viewData{ false, ActionType::TradePact, GameState::NONE, "" },
-		font("assets/fonts/CascadiaMono.ttf"),
+		font(executableFolderPath + "/assets/fonts/CascadiaMono.ttf"),
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window),
 		playerNameInputLabel(font),
 		playerNameInputTextBox(font),
