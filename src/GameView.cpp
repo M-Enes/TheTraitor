@@ -1,4 +1,25 @@
 #include "GameView.h"
+#include "PolygonData.h"
+#include "earcut.h"
+
+namespace mapbox {
+	namespace util {
+
+		template <>
+		struct nth<0, sf::Vector2f> {
+			inline static auto get(const sf::Vector2f& t) {
+				return t.x;
+			};
+		};
+		template <>
+		struct nth<1, sf::Vector2f> {
+			inline static auto get(const sf::Vector2f& t) {
+				return t.y;
+			};
+		};
+
+	} // namespace util
+} // namespace mapbox
 
 namespace TheTraitor {
 
@@ -43,7 +64,7 @@ namespace TheTraitor {
 		for (const auto& buttonString : actionMenuButtonStrings) {
 			actionMenuButtons.push_back({ buttonString ,{
 				sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window,
-				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White}});
+				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White} });
 			actionMenuButtonPositionY += 100;
 		}
 
@@ -55,6 +76,15 @@ namespace TheTraitor {
 
 		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
 
+		using N = uint16_t;
+		std::vector<std::vector<sf::Vector2f>> americaPolygonPointsCopy;
+		americaPolygonPointsCopy.push_back(americaPolygonPoints);
+		std::vector<N> indices = mapbox::earcut<N>(americaPolygonPointsCopy);
+
+		americaVertices.setPrimitiveType(sf::PrimitiveType::Triangles);
+		for (const auto& index : indices) {
+			americaVertices.append(sf::Vertex{ americaPolygonPoints[index] + sf::Vector2f{350.0f, 0.0f}, sf::Color::Green });
+		}
 
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
@@ -70,6 +100,7 @@ namespace TheTraitor {
 
 		playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
 		playerNameInputTextBox.setString(playerNameInputTextBoxString);
+
 	}
 
 	void GameView::renderMenu()
@@ -108,28 +139,18 @@ namespace TheTraitor {
 
 	void GameView::renderActionPhase()
 	{
-		
-		//sf::RectangleShape topbar({1880, 50});
-		//topbar.setPosition({20, 0});
-
-
-
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
 			buttonPair.second.render();
 		}
 
-		sf::RectangleShape map({1000,900});
-		map.setPosition({350, 100});
+		window.draw(americaVertices);
 
-		// TODO: add game map
 
 		window.draw(eventLogMenu);
 		window.draw(roundLabel);
 		window.draw(timerLabel);
 		window.draw(eventLogLabel);
-		window.draw(map);
-		//window.draw(topbar);
 	}
 
 	void GameView::renderResolutionPhase()
@@ -208,6 +229,25 @@ namespace TheTraitor {
 			}
 		}
 
+		if (isPointInPolygon(americaPolygonPoints, position + sf::Vector2f{ -350.0f,0.0f })) {
+			sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
+			if (americaVertices[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
+			if (americaVertices[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
+					americaVertices[i].color = fillColor;
+				}
+
+			}
+		}
+		else {
+			if (americaVertices[0].color != sf::Color{ 255,0,0 }) {
+
+				for (int i = 0; i < americaVertices.getVertexCount(); i++) {
+					americaVertices[i].color = sf::Color::Green;
+				}
+			}
+		}
+
 		return viewData;
 	}
 
@@ -221,5 +261,19 @@ namespace TheTraitor {
 	void GameView::resetViewData() {
 		viewData.isActionRequested = false;
 		viewData.gotoState = GameState::NONE;
+	}
+	bool GameView::isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point)
+	{
+		bool isInside = false;
+
+		for (int i = 0, j = 0; i < polygonPoints.size(); i++) {
+			j = (i + 1) % polygonPoints.size();
+			if ((point.x >= polygonPoints[i].x != point.x >= polygonPoints[j].x)
+				&& point.y < polygonPoints[i].y + (polygonPoints[j].y - polygonPoints[i].y) * (point.x - polygonPoints[i].x) / (polygonPoints[j].x - polygonPoints[i].x)) {
+				isInside = !isInside;
+			}
+		}
+
+		return isInside;
 	}
 }

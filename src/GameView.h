@@ -40,7 +40,9 @@ namespace TheTraitor {
 		sf::Text timerLabel;
 		std::string eventLogString;
 		sf::Text eventLogLabel;
+		sf::VertexArray americaVertices;
 
 		void resetViewData();
+		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
 	};
 }
