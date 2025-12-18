@@ -7,7 +7,7 @@
 static int idBase = 0;
 
 
-TheTraitor::Player::Player(std::string name, TheTraitor::Country country) : country(country) {
+TheTraitor::Player::Player(std::string name, TheTraitor::Country* country) : country(country) {
     this->name = name;
 
     // Generating a random number
@@ -23,7 +23,7 @@ TheTraitor::Player::Player(std::string name, TheTraitor::Country country) : coun
 // Default Constructor
 TheTraitor::Player::Player() {
     this->name = "Unnamed Player";
-    this->country = TheTraitor::Country();
+    this->country = new TheTraitor::Country();
 
     // Generating a random number
     if (idBase == 0) {
@@ -44,11 +44,11 @@ std::string TheTraitor::Player::getName() const {
 }
 
 // Country
-void TheTraitor::Player::setCountry(Country country) {
+void TheTraitor::Player::setCountry(Country* country) {
     this->country = country;
 }
 
-TheTraitor::Country TheTraitor::Player::getCountry() const {
+TheTraitor::Country* TheTraitor::Player::getCountry() const {
     return this->country;
 }
 
@@ -61,3 +61,10 @@ TheTraitor::Role* TheTraitor::Player::getRole() const {
     return this->role;
 }
 
+void TheTraitor::Player::setSocket(sf::TcpSocket* socket) {
+    this->socket = socket;
+}
+
+sf::TcpSocket* TheTraitor::Player::getSocket() const {
+    return this->socket;
+}

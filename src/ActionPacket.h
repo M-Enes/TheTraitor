@@ -9,11 +9,15 @@ namespace TheTraitor {
 		JointResearch,
 		SpreadMisinfo,
 		HealthAid,
-		PoisonResources
+		PoisonResources,
+		SpreadPlague,
+		DestroySchool,
+		SabotageFactory
 	};
 
 	typedef struct ActionPacket {
 		ActionType actionType;
+		int sourceID;
 		int targetID;
 	} ActionPacket;
 }

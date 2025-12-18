@@ -33,7 +33,7 @@ namespace TheTraitor {
 		void render();
 		GameState gameState;
 		std::vector<std::string> playerNames;
-		void openTCPSocket();
-		void receiveGameState();
+		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
+		GameState* receiveGameState(sf::TcpSocket* socket);
 	};
 }

@@ -17,7 +17,7 @@ namespace TheTraitor{
             void resetCurrentPhaseTimer();
         public:
             GameManager();
-            std::vector<Player> players;
+            std::vector<Player*> players;
             void update();
             void processAction(ActionPacket actionPacket);
             void addPlayer(const std::string& playerName);
