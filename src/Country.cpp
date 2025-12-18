@@ -15,3 +15,23 @@ TheTraitor::Country::Country() {
     this->education = 0;
     this->destroyed = false;
 }
+
+void TheTraitor::Country::setDestroyed() {
+    this->destroyed = true;
+}
+
+int TheTraitor::Country::getEconomy() {
+    return this->economy;
+}
+
+int TheTraitor::Country::getHealth() {
+    return this->health;
+}
+
+int TheTraitor::Country::getEducation() {
+    return this->education;
+}
+
+bool TheTraitor::Country::isDestroyed() {
+    return this->destroyed;
+}

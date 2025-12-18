@@ -7,7 +7,10 @@ TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
 }
 
 void TheTraitor::GameManager::update() {
-    
+    // It could be wrong
+    processAction(ActionPacket{});
+    goToNextPhase();
+    resetCurrentPhaseTimer();
 }
 
 void TheTraitor::GameManager::processAction(ActionPacket actionPacket) {
