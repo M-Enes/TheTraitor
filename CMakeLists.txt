@@ -36,7 +36,7 @@ target_link_libraries(Client PRIVATE
     SFML::Network
 )
 
-if(MSVC)
+#if(MSVC)
     # Hide console in Release, show in Debug
     target_link_options(Client PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Release>:/ENTRY:mainCRTStartup>")
     
@@ -50,7 +50,7 @@ if(MSVC)
         $<TARGET_FILE:SFML::Network>
         "$<TARGET_FILE_DIR:Client>"
     )
-endif()
+#endif()
 
 # For Linux
 if(UNIX AND NOT APPLE)
@@ -70,7 +70,7 @@ add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Ph
 
 target_link_libraries(Server PRIVATE SFML::System SFML::Network)
 
-if (MSVC)
+#if (MSVC)
     # Copy DLLs to target directory
     add_custom_command(TARGET Server POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -78,7 +78,7 @@ if (MSVC)
         $<TARGET_FILE:SFML::Network>
         "$<TARGET_FILE_DIR:Server>"
     )
-endif()
+#endif()
 
 # For Linux
 if(UNIX AND NOT APPLE)

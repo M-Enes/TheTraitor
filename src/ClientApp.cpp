@@ -25,9 +25,9 @@ namespace TheTraitor {
 		const InputData& inputData = inputHandler.getInputData();
 		const ViewData& viewData = gameView.handleMenuInput(inputData);
 
-		if (viewData.gotoState == GameState::LOBBY) {
-			playerNames.push_back(viewData.enteredPlayerName);
-			gameState = GameState::LOBBY;
+		if (gameState.currentPhase == LOBBY) {
+
+		
 		}
 	}
 
@@ -35,7 +35,7 @@ namespace TheTraitor {
 	{
 		// TODO: Get actual player names from server
 		sf::sleep(sf::seconds(1));
-		gameState = GameState::ACTION_PHASE; // TODO: action set for debugging purposes
+		gameState.currentPhase = ACTION_PHASE; // TODO: action set for debugging purposes
 
 	}
 
@@ -66,26 +66,26 @@ namespace TheTraitor {
 	void ClientApp::update(sf::Time deltaTime)
 	{
 		inputHandler.handleEvents();
-		switch (gameState) {
-		case GameState::MENU:
+		switch (gameState.currentPhase) {
+		case MENU:
 			updateMenu();
 			break;
-		case GameState::LOBBY:
+		case LOBBY:
 			updateLobby();
 			break;
-		case GameState::DISCUSSION_PHASE:
+		case DISCUSSION_PHASE:
 			updateDiscussionPhase();
 			break;
-		case GameState::ACTION_PHASE:
+		case ACTION_PHASE:
 			updateActionPhase();
 			break;
-		case GameState::RESOLUTION_PHASE:
+		case RESOLUTION_PHASE:
 			updateResolutionPhase();
 			break;
-		case GameState::GAMEOVER:
+		case GAMEOVER:
 			updateGameover();
 			break;
-		case GameState::WIN:
+		case WIN:
 			updateWin();
 			break;
 		}
@@ -95,26 +95,26 @@ namespace TheTraitor {
 	{
 
 		window.clear(sf::Color(0, 0, 0, 255));
-		switch (gameState) {
-		case GameState::MENU:
+		switch (gameState.currentPhase) {
+		case MENU:
 			gameView.renderMenu();
 			break;
-		case GameState::LOBBY:
-			gameView.renderLobby(playerNames); // Pass playerNames to renderLobby
+		case LOBBY:
+			gameView.renderLobby(gameState.players); // Pass players to renderLobby // <- Check this again
 			break;
-		case GameState::DISCUSSION_PHASE:
+		case DISCUSSION_PHASE:
 			gameView.renderDiscussionPhase();
 			break;
-		case GameState::ACTION_PHASE:
+		case ACTION_PHASE:
 			gameView.renderActionPhase();
 			break;
-		case GameState::RESOLUTION_PHASE:
+		case RESOLUTION_PHASE:
 			gameView.renderResolutionPhase();
 			break;
-		case GameState::GAMEOVER:
+		case GAMEOVER:
 			gameView.renderGameover();
 			break;
-		case GameState::WIN:
+		case WIN:
 			gameView.renderWin();
 			break;
 		}
@@ -126,15 +126,18 @@ namespace TheTraitor {
 		inputHandler(window),
 		gameView(window, executableFolderPath),
 		serverPort(5000),//Give port here
-		serverIp(sf::IpAddress::LocalHost),//Give ip here
-		gameState(GameState::ACTION_PHASE) // currently action for testing purposes
+		serverIp(sf::IpAddress::LocalHost)//Give ip here
+		// currently action for testing purposes
 	{
+		gameState.currentPhase = ACTION_PHASE;
+
 		window.setFramerateLimit(60);
 
-		playerNames.push_back("Player 1");
-		playerNames.push_back("Player 2");
-		playerNames.push_back("Player 3");
-		playerNames.push_back("Player 4");
+		//Set dummy players and give to the vector for testing purposes
+		gameState.players.push_back(TheTraitor::Player("Player 1", new TheTraitor::Country()));
+		gameState.players.push_back(TheTraitor::Player("Player 2", new TheTraitor::Country()));
+		gameState.players.push_back(TheTraitor::Player("Player 3", new TheTraitor::Country()));
+		gameState.players.push_back(TheTraitor::Player("Player 4", new TheTraitor::Country()));
 	}
 
 }
@@ -148,7 +151,7 @@ sf::TcpSocket* TheTraitor::ClientApp::openTCPSocket(sf::IpAddress ip, unsigned s
 	return socket;
 }
 
-TheTraitor::GameState* TheTraitor::ClientApp::receiveGameState(sf::TcpSocket* socket) {
+void TheTraitor::ClientApp::receivePackets(sf::TcpSocket* socket) {
 	sf::Packet packet;
 	if (socket->receive(packet) != sf::Socket::Status::Done) {
 		//error
@@ -156,9 +159,12 @@ TheTraitor::GameState* TheTraitor::ClientApp::receiveGameState(sf::TcpSocket* so
 	TheTraitor::Packet* packetData = new TheTraitor::Packet();
 	packet >> *packetData;
 
+	// Process packetData as needed
 	if (packetData->gameState) {
-		return &packetData->data.gameState;
+		// Handle game state update
+		gameState = packetData->data.gameState;
+	} else if (packetData->string) {
+		// Handle string data
 	}
-	
-	return nullptr;
 }
+

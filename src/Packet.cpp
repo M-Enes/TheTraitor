@@ -14,8 +14,8 @@ sf::Packet& operator<<(sf::Packet& packet, const Packet& data) {
         delete[] dataPtr;
     }
     if (data.gameState) {
-        char* dataPtr = new char[sizeof(GameState)];
-        std::memcpy(dataPtr, &data.data.gameState, sizeof(GameState));
+        char* dataPtr = new char[sizeof(GameStateData)];
+        std::memcpy(dataPtr, &data.data.gameState, sizeof(GameStateData));
         packet << dataPtr;
         delete[] dataPtr;
     }
@@ -34,9 +34,9 @@ sf::Packet& operator>>(sf::Packet& packet, Packet& data) {
         delete[] dataPtr;
     }
     if (data.gameState) {
-        char* dataPtr = new char[sizeof(GameState)];
+        char* dataPtr = new char[sizeof(GameStateData)];
         packet >> dataPtr;
-        std::memcpy(&data.data.gameState, dataPtr, sizeof(GameState));
+        std::memcpy(&data.data.gameState, dataPtr, sizeof(GameStateData));
         delete[] dataPtr;
     }
     if (data.string) {

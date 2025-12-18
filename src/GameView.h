@@ -4,6 +4,8 @@
 #include "ActionPacket.h"
 #include "CommonTypes.h"
 #include "Button.h"
+#include <vector>
+#include "Player.h"
 
 namespace TheTraitor {
 
@@ -17,7 +19,7 @@ namespace TheTraitor {
 		const ViewData& handleActionPhaseInput(const InputData& inputData);
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby(const std::vector<std::string>& playerNames);
+		void renderLobby(const std::vector<TheTraitor::Player> playerNames);
 		void renderDiscussionPhase();
 		void renderActionPhase();
 		void renderResolutionPhase();

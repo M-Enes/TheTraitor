@@ -1,6 +1,7 @@
 #include "GameView.h"
 #include "PolygonData.h"
 #include "earcut.h"
+#include "Player.h"
 
 namespace mapbox {
 	namespace util {
@@ -109,21 +110,21 @@ namespace TheTraitor {
 		joinGameButton.render();
 	}
 
-	void GameView::renderLobby(const std::vector<std::string>& playerNames)
+	void GameView::renderLobby(std::vector<TheTraitor::Player> players)
 	{
 		sf::Text playerCountText(font);
-		playerCountText.setString("Players joined: " + std::to_string(playerNames.size()));
+		playerCountText.setString("Players joined: " + std::to_string(players.size()));
 		playerCountText.setCharacterSize(24);
 		playerCountText.setFillColor(sf::Color::White);
 		playerCountText.setPosition(sf::Vector2f(100, 100));
 
 		int i = 0;
 		for (auto& label : playerLabels) {
-			if (playerNames.size() <= i) {
+			if (players.size() <= i) {
 				label.setString("Waiting for player...");
 			}
 			else {
-				label.setString(playerNames[i]);
+				label.setString(players[i].getName());
 			}
 			window.draw(label);
 			i++;
