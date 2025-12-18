@@ -34,7 +34,7 @@ namespace TheTraitor {
 	}
 
 	ActionPacket TheTraitor::InputHandler::prepareActionPacket() {
-
+		return ActionPacket(); // TODO: return actual packet rather than default constructed one
 	}
 
 }

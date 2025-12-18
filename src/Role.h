@@ -11,7 +11,7 @@ namespace TheTraitor {
 	public:
 		Role() = delete;
 		std::string getName();
-		std::vector<TheTraitor::Action> getPublicActions();  
+		std::vector<Action> getPublicActions();  
 		virtual std::vector<TheTraitor::SecretAction> getSecretActions() = 0;
 	protected:
 		Role(std::string name); 
