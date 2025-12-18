@@ -10,7 +10,7 @@ namespace TheTraitor {
 	class GameView
 	{
 	public:
-		GameView(sf::RenderWindow& window);
+		GameView(sf::RenderWindow& window, std::string executableFolderPath);
 		const ViewData& handleMenuInput(const InputData& inputData);
 		const ViewData& handleLobbyInput(const InputData& inputData);
 		const ViewData& handleDiscussionPhaseInput(const InputData& inputData);
@@ -40,7 +40,15 @@ namespace TheTraitor {
 		sf::Text timerLabel;
 		std::string eventLogString;
 		sf::Text eventLogLabel;
+		sf::VertexArray americaVertices;
+		sf::VertexArray africaVertices;
+		sf::VertexArray asiaVertices;
+		sf::VertexArray australiaVertices;
+		sf::VertexArray europeVertices;
+		std::array<std::pair<const std::vector<sf::Vector2f>*, sf::VertexArray*>, 5> allCountries;
 
 		void resetViewData();
+		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
+		void calculateCountries();
 	};
 }

@@ -1,5 +1,6 @@
 # OOP Project Group 19
-This repository contains code and documents for our 2025-2026 Fall semester project for CENG201 (Object Oriented Programming) course.
+This repository contains code and documents for our 2025-2026 Fall semester project for CENG201 (Object Oriented Programming) course. \
+Note: To triangulate map parts, we used earcut.hpp from https://github.com/mapbox/earcut.hpp.
 
 ## Group Members
 Muhammed Enes Karaca, 23050111049 \

@@ -10,7 +10,7 @@ namespace TheTraitor {
 	class ClientApp
 	{
 	public:
-		ClientApp();
+		ClientApp(std::string executableFolderPath);
 		ClientApp(const ClientApp&) = delete;
 		ClientApp& operator=(const ClientApp&) = delete;
 		void run();
