@@ -1,3 +1,8 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
+
+#include "CommonTypes.h"
 #include "ClientApp.h"
 
 namespace TheTraitor {
@@ -118,6 +123,8 @@ namespace TheTraitor {
 		window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window),
+		serverPort(5000),//Give port here
+		serverIp(sf::IpAddress::LocalHost),//Give ip here
 		gameState(GameState::ACTION_PHASE) // currently action for testing purposes
 	{
 		window.setFramerateLimit(60);

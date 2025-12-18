@@ -1,8 +1,7 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include "CommonTypes.h"
+#include <SFML/Network.hpp>
+
 #include "InputHandler.h"
 #include "GameView.h"
 
@@ -15,10 +14,13 @@ namespace TheTraitor {
 		ClientApp(const ClientApp&) = delete;
 		ClientApp& operator=(const ClientApp&) = delete;
 		void run();
+		void sendActionToServer(ActionPacket actionPacket);
 	private:
 		sf::RenderWindow window;
 		InputHandler inputHandler;
 		GameView gameView;
+		unsigned short serverPort;
+		sf::IpAddress serverIp;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();
@@ -31,5 +33,7 @@ namespace TheTraitor {
 		void render();
 		GameState gameState;
 		std::vector<std::string> playerNames;
+		void openTCPSocket();
+		void receiveGameState();
 	};
 }

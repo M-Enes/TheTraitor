@@ -12,8 +12,8 @@ namespace TheTraitor {
 		PoisonResources
 	};
 
-	struct ActionPacket {
+	typedef struct ActionPacket {
 		ActionType actionType;
 		int targetID;
-	};
+	} ActionPacket;
 }
