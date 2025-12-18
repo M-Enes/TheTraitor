@@ -12,12 +12,12 @@ namespace TheTraitor {
         return name;
     }
 
-    std::vector<TheTraitor::Action> Role::getPublicActions() {
-        return std::vector<TheTraitor::Action>();
+    std::vector<Action*> Role::getPublicActions() {
+        return std::vector<Action*>();
     }
 
-    std::vector<TheTraitor::SecretAction> Role::getSecretActions() {
-        return std::vector<TheTraitor::SecretAction>();
+    std::vector<SecretAction*> Role::getSecretActions() {
+        return std::vector<SecretAction*>();
     }
 
 }

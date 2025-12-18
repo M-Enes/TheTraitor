@@ -2,12 +2,14 @@
 
 #include "Innocent.h"
 
-class Innocent;
+namespace TheTraitor {
 
-TheTraitor::Innocent::Innocent() : Role("Innocent") {
 
-}
+	TheTraitor::Innocent::Innocent() : Role("Innocent") {
 
-std::vector<TheTraitor::SecretAction> TheTraitor::Innocent::getSecretActions() {
-    return std::vector<SecretAction>{};
+	}
+
+	std::vector<SecretAction*> TheTraitor::Innocent::getSecretActions() {
+		return std::vector<SecretAction*>{};
+	}
 }

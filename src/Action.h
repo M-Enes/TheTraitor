@@ -2,9 +2,8 @@
 
 #include <string>
 
-#include "Player.h"
-
 namespace TheTraitor {
+    class Player;
 
     class Action {
     public:

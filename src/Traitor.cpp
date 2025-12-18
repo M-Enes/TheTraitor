@@ -2,12 +2,13 @@
 
 #include "Traitor.h"
 
-class Traitor;
+namespace TheTraitor {
 
-TheTraitor::Traitor::Traitor() : Role("Traitor") { //Çok object oriented oldu bu yaa :)
+	Traitor::Traitor() : Role("Traitor") { //Çok object oriented oldu bu yaa :) oop güzeldir tadında olursa :D
 
-}
+	}
 
-std::vector<TheTraitor::SecretAction> TheTraitor::Traitor::getSecretActions() {
-    return std::vector<SecretAction>{};
+	std::vector<SecretAction*> Traitor::getSecretActions() {
+		return std::vector<SecretAction*>{};
+	}
 }
