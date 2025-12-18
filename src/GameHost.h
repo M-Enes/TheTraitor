@@ -2,9 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <SFML/Network.hpp>
 
 #include "GlobalGameState.h"
 #include "GameState.h"
+#include "GameManager.h"
 
 namespace TheTraitor{
     class GameHost {
@@ -24,6 +26,7 @@ namespace TheTraitor{
     public:
         GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/);
         void update();
-        void establishConnectionWithClients();
+        void establishConnectionWithClients(GameManager* gameManager);
+        void run();
     };
 }

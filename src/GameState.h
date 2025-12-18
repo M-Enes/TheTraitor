@@ -2,4 +2,5 @@
 
 typedef struct GameState {
     // All public game information received from the server.
+    int dummyData = 0;
 } GameState;

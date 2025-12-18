@@ -4,6 +4,8 @@
 
 #include "CommonTypes.h"
 #include "ClientApp.h"
+#include "GameState.h"
+#include "Packet.h"
 
 namespace TheTraitor {
 
@@ -135,4 +137,28 @@ namespace TheTraitor {
 		playerNames.push_back("Player 4");
 	}
 
+}
+
+sf::TcpSocket* TheTraitor::ClientApp::openTCPSocket(sf::IpAddress ip, unsigned short port) {
+	sf::TcpSocket* socket = new sf::TcpSocket();
+	if (socket->connect(ip, port) != sf::Socket::Status::Done) {
+		//error
+	}
+	socket->setBlocking(false);
+	return socket;
+}
+
+TheTraitor::GameState* TheTraitor::ClientApp::receiveGameState(sf::TcpSocket* socket) {
+	sf::Packet packet;
+	if (socket->receive(packet) != sf::Socket::Status::Done) {
+		//error
+	}
+	TheTraitor::Packet* packetData = new TheTraitor::Packet();
+	packet >> *packetData;
+
+	if (packetData->gameState) {
+		return &packetData->data.gameState;
+	}
+	
+	return nullptr;
 }
