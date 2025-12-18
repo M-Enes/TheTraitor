@@ -4,6 +4,7 @@
 
 #include "InputHandler.h"
 #include "GameView.h"
+#include "Packet.h"
 
 namespace TheTraitor {
 
@@ -31,9 +32,10 @@ namespace TheTraitor {
 		void updateGameover();
 		void updateWin();
 		void render();
-		GameState gameState;
-		std::vector<std::string> playerNames;
+		GameStateData gameState;
+		//std::vector<std::string> playerNames; // This will be hold in gameState later
 		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
-		GameState* receiveGameState(sf::TcpSocket* socket);
+		void receivePackets(sf::TcpSocket* socket);
+		void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet);
 	};
 }

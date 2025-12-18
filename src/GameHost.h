@@ -20,7 +20,7 @@ namespace TheTraitor{
         //void receiveActionsFromClients(std::vector<> clientSockets);
         //void sendGameStateToClients(std::vector<> clientSockets);
         void kickDisconnectedClient();
-        GameState* prepareGameStateForClient(int clientID);
+        GameStateData* prepareGameStateForClient(int clientID);
         void updateGlobalGameState();
         
     public:

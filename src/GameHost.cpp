@@ -20,7 +20,7 @@ TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectio
 void TheTraitor::GameHost::kickDisconnectedClient(){
 
 }
-GameState* TheTraitor::GameHost::prepareGameStateForClient(int clientID){
+TheTraitor::GameStateData* TheTraitor::GameHost::prepareGameStateForClient(int clientID){
     return nullptr;
 }
 void TheTraitor::GameHost::updateGlobalGameState(){
