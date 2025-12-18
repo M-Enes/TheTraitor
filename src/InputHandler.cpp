@@ -1,12 +1,10 @@
 #include "InputHandler.h"
 namespace TheTraitor {
 
-	InputHandler::InputHandler(sf::RenderWindow& window) : window(window), inputData{ false, sf::Vector2i(0,0), false, ' '}
-	{
+	InputHandler::InputHandler(sf::RenderWindow& window) : window(window), inputData{ false, sf::Vector2i(0,0), false, ' '} {
 	}
 
-	void InputHandler::handleEvents()
-	{
+	void InputHandler::handleEvents() {
 		inputData.isMouseClicked = false;
 		inputData.mousePosition = sf::Mouse::getPosition(window);
 		inputData.isKeyEntered = false;
@@ -31,9 +29,12 @@ namespace TheTraitor {
 		}
 	}
 
-	const InputData& InputHandler::getInputData() const
-	{
+	const InputData& InputHandler::getInputData() const {
 		return inputData;
+	}
+
+	ActionPacket TheTraitor::InputHandler::prepareActionPacket() {
+		return ActionPacket(); // TODO: return actual packet rather than default constructed one
 	}
 
 }

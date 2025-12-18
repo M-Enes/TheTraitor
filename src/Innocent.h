@@ -6,6 +6,6 @@ namespace TheTraitor {
 	class Innocent : public Role {
 	public:
 		Innocent();
-		std::vector<SecretAction> getSecretActions() override;
+		std::vector<SecretAction*> getSecretActions() override;
 	};
 }

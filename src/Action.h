@@ -3,7 +3,7 @@
 #include <string>
 
 namespace TheTraitor {
-    class Player;  // forward declaration
+    class Player;
 
     class Action {
     public:

@@ -14,5 +14,8 @@ namespace TheTraitor {
 	private:
 		sf::RenderWindow& window;
 		InputData inputData;
+
+	private:
+		ActionPacket prepareActionPacket();
 	};
 }

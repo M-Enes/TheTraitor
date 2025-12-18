@@ -2,9 +2,10 @@
 
 #include <string>
 #include "Country.h"
-#include "Role.h"
 
 namespace TheTraitor {
+	class Role;
+
 	class Player {
 	public:
 		Player(std::string name, Country country);
