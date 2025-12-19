@@ -5,7 +5,7 @@
 #include "CommonTypes.h"
 #include "ClientApp.h"
 #include "GameState.h"
-#include "Packet.h"
+#include "PacketType.h"
 
 namespace TheTraitor {
 
@@ -16,13 +16,15 @@ namespace TheTraitor {
 
 		// ##### Testing to Establish connection to server #####
 		sf::IpAddress serverIp = sf::IpAddress::LocalHost; // Replace with actual server IP
+		//serverIp = sf::IpAddress{192,168,56,101};
 		unsigned short serverPort = 5000; // Replace with actual server port
+		serverPort = 53000;
 		sf::TcpSocket* socket = openTCPSocket(serverIp, serverPort);
 		sf::Packet initialPacket;
-		TheTraitor::Packet name;
-		name.string = true;
-		name.data.string = "Player over Network"; // Replace with actual player name
-		initialPacket << name;
+		initialPacket << PacketType::STRING;
+		//name.data.string.assign("Player over Network"); // Replace with actual player name
+		//initialPacket << name;
+		initialPacket << "Hello";
 		if (socket->send(initialPacket) != sf::Socket::Status::Done) {
 			//error
 		}
@@ -164,29 +166,4 @@ sf::TcpSocket* TheTraitor::ClientApp::openTCPSocket(sf::IpAddress ip, unsigned s
 	}
 	socket->setBlocking(false);
 	return socket;
-}
-
-void TheTraitor::ClientApp::receivePackets(sf::TcpSocket* socket) {
-	sf::Packet packet;
-	if (socket->receive(packet) != sf::Socket::Status::Done) {
-		//error
-	}
-	TheTraitor::Packet* packetData = new TheTraitor::Packet();
-	packet >> *packetData;
-
-	// Process packetData as needed
-	if (packetData->gameState) {
-		// Handle game state update
-		gameState = packetData->data.gameState;
-	} else if (packetData->string) {
-		// Handle string data
-	}
-}
-
-void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {
-	sf::Packet sfmlPacket;
-	sfmlPacket << packet;
-	if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
-		//error
-	}
 }

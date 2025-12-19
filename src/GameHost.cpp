@@ -5,6 +5,7 @@
 
 #include "GameManager.h"
 #include "Country.h"
+#include "PacketType.h"
 
 TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/){
 
@@ -48,37 +49,32 @@ void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManag
             Country* country = new Country(); // Randomly generate country stats here later
             // #########################################################################################
             // Testing receiving initial packet from client
-            TheTraitor::Packet* initialPacket = receivePacket(client); 
-            if (initialPacket == nullptr) {
-                std::cout << "Error receiving initial packet from client." << std::endl;
-            } else if (initialPacket->string) {
-                std::cout << "Client connected with name: " << initialPacket->data.string << std::endl;
+           // TheTraitor::Packet* initialPacket = receivePacket(client); 
+            sf::Packet packet;
+            PacketType packetType;
+            if (client->receive(packet) != sf::Socket::Status::Done) {
+                packetType = PacketType::UNKNOWN;
+                //error
             }
-            // #########################################################################################
-            Player* player = new Player("Player", country);
-            client->setBlocking(false);
-            player->setSocket(client);
-            gameManager->players.push_back(player);
-            connectedCount++;
+            else {
+                packet >> packetType;
+            }
+            std::string receivedStr;
+            packet >> receivedStr;
+            std::cout << "Packet type: " << static_cast<int>(packetType) << std::endl;
+            std::cout << "Received string: " << receivedStr << std::endl;
+            //if (initialPacket == nullptr) {
+            //    std::cout << "Error receiving initial packet from client." << std::endl;
+            //} else if (initialPacket->string) {
+            //    std::cout << "Client connected with name: " << initialPacket->data.string << std::endl;
+            //}
+            //// #########################################################################################
+            //Player* player = new Player("Player", country);
+            //client->setBlocking(false);
+            //player->setSocket(client);
+            //gameManager->players.push_back(player);
+            //connectedCount++;
         }
-    }
-}
-
-TheTraitor::Packet* TheTraitor::GameHost::receivePacket(sf::TcpSocket* socket) {
-    sf::Packet packet;
-    if (socket->receive(packet) != sf::Socket::Status::Done) {
-        //error
-    }
-    TheTraitor::Packet* packetData = new TheTraitor::Packet();
-    packet >> *packetData;
-    return packetData;
-}
-
-void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {
-    sf::Packet sfmlPacket;
-    sfmlPacket << packet;
-    if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
-        //error
     }
 }
 

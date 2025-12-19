@@ -4,7 +4,7 @@
 
 #include "InputHandler.h"
 #include "GameView.h"
-#include "Packet.h"
+#include "PacketType.h"
 
 namespace TheTraitor {
 
@@ -34,7 +34,5 @@ namespace TheTraitor {
 		void render();
 		GameState gameState;
 		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
-		void receivePackets(sf::TcpSocket* socket);
-		void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet);
 	};
 }

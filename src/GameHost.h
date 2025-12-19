@@ -7,7 +7,7 @@
 #include "GlobalGameState.h"
 #include "GameState.h"
 #include "GameManager.h"
-#include "Packet.h"
+#include "PacketType.h"
 
 namespace TheTraitor{
     class GameHost {
@@ -28,8 +28,6 @@ namespace TheTraitor{
         GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/);
         void update();
         void establishConnectionWithClients(GameManager* gameManager);
-        TheTraitor::Packet* receivePacket(sf::TcpSocket* socket);
-        void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet);
         void run();
     };
 }
