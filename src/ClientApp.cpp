@@ -168,3 +168,10 @@ void TheTraitor::ClientApp::receivePackets(sf::TcpSocket* socket) {
 	}
 }
 
+void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {
+	sf::Packet sfmlPacket;
+	sfmlPacket << packet;
+	if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
+		//error
+	}
+}

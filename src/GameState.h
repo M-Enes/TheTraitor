@@ -12,13 +12,14 @@ namespace TheTraitor {
             ACTION_PHASE,
             RESOLUTION_PHASE,
             GAMEOVER,
-            WIN
+            WIN,
+            NONE
         };
 
-    typedef struct GameStateData {
+    typedef struct GameState {
         // All public game information received from the server.
         GamePhase currentPhase;
         std::vector<TheTraitor::Player> players;
 
-    } GameStateData;
+    } GameState;
 } // namespace TheTraitor

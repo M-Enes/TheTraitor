@@ -20,7 +20,7 @@ TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectio
 void TheTraitor::GameHost::kickDisconnectedClient(){
 
 }
-TheTraitor::GameStateData* TheTraitor::GameHost::prepareGameStateForClient(int clientID){
+TheTraitor::GameState* TheTraitor::GameHost::prepareGameStateForClient(int clientID){
     return nullptr;
 }
 void TheTraitor::GameHost::updateGlobalGameState(){
@@ -51,6 +51,30 @@ void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManag
             gameManager->players.push_back(player);
             connectedCount++;
         }
+    }
+}
+
+void receivePacket(sf::TcpSocket* socket) {
+    sf::Packet packet;
+    if (socket->receive(packet) != sf::Socket::Status::Done) {
+        //error
+    }
+    TheTraitor::Packet* packetData = new TheTraitor::Packet();
+    packet >> *packetData;
+
+    // Process packetData as needed
+    if (packetData->actionPacket) {
+        // Handle action packet
+    } else if (packetData->ready) {
+        // Handle ready status
+    }
+}
+
+void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {
+    sf::Packet sfmlPacket;
+    sfmlPacket << packet;
+    if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
+        //error
     }
 }
 
