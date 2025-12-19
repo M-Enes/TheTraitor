@@ -7,8 +7,11 @@ namespace TheTraitor {
     SpreadPlague::SpreadPlague() : Action() {}
 
     void SpreadPlague::execute(const Player& player1, const Player& player2) {
-        std::cout << player1.getName() << " has spread a plague to " << player2.getName() << "." << std::endl;
-        // Additional logic for spreading the plague can be added here
+        std::cout << getLogMessage(player1, player2) << std::endl;
+        player2.getCountry().getHealth() -= 10;
+        if (player2.getCountry().getHealth() < 10) {
+            player2.getCountry().getEconomy() -= 5;
+        }
     }
 
     std::string SpreadPlague::getLogMessage(const Player& player1, const Player& player2) {

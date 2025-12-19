@@ -7,8 +7,8 @@ namespace TheTraitor {
     SpreadMisinfo::SpreadMisinfo() : Action() {}
 
     void SpreadMisinfo::execute(const Player& player1, const Player& player2) {
-        std::cout << player1.getName() << " is spreading misinformation about " << player2.getName() << "." << std::endl;
-        // Additional logic for spreading misinformation can be added here
+        std::cout << getLogMessage(player1, player2) << std::endl;
+        // Implementation of the misinformation effect would go here
     }
 
     std::string SpreadMisinfo::getLogMessage(const Player& player1, const Player& player2) {

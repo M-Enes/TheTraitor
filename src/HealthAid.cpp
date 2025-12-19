@@ -7,8 +7,13 @@ namespace TheTraitor {
     HealthAid::HealthAid() : Action() {}
 
     void HealthAid::execute(const Player& player1, const Player& player2) {
-        std::cout << player1.getName() << " is providing health aid to " << player2.getName() << "." << std::endl;
-        // Additional logic for providing health aid can be added here
+        if (player1.getCountry().getEconomy() < 10) {
+            std::cout << "Health aid failed due to insufficient economy." << std::endl;
+            return;
+        }
+        std::cout << getLogMessage(player1, player2) << std::endl;
+        player1.getCountry().getEconomy() -= 10;
+        player2.getCountry().getHealth() += 15;
     }
 
     std::string HealthAid::getLogMessage(const Player& player1, const Player& player2) {
