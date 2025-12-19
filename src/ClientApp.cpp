@@ -13,6 +13,21 @@ namespace TheTraitor {
 	{
 		sf::Clock clock;
 
+
+		// ##### Testing to Establish connection to server #####
+		sf::IpAddress serverIp = sf::IpAddress::LocalHost; // Replace with actual server IP
+		unsigned short serverPort = 5000; // Replace with actual server port
+		sf::TcpSocket* socket = openTCPSocket(serverIp, serverPort);
+		sf::Packet initialPacket;
+		TheTraitor::Packet name;
+		name.string = true;
+		name.data.string = "Player over Network"; // Replace with actual player name
+		initialPacket << name;
+		if (socket->send(initialPacket) != sf::Socket::Status::Done) {
+			//error
+		}
+		// ##########################################
+
 		while (window.isOpen()) {
 			sf::Time deltaTime = clock.restart();
 

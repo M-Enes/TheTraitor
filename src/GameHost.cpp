@@ -1,6 +1,7 @@
 #include "GameHost.h"
 
 #include <SFML/Network.hpp>
+#include <iostream>
 
 #include "GameManager.h"
 #include "Country.h"
@@ -45,6 +46,15 @@ void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManag
         } else {
             //add client to list
             Country* country = new Country(); // Randomly generate country stats here later
+            // #########################################################################################
+            // Testing receiving initial packet from client
+            TheTraitor::Packet* initialPacket = receivePacket(client); 
+            if (initialPacket == nullptr) {
+                std::cout << "Error receiving initial packet from client." << std::endl;
+            } else if (initialPacket->string) {
+                std::cout << "Client connected with name: " << initialPacket->data.string << std::endl;
+            }
+            // #########################################################################################
             Player* player = new Player("Player", country);
             client->setBlocking(false);
             player->setSocket(client);
@@ -54,20 +64,14 @@ void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManag
     }
 }
 
-void receivePacket(sf::TcpSocket* socket) {
+TheTraitor::Packet* TheTraitor::GameHost::receivePacket(sf::TcpSocket* socket) {
     sf::Packet packet;
     if (socket->receive(packet) != sf::Socket::Status::Done) {
         //error
     }
     TheTraitor::Packet* packetData = new TheTraitor::Packet();
     packet >> *packetData;
-
-    // Process packetData as needed
-    if (packetData->actionPacket) {
-        // Handle action packet
-    } else if (packetData->ready) {
-        // Handle ready status
-    }
+    return packetData;
 }
 
 void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {

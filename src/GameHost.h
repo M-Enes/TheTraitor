@@ -28,7 +28,7 @@ namespace TheTraitor{
         GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/);
         void update();
         void establishConnectionWithClients(GameManager* gameManager);
-        void receivePacket(sf::TcpSocket* socket);
+        TheTraitor::Packet* receivePacket(sf::TcpSocket* socket);
         void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet);
         void run();
     };
