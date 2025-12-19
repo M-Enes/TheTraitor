@@ -11,12 +11,13 @@ if(POLICY CMP0141)
     set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-# Dynamic Linking
-set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
+# Static Linking
+set(SFML_STATIC_LIBRARIES TRUE)
 
-set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2/lib/cmake/SFML")
-if(UNIX AND NOT APPLE)
-    set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2-linux/lib/cmake/SFML")
+
+set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2")
+if (UNIX AND NOT APPLE)
+    set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2-linux")
 endif()
 
 find_package(SFML 3.0.2 COMPONENTS Graphics System Window Audio Network REQUIRED)
@@ -28,7 +29,7 @@ endif()
 # ==== Client ====
 add_executable(Client src/GameView.cpp src/InputHandler.cpp src/ClientApp.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/Packet.cpp "src/ClientMain.cpp" "src/Button.cpp")
 
-target_link_libraries(Client PRIVATE 
+target_link_libraries(Client PRIVATE
     SFML::Graphics 
     SFML::System 
     SFML::Window 
@@ -39,17 +40,6 @@ target_link_libraries(Client PRIVATE
 if(MSVC)
     # Hide console in Release, show in Debug
     target_link_options(Client PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Release>:/ENTRY:mainCRTStartup>")
-    
-    # Copy DLLs to target directory
-    add_custom_command(TARGET Client POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:SFML::Graphics>
-        $<TARGET_FILE:SFML::System>
-        $<TARGET_FILE:SFML::Window>
-        $<TARGET_FILE:SFML::Audio>
-        $<TARGET_FILE:SFML::Network>
-        "$<TARGET_FILE_DIR:Client>"
-    )
 endif()
 
 # For Linux
@@ -69,16 +59,6 @@ add_custom_command(TARGET Client POST_BUILD
 add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/Packet.cpp "src/ServerMain.cpp")
 
 target_link_libraries(Server PRIVATE SFML::System SFML::Network)
-
-if (MSVC)
-    # Copy DLLs to target directory
-    add_custom_command(TARGET Server POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:SFML::System>
-        $<TARGET_FILE:SFML::Network>
-        "$<TARGET_FILE_DIR:Server>"
-    )
-endif()
 
 # For Linux
 if(UNIX AND NOT APPLE)
