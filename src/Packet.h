@@ -8,7 +8,7 @@ namespace TheTraitor {
 union PacketData{
     /* data */
     TheTraitor::ActionPacket actionPacket;
-    GameStateData gameState;
+    GameState gameState;
     std::string string;
     
     PacketData() : actionPacket() {}

@@ -2,6 +2,7 @@
 #include "PolygonData.h"
 #include "earcut.h"
 #include "Player.h"
+#include "GameState.h"
 
 namespace mapbox {
 	namespace util {
@@ -26,7 +27,7 @@ namespace TheTraitor {
 
 	GameView::GameView(sf::RenderWindow& window, std::string executableFolderPath) :
 		window(window),
-		viewData{ false, ActionType::TradePact, GameState::NONE, "" },
+		viewData{ false, ActionType::TradePact, NONE, "" },
 		font(executableFolderPath + "/assets/fonts/CascadiaMono.ttf"),
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window),
 		playerNameInputLabel(font),
@@ -179,7 +180,7 @@ namespace TheTraitor {
 
 		if (inputData.isMouseClicked && isHovered) {
 			viewData.enteredPlayerName = playerNameInputTextBoxString;
-			viewData.gotoState = GameState::LOBBY;
+			viewData.gotoState = LOBBY;
 		}
 
 		if (inputData.isKeyEntered) {
@@ -266,7 +267,7 @@ namespace TheTraitor {
 
 	void GameView::resetViewData() {
 		viewData.isActionRequested = false;
-		viewData.gotoState = GameState::NONE;
+		viewData.gotoState = NONE;
 	}
 	bool GameView::isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point)
 	{
