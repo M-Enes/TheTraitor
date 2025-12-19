@@ -34,7 +34,7 @@ namespace TheTraitor {
 		playerNameInputTextBoxString(""),
 		playerLabels({ font,font,font,font,font }),
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
-		eventLogMenu({ 540, (float)window.getSize().y - 40 }),
+		eventLogMenu({ (float)window.getSize().x - 370, 300 }),
 		roundLabel(font, "Round 1"),
 		timerLabel(font, "01:02"),
 		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n\n"
@@ -69,13 +69,15 @@ namespace TheTraitor {
 			actionMenuButtonPositionY += 100;
 		}
 
-		eventLogMenu.setPosition({ (float)window.getSize().x - 560,20 });
-		eventLogMenu.setFillColor({ 30, 30, 30 });
+		eventLogMenu.setPosition({ 350, (float)window.getSize().y - 320 });
+		eventLogMenu.setFillColor(sf::Color::Black);
+		eventLogMenu.setOutlineThickness(5);
+		eventLogMenu.setOutlineColor(sf::Color::White);
 
-		roundLabel.setPosition({ (float)window.getSize().x - 500, 20 });
-		timerLabel.setPosition({ (float)window.getSize().x - 200, 20 });
+		//roundLabel.setPosition({ 370, (float)window.getSize().y - 300 });
+		//timerLabel.setPosition({ 370, (float)window.getSize().y - 300 });
 
-		eventLogLabel.setPosition({ (float)window.getSize().x - 540, 80 });
+		eventLogLabel.setPosition({ 370, (float)window.getSize().y - 250 });
 
 		allCountries = { {
 		{&americaPolygonPoints, &americaVertices},
@@ -152,8 +154,8 @@ namespace TheTraitor {
 
 
 		window.draw(eventLogMenu);
-		window.draw(roundLabel);
-		window.draw(timerLabel);
+	/*	window.draw(roundLabel);
+		window.draw(timerLabel);*/
 		window.draw(eventLogLabel);
 	}
 
