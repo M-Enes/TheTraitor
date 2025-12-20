@@ -19,9 +19,9 @@ namespace TheTraitor {
 		const ViewData& handleActionPhaseInput(const InputData& inputData);
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby(const std::vector<Player> playerNames);
+		void renderLobby(const std::vector<Player>& players);
 		void renderDiscussionPhase();
-		void renderActionPhase();
+		void renderActionPhase(std::vector<Player>& players);
 		void renderResolutionPhase();
 		void renderGameover();
 		void renderWin();
@@ -38,10 +38,14 @@ namespace TheTraitor {
 		sf::RectangleShape actionMenu;
 		std::vector<std::pair<std::string, Button>> actionMenuButtons;
 		sf::RectangleShape eventLogMenu;
-		sf::Text roundLabel;
-		sf::Text timerLabel;
 		std::string eventLogString;
+		sf::Text eventLogMenuLabel;
 		sf::Text eventLogLabel;
+		sf::RectangleShape infoMenu;
+		sf::RectangleShape topBar;
+		sf::Text roundLabel;
+		sf::Text phaseLabel;
+		sf::Text timerLabel;
 		sf::VertexArray americaVertices;
 		sf::VertexArray africaVertices;
 		sf::VertexArray asiaVertices;
