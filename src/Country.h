@@ -12,6 +12,12 @@ namespace TheTraitor {
 		int getEducation();
 		bool isDestroyed();
 		void setDestroyed();
+
+		void setEconomy(int economy);
+		void setHealth(int health);
+		void setEducation(int education);
+		void setDestroyed(bool destroyed);
+
 	private:
 		int economy;
 		int health;
