@@ -19,7 +19,7 @@ namespace TheTraitor {
 		const ViewData& handleActionPhaseInput(const InputData& inputData);
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby(const std::vector<TheTraitor::Player> playerNames);
+		void renderLobby(const std::vector<Player> playerNames);
 		void renderDiscussionPhase();
 		void renderActionPhase();
 		void renderResolutionPhase();

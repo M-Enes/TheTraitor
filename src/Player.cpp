@@ -68,3 +68,7 @@ void TheTraitor::Player::setSocket(sf::TcpSocket* socket) {
 sf::TcpSocket* TheTraitor::Player::getSocket() const {
     return this->socket;
 }
+
+int TheTraitor::Player::getPlayerID() const {
+    return this->playerID;
+}

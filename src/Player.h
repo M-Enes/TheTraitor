@@ -23,6 +23,8 @@ namespace TheTraitor {
 		Role* getRole() const;
 		void setSocket(sf::TcpSocket* socket);
 		sf::TcpSocket* getSocket() const;
+		int getPlayerID() const;
+		void updatePlayer();
 
 	private:
 		int playerID;
