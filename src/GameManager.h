@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Phase.h"
 #include "ActionPacket.h"
+#include "GlobalGameState.h"
 
 namespace TheTraitor{
     class GameManager {
@@ -17,7 +18,9 @@ namespace TheTraitor{
             void resetCurrentPhaseTimer();
         public:
             GameManager();
-            std::vector<Player*> players;
+            int clientConnectionTimeout;
+            bool isGameStarted;
+            GlobalGameState state;
             void update();
             void processAction(ActionPacket actionPacket);
             void addPlayer(const std::string& playerName);

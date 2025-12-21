@@ -1,7 +1,15 @@
 #pragma once
 
-typedef struct GlobalGameState {
-    // All information about the current state of the game can be stored here
-    int dummyData = 0;
-    
-} GlobalGameState;
+#include <vector>
+
+#include "Player.h"
+#include "GameState.h"
+namespace TheTraitor {
+        
+    typedef struct GlobalGameState {
+        // All public game information received from the server.
+            GamePhase currentPhase;
+            std::vector<TheTraitor::Player> players;
+    } GlobalGameState;
+
+} // namespace TheTraitor

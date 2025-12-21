@@ -159,10 +159,8 @@ void ClientApp::receivePackets(sf::TcpSocket& socket) {
     }
 }
 
-void ClientApp::sendPacket(sf::TcpSocket* socket, Packet& packet) {
-    sf::Packet sfmlPacket;
-    sfmlPacket << packet;
-    if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
+void ClientApp::sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
+    if (socket->send(packet) != sf::Socket::Status::Done) {
         //error
     }
 }
