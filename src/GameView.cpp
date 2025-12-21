@@ -44,7 +44,18 @@ namespace TheTraitor {
 		topBar({ 1050, 120 }),
 		roundLabel(font, "Round 1"),
 		phaseLabel(font, "Action Phase"),
-		timerLabel(font, "01:02")
+		timerLabel(font, "01:02"),
+		playerInfo({ { {font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font} } }),
+		economyIconTexture(executableFolderPath + "/assets/icons/icons8-cash-64.png"),
+		healthIconTexture(executableFolderPath + "/assets/icons/icons8-medical-kit-64.png"),
+		educationIconTexture(executableFolderPath + "/assets/icons/icons8-book-64.png"),
+		economyIconSprite(economyIconTexture),
+		healthIconSprite(healthIconTexture),
+		educationIconSprite(educationIconTexture)
 	{
 
 		actionMenu.setPosition({ 20, 20 });
@@ -178,21 +189,35 @@ namespace TheTraitor {
 		window.draw(infoMenu);
 
 		int posY = 50;
-		for (const auto& player : players) { // TODO: make this text objects create once at start
-			sf::Text playerName(font, player.getName(), 20);
-			playerName.setPosition({ (float)window.getSize().x - 480, (float)posY });
-			sf::Text countryEconomy(font, std::to_string(player.getCountry()->getEconomy()), 18);
-			countryEconomy.setPosition({ (float)window.getSize().x - 480, (float)posY + 30 });
-			sf::Text countryHealth(font, std::to_string(player.getCountry()->getHealth()), 18);
-			countryHealth.setPosition({ (float)window.getSize().x - 440, (float)posY + 30 });
-			sf::Text countryEducation(font, std::to_string(player.getCountry()->getEducation()), 18);
-			countryEducation.setPosition({ (float)window.getSize().x - 400, (float)posY + 30 });
+		int index = 0;
+
+		for (const auto& player : players) {
+			auto& [name, economy, health, education] = playerInfo[0];
+			name.setString(player.getName());
+			name.setCharacterSize(30);
+			name.setPosition({ (float)window.getSize().x - 480, (float)posY });
+			economyIconSprite.setPosition({ (float)window.getSize().x - 480, (float)posY + 80 });
+			economy.setString(std::to_string(player.getCountry()->getEconomy()));
+			economy.setCharacterSize(25);
+			economy.setPosition({ (float)window.getSize().x - 400, (float)posY + 110 });
+			healthIconSprite.setPosition({ (float)window.getSize().x - 360, (float)posY + 80 });
+			health.setString(std::to_string(player.getCountry()->getHealth()));
+			health.setCharacterSize(25);
+			health.setPosition({ (float)window.getSize().x - 280, (float)posY + 110 });
+			educationIconSprite.setPosition({ (float)window.getSize().x - 240, (float)posY + 80 });
+			education.setString(std::to_string(player.getCountry()->getEducation()));
+			education.setCharacterSize(25);
+			education.setPosition({ (float)window.getSize().x - 160, (float)posY + 110 });
 
 			posY += 200;
-			window.draw(playerName);
-			window.draw(countryEconomy);
-			window.draw(countryHealth);
-			window.draw(countryEducation);
+			index++;
+			window.draw(name);
+			window.draw(economy);
+			window.draw(health);
+			window.draw(education);
+			window.draw(economyIconSprite);
+			window.draw(healthIconSprite);
+			window.draw(educationIconSprite);
 		}
 
 		window.draw(topBar);

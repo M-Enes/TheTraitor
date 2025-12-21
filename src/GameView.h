@@ -52,6 +52,13 @@ namespace TheTraitor {
 		sf::VertexArray australiaVertices;
 		sf::VertexArray europeVertices;
 		std::array<std::pair<const std::vector<sf::Vector2f>*, sf::VertexArray*>, 5> allCountries;
+		std::array<std::array<sf::Text, 4>, 5> playerInfo;
+		sf::Texture economyIconTexture;
+		sf::Texture healthIconTexture;
+		sf::Texture educationIconTexture;
+		sf::Sprite economyIconSprite;
+		sf::Sprite healthIconSprite;
+		sf::Sprite educationIconSprite;
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
