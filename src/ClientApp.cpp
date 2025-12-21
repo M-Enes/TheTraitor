@@ -43,8 +43,8 @@ void ClientApp::updateMenu() {
     const InputData& inputData = inputHandler.getInputData();
     const ViewData& viewData = gameView.handleMenuInput(inputData);
 
-    if (gameState.currentPhase == LOBBY) {
-        (void)viewData; // Placeholder until menu transitions are wired
+    if (viewData.gotoState == LOBBY) {
+        gameState.currentPhase = LOBBY; // Placeholder until menu transitions are wired
     }
 }
 
