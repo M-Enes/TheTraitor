@@ -24,6 +24,7 @@ ClientApp::ClientApp(std::string executableFolderPath)
     gameState.players.push_back(Player("Player 2", new Country()));
     gameState.players.push_back(Player("Player 3", new Country()));
     gameState.players.push_back(Player("Player 4", new Country()));
+    gameState.players.push_back(Player("Player 5", new Country())); // for ui test
 }
 
 void ClientApp::run() {
@@ -114,7 +115,7 @@ void ClientApp::render() {
         gameView.renderDiscussionPhase();
         break;
     case ACTION_PHASE:
-        gameView.renderActionPhase();
+        gameView.renderActionPhase(gameState.players);
         break;
     case RESOLUTION_PHASE:
         gameView.renderResolutionPhase();
