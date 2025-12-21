@@ -27,7 +27,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # ==== Client ====
-add_executable(Client src/GameView.cpp src/InputHandler.cpp src/ClientApp.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/Packet.cpp src/PacketType.cpp "src/ClientMain.cpp" "src/Button.cpp")
+add_executable(Client src/GameView.cpp src/InputHandler.cpp src/ClientApp.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/PacketType.cpp "src/ClientMain.cpp" "src/Button.cpp")
 
 target_link_libraries(Client PRIVATE
     SFML::Graphics 
@@ -56,7 +56,7 @@ add_custom_command(TARGET Client POST_BUILD
 )
 
 # ==== Server ====
-add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/Packet.cpp src/PacketType.cpp "src/ServerMain.cpp")
+add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/PacketType.cpp "src/ServerMain.cpp")
 
 target_link_libraries(Server PRIVATE SFML::System SFML::Network)
 

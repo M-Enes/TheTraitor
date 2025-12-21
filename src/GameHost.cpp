@@ -5,17 +5,11 @@
 #include "GameManager.h"
 #include "Country.h"
 
-TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/){
+TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/) : serverIp(sf::IpAddress::LocalHost), serverPort(53000){
+    clientConnectionTimeout = 30; //seconds
+    isGameStarted = false;
 
 }
-
-/*void receiveActionsFromClients(std::vector<> clientSockets){
-
-}*/
-
-/*void sendGameStateToClients(std::vector<> clientSockets){
-
-}*/
 
 void TheTraitor::GameHost::kickDisconnectedClient(){
 
@@ -29,7 +23,7 @@ void TheTraitor::GameHost::updateGlobalGameState(){
 void TheTraitor::GameHost::update(){
 
 }
-void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManager){
+void TheTraitor::GameHost::establishConnectionWithClients(){
     short connectedCount = 0;
 
     sf::TcpListener listener;
@@ -45,10 +39,10 @@ void TheTraitor::GameHost::establishConnectionWithClients(GameManager* gameManag
         } else {
             //add client to list
             Country* country = new Country(); // Randomly generate country stats here later
-            Player* player = new Player("Player", country);
+            Player player = Player("Player " + std::to_string(connectedCount + 1), country);
             client->setBlocking(false);
-            player->setSocket(client);
-            gameManager->players.push_back(player);
+            player.setSocket(client);
+            state.players.push_back(player);
             connectedCount++;
         }
     }
@@ -58,27 +52,19 @@ void receivePacket(sf::TcpSocket* socket) {
     sf::Packet packet;
     if (socket->receive(packet) != sf::Socket::Status::Done) {
         //error
+        return;
     }
-    TheTraitor::Packet* packetData = new TheTraitor::Packet();
-    packet >> *packetData;
 
-    // Process packetData as needed
-    if (packetData->actionPacket) {
-        // Handle action packet
-    } else if (packetData->ready) {
-        // Handle ready status
-    }
+    // Process packet as needed
 }
 
-void sendPacket(sf::TcpSocket* socket, TheTraitor::Packet& packet) {
-    sf::Packet sfmlPacket;
-    sfmlPacket << packet;
-    if (socket->send(sfmlPacket) != sf::Socket::Status::Done) {
+void sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
+    if (socket->send(packet) != sf::Socket::Status::Done) {
         //error
     }
 }
 
 void TheTraitor::GameHost::run(){
-    GameManager* gameManager = new GameManager();
-    establishConnectionWithClients(gameManager);
+    establishConnectionWithClients();
 }
+
