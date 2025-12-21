@@ -59,6 +59,10 @@ namespace TheTraitor {
 		sf::Sprite economyIconSprite;
 		sf::Sprite healthIconSprite;
 		sf::Sprite educationIconSprite;
+		sf::Color countryNormalColor;
+		sf::Color countryHoverColor;
+		sf::Color countrySelectedColor;
+		sf::Vector2f countriesOffset;
 
 		// Gameover and Win screen elements
 		sf::Text gameoverTitle;
