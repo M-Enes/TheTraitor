@@ -18,6 +18,8 @@ namespace TheTraitor {
 		const ViewData& handleDiscussionPhaseInput(const InputData& inputData);
 		const ViewData& handleActionPhaseInput(const InputData& inputData);
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
+		const ViewData& handleGameoverInput(const InputData& inputData);
+		const ViewData& handleWinInput(const InputData& inputData);
 		void renderMenu();
 		void renderLobby(const std::vector<Player>& players);
 		void renderDiscussionPhase();

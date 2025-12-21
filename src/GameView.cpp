@@ -410,6 +410,38 @@ namespace TheTraitor {
 		return viewData;
 	}
 
+	const ViewData& GameView::handleGameoverInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+		bool isHovered = returnToMenuButton.isMouseOver(position);
+		returnToMenuButton.updateHoverEffect(isHovered);
+
+		if (inputData.isMouseClicked && isHovered) {
+			viewData.gotoState = MENU;
+		}
+
+		return viewData;
+	}
+
+	const ViewData& GameView::handleWinInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+		bool isHovered = returnToMenuButton.isMouseOver(position);
+		returnToMenuButton.updateHoverEffect(isHovered);
+
+		if (inputData.isMouseClicked && isHovered) {
+			viewData.gotoState = MENU;
+		}
+
+		return viewData;
+	}
+
 	void GameView::resetViewData() {
 		viewData.isActionRequested = false;
 		viewData.gotoState = NONE;
