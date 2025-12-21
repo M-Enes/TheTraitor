@@ -55,10 +55,25 @@ namespace TheTraitor {
 		educationIconTexture(executableFolderPath + "/assets/icons/icons8-book-64.png"),
 		economyIconSprite(economyIconTexture),
 		healthIconSprite(healthIconTexture),
-		educationIconSprite(educationIconTexture)
-	{
+		educationIconSprite(educationIconTexture),
+	gameoverTitle(font, "GAME OVER", 80),
+	winTitle(font, "VICTORY!", 80),
+	totalRoundsLabel(font),
+	totalTimeLabel(font),
+	returnToMenuButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150), //position
+		sf::Vector2f(200, 60), // size of the button
+		sf::Vector2f(13, 10), // position offset for text inside the button
+		"Return to Menu",
+		font, 
+		window, 
+		20, // size of the text
+		sf::Color::White, // text color
+		sf::Color::Black, // button color
+		3, // outline thickness
+		sf::Color(220, 220, 220), // hover color
+		sf::Color::Black) // outline color
 
-		actionMenu.setPosition({ 20, 20 });
+{		actionMenu.setPosition({ 20, 20 });
 		actionMenu.setFillColor(sf::Color::Black);
 		actionMenu.setOutlineThickness(5);
 		actionMenu.setOutlineColor(sf::Color::White);
@@ -232,10 +247,72 @@ namespace TheTraitor {
 
 	void GameView::renderGameover()
 	{
+		// Background overlay
+		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+		overlay.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(overlay);
+
+		// Game Over title (red)
+		gameoverTitle.setFillColor(sf::Color::Red);
+		gameoverTitle.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - gameoverTitle.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 200));
+		window.draw(gameoverTitle);
+
+		// Total rounds
+		totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+		totalRoundsLabel.setCharacterSize(30);
+		totalRoundsLabel.setFillColor(sf::Color::White);
+		totalRoundsLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 50));
+		window.draw(totalRoundsLabel);
+
+		// Total time
+		totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+		totalTimeLabel.setCharacterSize(30);
+		totalTimeLabel.setFillColor(sf::Color::White);
+		totalTimeLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f + 20));
+		window.draw(totalTimeLabel);
+
+		// Return to menu button
+		returnToMenuButton.render();
 	}
 
 	void GameView::renderWin()
 	{
+		// Background overlay
+		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+		overlay.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(overlay);
+
+		// Victory title (green)
+		winTitle.setFillColor(sf::Color::Green);
+		winTitle.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - winTitle.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 200));
+		window.draw(winTitle);
+
+	// Total rounds
+	totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+	totalRoundsLabel.setCharacterSize(30);
+	totalRoundsLabel.setFillColor(sf::Color::White);
+	totalRoundsLabel.setPosition(sf::Vector2f(
+		window.getSize().x / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
+		window.getSize().y / 2.0f - 50));
+	window.draw(totalRoundsLabel);
+
+	// Total time
+	totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+	totalTimeLabel.setCharacterSize(30);
+	totalTimeLabel.setFillColor(sf::Color::White);
+	totalTimeLabel.setPosition(sf::Vector2f(
+		window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
+		window.getSize().y / 2.0f + 20));
+	window.draw(totalTimeLabel);		// Return to menu button
+		returnToMenuButton.render();
 	}
 
 	const ViewData& GameView::handleMenuInput(const InputData& inputData) {

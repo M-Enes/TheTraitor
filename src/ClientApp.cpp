@@ -15,7 +15,8 @@ ClientApp::ClientApp(std::string executableFolderPath)
       gameView(window, executableFolderPath),
       serverPort(5000),
       serverIp(sf::IpAddress::LocalHost) {
-    gameState.currentPhase = ACTION_PHASE;
+
+    gameState.currentPhase = WIN; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
 
     window.setFramerateLimit(60);
 

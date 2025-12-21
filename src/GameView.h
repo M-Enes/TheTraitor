@@ -60,6 +60,13 @@ namespace TheTraitor {
 		sf::Sprite healthIconSprite;
 		sf::Sprite educationIconSprite;
 
+		// Gameover and Win screen elements
+		sf::Text gameoverTitle;
+		sf::Text winTitle;
+		sf::Text totalRoundsLabel;
+		sf::Text totalTimeLabel;
+		Button returnToMenuButton;
+
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
 		void calculateCountries();
