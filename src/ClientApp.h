@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Network.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 
 #include "InputHandler.h"
@@ -24,6 +25,9 @@ namespace TheTraitor {
 		GameView gameView;
 		unsigned short serverPort;
 		sf::IpAddress serverIp;
+		GameState gameState;
+		sf::Music menuMusic;
+		sf::Music actionPhaseMusic;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();
@@ -34,7 +38,6 @@ namespace TheTraitor {
 		void updateGameover();
 		void updateWin();
 		void render();
-		GameState gameState;
 		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
 		void receivePackets(sf::TcpSocket& socket);
 		void sendPacket(sf::TcpSocket* socket, Packet& packet);
