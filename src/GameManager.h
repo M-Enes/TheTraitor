@@ -11,19 +11,21 @@
 namespace TheTraitor{
     class GameManager {
         private:
-            std::vector<Phase> phases;
+
             int currentPhaseIndex;
             std::clock_t currentPhaseTimer;
             void goToNextPhase();
             void resetCurrentPhaseTimer();
         public:
+            GlobalGameState state;
             GameManager();
             int clientConnectionTimeout;
             bool isGameStarted;
-            GlobalGameState state;
             void update();
             void processAction(ActionPacket actionPacket);
             void addPlayer(const std::string& playerName);
             std::vector<std::string> getPlayers() const;
+            void run();
+            
     };
 }
