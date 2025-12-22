@@ -59,23 +59,27 @@ void TheTraitor::GameHost::establishConnectionWithClients(GlobalGameState& state
                     Player player = Player(playerName, country);
                     player.setSocket(client);
                     state.players.push_back(player);
+                    client->setBlocking(false);
 
                     connectedCount++;
 
-                    // Send the gameState to client
-                    GameState gameState;
-                    PacketType gameStatePacketType = PacketType::GAMESTATE;
-                    sf::Packet gameStatePacket;
-                    gameStatePacket << gameStatePacketType;
-                    gameState.currentPhase = LOBBY;
-                    gameState.players = state.players;
-                    gameStatePacket << gameState;
-                    if (client->send(gameStatePacket) != sf::Socket::Status::Done)
-                    {
-                        //error
+                    // Send updated game state to all players
+                    for (auto& player : state.players) {
+                        sf::TcpSocket* socket = player.getSocket();
+                        GameState gameState;
+                        PacketType gameStatePacketType = PacketType::GAMESTATE;
+                        sf::Packet gameStatePacket;
+                        gameStatePacket << gameStatePacketType;
+                        gameState.currentPhase = state.currentPhase;
+                        gameState.players = state.players;
+                        gameStatePacket << gameState;
+                        if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
+                        {
+                            //error
+                        }
                     }
 
-                    client->setBlocking(false);
+                    
                 }
             }
         }

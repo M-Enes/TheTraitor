@@ -11,11 +11,12 @@
 namespace TheTraitor{
     class GameManager {
         private:
-
+            int traitorIndex;
             int currentPhaseIndex;
             std::clock_t currentPhaseTimer;
             void goToNextPhase();
             void resetCurrentPhaseTimer();
+            void sendGameStateToAllPlayers();
         public:
             GlobalGameState state;
             GameManager();
