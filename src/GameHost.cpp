@@ -1,9 +1,12 @@
 #include "GameHost.h"
 
 #include <SFML/Network.hpp>
+#include <vector>
+#include <algorithm>
 
-#include "GameManager.h"
+#include "GameHost.h"
 #include "Country.h"
+#include "PacketType.h"
 
 TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/) : serverIp(sf::IpAddress::LocalHost), serverPort(53000){
     clientConnectionTimeout = 30; //seconds
@@ -18,32 +21,63 @@ TheTraitor::GameState* TheTraitor::GameHost::prepareGameStateForClient(int clien
     return nullptr;
 }
 void TheTraitor::GameHost::updateGlobalGameState(){
+    
 
 }
-void TheTraitor::GameHost::update(){
 
-}
-void TheTraitor::GameHost::establishConnectionWithClients(){
+
+void TheTraitor::GameHost::establishConnectionWithClients(GlobalGameState& state) {
+    state.currentPhase = LOBBY;
     short connectedCount = 0;
 
     sf::TcpListener listener;
-    if(listener.listen(53000) != sf::Socket::Status::Done){
+    if(listener.listen(serverPort) != sf::Socket::Status::Done) {
         //error
     }
-
-    while(connectedCount < 5){
+    while(connectedCount < 5) {
         //accept a new connection
         sf::TcpSocket* client = new sf::TcpSocket();
         if(listener.accept(*client) != sf::Socket::Status::Done){
             //error
         } else {
             //add client to list
-            Country* country = new Country(); // Randomly generate country stats here later
-            Player player = Player("Player " + std::to_string(connectedCount + 1), country);
-            client->setBlocking(false);
-            player.setSocket(client);
-            state.players.push_back(player);
-            connectedCount++;
+            Country* country = new Country(); // TODO: Randomly generate country stats here later
+            
+            // Get name from client
+            sf::Packet namePacket;
+            if (client->receive(namePacket) != sf::Socket::Status::Done) {
+                //error
+            } else {
+                std::string playerName;
+                PacketType packetType;
+                namePacket >> packetType;
+                if (packetType != PacketType::STRING) {
+                    //error
+                } else {
+                    // Get the name of the player
+                    namePacket >> playerName;
+                    Player player = Player(playerName, country);
+                    player.setSocket(client);
+                    state.players.push_back(player);
+
+                    connectedCount++;
+
+                    // Send the gameState to client
+                    GameState gameState;
+                    PacketType gameStatePacketType = PacketType::GAMESTATE;
+                    sf::Packet gameStatePacket;
+                    gameStatePacket << gameStatePacketType;
+                    gameState.currentPhase = LOBBY;
+                    gameState.players = state.players;
+                    gameStatePacket << gameState;
+                    if (client->send(gameStatePacket) != sf::Socket::Status::Done)
+                    {
+                        //error
+                    }
+
+                    client->setBlocking(false);
+                }
+            }
         }
     }
 }
@@ -62,9 +96,5 @@ void sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
     if (socket->send(packet) != sf::Socket::Status::Done) {
         //error
     }
-}
-
-void TheTraitor::GameHost::run(){
-    establishConnectionWithClients();
 }
 

@@ -1,7 +1,7 @@
 #include "GameHost.h"
 
 int main() {
-    TheTraitor::GameHost gameHost;
-    gameHost.run();
+    TheTraitor::GameManager gameManager;
+    gameManager.run();
     return 0;
 }
