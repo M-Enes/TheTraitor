@@ -9,156 +9,177 @@
 
 namespace TheTraitor {
 
-ClientApp::ClientApp(std::string executableFolderPath)
-    : window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
-      inputHandler(window),
-      gameView(window, executableFolderPath),
-      serverPort(5000),
-      serverIp(sf::IpAddress::LocalHost) {
-    gameState.currentPhase = ACTION_PHASE;
+	ClientApp::ClientApp(std::string executableFolderPath)
+		: window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
+		inputHandler(window),
+		gameView(window, executableFolderPath),
+		serverPort(5000),
+		serverIp(sf::IpAddress::LocalHost),
+		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
+		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3")
+	{
 
-    window.setFramerateLimit(60);
+		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
+		menuMusic.play();
 
-    // Dummy players for initial testing
-    gameState.players.push_back(Player("Player 1", new Country()));
-    gameState.players.push_back(Player("Player 2", new Country()));
-    gameState.players.push_back(Player("Player 3", new Country()));
-    gameState.players.push_back(Player("Player 4", new Country()));
-    gameState.players.push_back(Player("Player 5", new Country())); // for ui test
-}
+		window.setFramerateLimit(60);
 
-void ClientApp::run() {
-    sf::Clock clock;
+		// Dummy players for initial testing
+		gameState.players.push_back(Player("Player 1", new Country()));
+		gameState.players.push_back(Player("Player 2", new Country()));
+		gameState.players.push_back(Player("Player 3", new Country()));
+		gameState.players.push_back(Player("Player 4", new Country()));
+		gameState.players.push_back(Player("Player 5", new Country())); // for ui test
+	}
 
-    while (window.isOpen()) {
-        sf::Time deltaTime = clock.restart();
+		void ClientApp::run() {
+		sf::Clock clock;
 
-        update(deltaTime);
-        render();
-    }
-}
+		while (window.isOpen()) {
+			sf::Time deltaTime = clock.restart();
 
-void ClientApp::updateMenu() {
-    const InputData& inputData = inputHandler.getInputData();
-    const ViewData& viewData = gameView.handleMenuInput(inputData);
+			update(deltaTime);
+			render();
+		}
+	}
 
-    if (gameState.currentPhase == LOBBY) {
-        (void)viewData; // Placeholder until menu transitions are wired
-    }
-}
+	void ClientApp::updateMenu() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleMenuInput(inputData);
 
-void ClientApp::updateLobby() {
-    // TODO: Get actual player names from server
-    sf::sleep(sf::seconds(1));
-    gameState.currentPhase = ACTION_PHASE; // TODO: action set for debugging purposes
-}
+		if (viewData.gotoState == LOBBY) {
+			gameState.currentPhase = LOBBY; // Placeholder until menu transitions are wired
+		}
+	}
 
-void ClientApp::updateDiscussionPhase() {
-}
+	void ClientApp::updateLobby() {
+		// TODO: Get actual player names from server
+		sf::sleep(sf::seconds(1));
+		menuMusic.stop();
+		actionPhaseMusic.play();
+		gameState.currentPhase = ACTION_PHASE; // TODO: action set for debugging purposes
+	}
 
-void ClientApp::updateActionPhase() {
-    const InputData& inputData = inputHandler.getInputData();
-    const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
-    if (viewData.isActionRequested) {
-        // TODO: send action packet
-    }
-}
+	void ClientApp::updateDiscussionPhase() {
+	}
 
-void ClientApp::updateResolutionPhase() {
-}
+	void ClientApp::updateActionPhase() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
+		if (viewData.isActionRequested) {
+			// TODO: send action packet
+		}
+	}
 
-void ClientApp::updateGameover() {
-}
+	void ClientApp::updateResolutionPhase() {
+	}
 
-void ClientApp::updateWin() {
-}
+	void ClientApp::updateGameover() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleGameoverInput(inputData);
 
-void ClientApp::update(sf::Time deltaTime) {
-    inputHandler.handleEvents();
-    switch (gameState.currentPhase) {
-    case MENU:
-        updateMenu();
-        break;
-    case LOBBY:
-        updateLobby();
-        break;
-    case DISCUSSION_PHASE:
-        updateDiscussionPhase();
-        break;
-    case ACTION_PHASE:
-        updateActionPhase();
-        break;
-    case RESOLUTION_PHASE:
-        updateResolutionPhase();
-        break;
-    case GAMEOVER:
-        updateGameover();
-        break;
-    case WIN:
-        updateWin();
-        break;
-    default:
-        break;
-    }
-}
+		if (viewData.gotoState == NONE) {
+			gameState.currentPhase = NONE;
+			window.close(); // exit the game
+		}
+	}
 
-void ClientApp::render() {
-    window.clear(sf::Color(0, 0, 0, 255));
-    switch (gameState.currentPhase) {
-    case MENU:
-        gameView.renderMenu();
-        break;
-    case LOBBY:
-        gameView.renderLobby(gameState.players);
-        break;
-    case DISCUSSION_PHASE:
-        gameView.renderDiscussionPhase();
-        break;
-    case ACTION_PHASE:
-        gameView.renderActionPhase(gameState.players);
-        break;
-    case RESOLUTION_PHASE:
-        gameView.renderResolutionPhase();
-        break;
-    case GAMEOVER:
-        gameView.renderGameover();
-        break;
-    case WIN:
-        gameView.renderWin();
-        break;
-    }
-    
-    window.display();
-}
+	void ClientApp::updateWin() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleWinInput(inputData);
 
-sf::TcpSocket* ClientApp::openTCPSocket(sf::IpAddress ip, unsigned short port) {
-    sf::TcpSocket* socket = new sf::TcpSocket();
-    if (socket->connect(ip, port) != sf::Socket::Status::Done) {
-        //error
-    }
-    socket->setBlocking(false);
-    return socket;
-}
+		if (viewData.gotoState == NONE) {
+			gameState.currentPhase = NONE;
+			window.close(); // exit the game
+		}
+	}
 
-void ClientApp::receivePackets(sf::TcpSocket& socket) {
-    sf::Packet packet;
-    PacketType packetType;
-    if (socket.receive(packet) != sf::Socket::Status::Done) {
-        //error
-        return;
-    }
-    packet >> packetType;
-    switch (packetType) {
-    case PacketType::ACTION_PACKET: {
-        ActionPacket actionPacket;
-        packet >> actionPacket;
-        // Process actionPacket
-        break;
-    }
-    default:
-        break;
-    }
-}
+	void ClientApp::update(sf::Time deltaTime) {
+		inputHandler.handleEvents();
+		switch (gameState.currentPhase) {
+		case MENU:
+			updateMenu();
+			break;
+		case LOBBY:
+			updateLobby();
+			break;
+		case DISCUSSION_PHASE:
+			updateDiscussionPhase();
+			break;
+		case ACTION_PHASE:
+			updateActionPhase();
+			break;
+		case RESOLUTION_PHASE:
+			updateResolutionPhase();
+			break;
+		case GAMEOVER:
+			updateGameover();
+			break;
+		case WIN:
+			updateWin();
+			break;
+		default:
+			break;
+		}
+	}
+
+	void ClientApp::render() {
+		window.clear(sf::Color(0, 0, 0, 255));
+		switch (gameState.currentPhase) {
+		case MENU:
+			gameView.renderMenu();
+			break;
+		case LOBBY:
+			gameView.renderLobby(gameState.players);
+			break;
+		case DISCUSSION_PHASE:
+			gameView.renderDiscussionPhase();
+			break;
+		case ACTION_PHASE:
+			gameView.renderActionPhase(gameState.players);
+			break;
+		case RESOLUTION_PHASE:
+			gameView.renderResolutionPhase();
+			break;
+		case GAMEOVER:
+			gameView.renderGameover();
+			break;
+		case WIN:
+			gameView.renderWin();
+			break;
+		}
+
+		window.display();
+	}
+
+	sf::TcpSocket* ClientApp::openTCPSocket(sf::IpAddress ip, unsigned short port) {
+		sf::TcpSocket* socket = new sf::TcpSocket();
+		if (socket->connect(ip, port) != sf::Socket::Status::Done) {
+			//error
+		}
+		socket->setBlocking(false);
+		return socket;
+	}
+
+	void ClientApp::receivePackets(sf::TcpSocket& socket) {
+		sf::Packet packet;
+		PacketType packetType;
+		if (socket.receive(packet) != sf::Socket::Status::Done) {
+			//error
+			return;
+		}
+		packet >> packetType;
+		switch (packetType) {
+		case PacketType::ACTION_PACKET: {
+			ActionPacket actionPacket;
+			packet >> actionPacket;
+			// Process actionPacket
+			break;
+		}
+		default:
+			break;
+		}
+	}
 
 void ClientApp::sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
     if (socket->send(packet) != sf::Socket::Status::Done) {

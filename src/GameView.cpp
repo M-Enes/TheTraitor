@@ -29,7 +29,8 @@ namespace TheTraitor {
 		window(window),
 		viewData{ false, ActionType::TradePact, NONE, "" },
 		font(executableFolderPath + "/assets/fonts/CascadiaMono.ttf"),
-		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window),
+		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window,
+			24, sf::Color::Black, sf::Color::White, 5, sf::Color(200, 200, 200), sf::Color::White),
 		playerNameInputLabel(font),
 		playerNameInputTextBox(font),
 		playerNameInputTextBoxString(""),
@@ -55,7 +56,27 @@ namespace TheTraitor {
 		educationIconTexture(executableFolderPath + "/assets/icons/icons8-book-64.png"),
 		economyIconSprite(economyIconTexture),
 		healthIconSprite(healthIconTexture),
-		educationIconSprite(educationIconTexture)
+		educationIconSprite(educationIconTexture),
+		countryNormalColor(sf::Color::Green),
+		countryHoverColor(sf::Color{ 0,200,0 }),
+		countrySelectedColor(sf::Color::Red),
+		countriesOffset(sf::Vector2f{ 310.0f, -50.0f }),
+		gameoverTitle(font, "GAME OVER", 80),
+		winTitle(font, "VICTORY!", 80),
+		totalRoundsLabel(font),
+		totalTimeLabel(font),
+		quitGameButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150), //position
+			sf::Vector2f(200, 60), // size of the button
+			sf::Vector2f(45, 15), // position offset for text inside the button
+			"Quit Game",
+			font,
+			window,
+			20,
+			sf::Color::Black,
+			sf::Color::White,
+			5,
+			sf::Color(200, 200, 200),
+			sf::Color::White)
 	{
 
 		actionMenu.setPosition({ 20, 20 });
@@ -176,12 +197,9 @@ namespace TheTraitor {
 			buttonPair.second.render();
 		}
 
-		window.draw(americaVertices);
-		window.draw(africaVertices);
-		window.draw(asiaVertices);
-		window.draw(australiaVertices);
-		window.draw(europeVertices);
-
+		for (const auto& [points, vertices] : allCountries) {
+			window.draw(*vertices);
+		}
 
 		window.draw(eventLogMenu);
 		window.draw(eventLogMenuLabel);
@@ -204,7 +222,7 @@ namespace TheTraitor {
 			health.setString(std::to_string(player.getCountry()->getHealth()));
 			health.setCharacterSize(25);
 			health.setPosition({ (float)window.getSize().x - 280, (float)posY + 110 });
-			educationIconSprite.setPosition({ (float)window.getSize().x - 240, (float)posY + 80 });
+			educationIconSprite.setPosition({ (float)window.getSize().x - 240, (float)posY + 90 });
 			education.setString(std::to_string(player.getCountry()->getEducation()));
 			education.setCharacterSize(25);
 			education.setPosition({ (float)window.getSize().x - 160, (float)posY + 110 });
@@ -220,6 +238,11 @@ namespace TheTraitor {
 			window.draw(educationIconSprite);
 		}
 
+		for (const auto& [points, vertices] : allCountries) {
+			// TODO: add player info hovering/selection synced with country hovering/selection
+			// also add action effects near the affected stats (e.g. green +10 for positive red -10 for negative)
+		}
+
 		window.draw(topBar);
 		window.draw(roundLabel);
 		window.draw(phaseLabel);
@@ -232,10 +255,72 @@ namespace TheTraitor {
 
 	void GameView::renderGameover()
 	{
+		// Background overlay
+		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+		overlay.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(overlay);
+
+		// Game Over title (red)
+		gameoverTitle.setFillColor(sf::Color::Red);
+		gameoverTitle.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - gameoverTitle.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 200));
+		window.draw(gameoverTitle);
+
+		// Total rounds
+		totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+		totalRoundsLabel.setCharacterSize(30);
+		totalRoundsLabel.setFillColor(sf::Color::White);
+		totalRoundsLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 50));
+		window.draw(totalRoundsLabel);
+
+		// Total time
+		totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+		totalTimeLabel.setCharacterSize(30);
+		totalTimeLabel.setFillColor(sf::Color::White);
+		totalTimeLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f + 20));
+		window.draw(totalTimeLabel);
+
+		// Return to menu button
+		quitGameButton.render();
 	}
 
 	void GameView::renderWin()
 	{
+		// Background overlay
+		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+		overlay.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(overlay);
+
+		// Victory title (green)
+		winTitle.setFillColor(sf::Color::Green);
+		winTitle.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - winTitle.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 200));
+		window.draw(winTitle);
+
+		// Total rounds
+		totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+		totalRoundsLabel.setCharacterSize(30);
+		totalRoundsLabel.setFillColor(sf::Color::White);
+		totalRoundsLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f - 50));
+		window.draw(totalRoundsLabel);
+
+		// Total time
+		totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+		totalTimeLabel.setCharacterSize(30);
+		totalTimeLabel.setFillColor(sf::Color::White);
+		totalTimeLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f + 20));
+		window.draw(totalTimeLabel);		// Return to menu button
+		quitGameButton.render();
 	}
 
 	const ViewData& GameView::handleMenuInput(const InputData& inputData) {
@@ -303,10 +388,10 @@ namespace TheTraitor {
 		}
 
 		for (const auto& countryPair : allCountries) {
-			if (isPointInPolygon(*countryPair.first, position + sf::Vector2f{ -310.0f, 50.0f })) {
-				sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
-				if ((*countryPair.second)[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
-				if ((*countryPair.second)[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+			if (isPointInPolygon(*countryPair.first, position - countriesOffset)) {
+				sf::Color fillColor = (inputData.isMouseClicked) ? countrySelectedColor : countryHoverColor;
+				if ((*countryPair.second)[0].color == countrySelectedColor) fillColor = countryHoverColor;
+				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
 					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
 						(*countryPair.second)[i].color = fillColor;
 					}
@@ -314,10 +399,10 @@ namespace TheTraitor {
 				}
 			}
 			else {
-				if ((*countryPair.second)[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
+				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
 
 					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
-						(*countryPair.second)[i].color = sf::Color::Green;
+						(*countryPair.second)[i].color = countryNormalColor;
 					}
 				}
 			}
@@ -329,6 +414,44 @@ namespace TheTraitor {
 	const ViewData& GameView::handleResolutionPhaseInput(const InputData& inputData)
 	{
 		resetViewData();
+
+		return viewData;
+	}
+
+	const ViewData& GameView::handleGameoverInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+		bool isHovered = quitGameButton.isMouseOver(position);
+		quitGameButton.updateHoverEffect(isHovered);
+
+		if (inputData.isMouseClicked && isHovered) {
+			viewData.gotoState = NONE;
+		}
+		else {
+			viewData.gotoState = GAMEOVER;
+		}
+
+		return viewData;
+	}
+
+	const ViewData& GameView::handleWinInput(const InputData& inputData)
+	{
+		resetViewData();
+
+		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
+
+		bool isHovered = quitGameButton.isMouseOver(position);
+		quitGameButton.updateHoverEffect(isHovered);
+
+		if (inputData.isMouseClicked && isHovered) {
+			viewData.gotoState = NONE;
+		}
+		else {
+			viewData.gotoState = WIN;
+		}
 
 		return viewData;
 	}
@@ -364,7 +487,7 @@ namespace TheTraitor {
 			countryPair.second->resize(indices.size());
 			int i = 0;
 			for (const auto& index : indices) {
-				(*countryPair.second)[i] = sf::Vertex{ (*countryPair.first)[index] + sf::Vector2f{310.0f, -50.0f}, sf::Color::Green };
+				(*countryPair.second)[i] = sf::Vertex{ (*countryPair.first)[index] + countriesOffset, sf::Color::Green };
 				i++;
 			}
 		}

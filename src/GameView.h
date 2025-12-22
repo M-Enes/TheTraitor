@@ -18,6 +18,8 @@ namespace TheTraitor {
 		const ViewData& handleDiscussionPhaseInput(const InputData& inputData);
 		const ViewData& handleActionPhaseInput(const InputData& inputData);
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
+		const ViewData& handleGameoverInput(const InputData& inputData);
+		const ViewData& handleWinInput(const InputData& inputData);
 		void renderMenu();
 		void renderLobby(const std::vector<Player>& players);
 		void renderDiscussionPhase();
@@ -59,6 +61,17 @@ namespace TheTraitor {
 		sf::Sprite economyIconSprite;
 		sf::Sprite healthIconSprite;
 		sf::Sprite educationIconSprite;
+		sf::Color countryNormalColor;
+		sf::Color countryHoverColor;
+		sf::Color countrySelectedColor;
+		sf::Vector2f countriesOffset;
+
+		// Gameover and Win screen elements
+		sf::Text gameoverTitle;
+		sf::Text winTitle;
+		sf::Text totalRoundsLabel;
+		sf::Text totalTimeLabel;
+		Button quitGameButton;
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
