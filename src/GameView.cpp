@@ -65,18 +65,18 @@ namespace TheTraitor {
 		winTitle(font, "VICTORY!", 80),
 		totalRoundsLabel(font),
 		totalTimeLabel(font),
-		returnToMenuButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150), //position
+		quitGameButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150), //position
 			sf::Vector2f(200, 60), // size of the button
-			sf::Vector2f(13, 10), // position offset for text inside the button
-			"Return to Menu",
+			sf::Vector2f(45, 15), // position offset for text inside the button
+			"Quit Game",
 			font,
 			window,
-			20, // size of the text
-			sf::Color::White, // text color
-			sf::Color::Black, // button color
-			3, // outline thickness
-			sf::Color(220, 220, 220), // hover color
-			sf::Color::Black) // outline color
+			20,
+			sf::Color::Black,
+			sf::Color::White,
+			5,
+			sf::Color(200, 200, 200),
+			sf::Color::White)
 	{
 
 		actionMenu.setPosition({ 20, 20 });
@@ -286,7 +286,7 @@ namespace TheTraitor {
 		window.draw(totalTimeLabel);
 
 		// Return to menu button
-		returnToMenuButton.render();
+		quitGameButton.render();
 	}
 
 	void GameView::renderWin()
@@ -320,7 +320,7 @@ namespace TheTraitor {
 			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
 			window.getSize().y / 2.0f + 20));
 		window.draw(totalTimeLabel);		// Return to menu button
-		returnToMenuButton.render();
+		quitGameButton.render();
 	}
 
 	const ViewData& GameView::handleMenuInput(const InputData& inputData) {
@@ -424,11 +424,14 @@ namespace TheTraitor {
 
 		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
 
-		bool isHovered = returnToMenuButton.isMouseOver(position);
-		returnToMenuButton.updateHoverEffect(isHovered);
+		bool isHovered = quitGameButton.isMouseOver(position);
+		quitGameButton.updateHoverEffect(isHovered);
 
 		if (inputData.isMouseClicked && isHovered) {
-			viewData.gotoState = MENU;
+			viewData.gotoState = NONE;
+		}
+		else {
+			viewData.gotoState = GAMEOVER;
 		}
 
 		return viewData;
@@ -440,11 +443,14 @@ namespace TheTraitor {
 
 		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
 
-		bool isHovered = returnToMenuButton.isMouseOver(position);
-		returnToMenuButton.updateHoverEffect(isHovered);
+		bool isHovered = quitGameButton.isMouseOver(position);
+		quitGameButton.updateHoverEffect(isHovered);
 
 		if (inputData.isMouseClicked && isHovered) {
-			viewData.gotoState = MENU;
+			viewData.gotoState = NONE;
+		}
+		else {
+			viewData.gotoState = WIN;
 		}
 
 		return viewData;

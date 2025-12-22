@@ -16,7 +16,7 @@ ClientApp::ClientApp(std::string executableFolderPath)
       serverPort(5000),
       serverIp(sf::IpAddress::LocalHost) {
 
-    gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
+    gameState.currentPhase = WIN; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
 
     window.setFramerateLimit(60);
 
@@ -72,8 +72,9 @@ void ClientApp::updateGameover() {
     const InputData& inputData = inputHandler.getInputData();
     const ViewData& viewData = gameView.handleGameoverInput(inputData);
 
-    if (viewData.gotoState == MENU) {
-        gameState.currentPhase = MENU;
+    if (viewData.gotoState == NONE) {
+        gameState.currentPhase = NONE;
+        window.close(); // exit the game
     }
 }
 
@@ -81,8 +82,9 @@ void ClientApp::updateWin() {
     const InputData& inputData = inputHandler.getInputData();
     const ViewData& viewData = gameView.handleWinInput(inputData);
 
-    if (viewData.gotoState == MENU) {
-        gameState.currentPhase = MENU;
+    if (viewData.gotoState == NONE) {
+        gameState.currentPhase = NONE;
+        window.close(); // exit the game
     }
 }
 

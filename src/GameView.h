@@ -71,7 +71,7 @@ namespace TheTraitor {
 		sf::Text winTitle;
 		sf::Text totalRoundsLabel;
 		sf::Text totalTimeLabel;
-		Button returnToMenuButton;
+		Button quitGameButton;
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
