@@ -16,7 +16,10 @@ Photo from first meeting:
 
 ### On Linux
 Because this project uses static linking, this command needs to run to install dependencies of SFML: \
-`sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libxi-dev libudev-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev libfreetype-dev`
+`sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libxi-dev libudev-dev libflac-dev libvorbis-dev libogg-dev libopus-dev libopusfile-dev libgl1-mesa-dev libegl1-mesa-dev libfreetype-dev`
+
+**Note:** The audio libraries (`libvorbis-dev`, `libogg-dev`, `libopus-dev`, `libopusfile-dev`) are required for SFML audio functionality. Without these, CMake configuration will fail.
+
 #### If you are using VS Code
 Just install C/C++ Extension Pack and CMake Tools. \
 When you open the project folder with VS Code, CMake Tools extension will automatically config the build system for you. \

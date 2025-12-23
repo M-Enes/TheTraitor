@@ -1,0 +1,44 @@
+#pragma once
+
+#include <SFML/Network.hpp>
+#include <SFML/Audio.hpp>
+#include <string>
+
+#include "InputHandler.h"
+#include "GameView.h"
+#include "Common/PacketType.h"
+
+namespace TheTraitor {
+
+	class ClientApp
+	{
+	public:
+		ClientApp(std::string executableFolderPath);
+		ClientApp(const ClientApp&) = delete;
+		ClientApp& operator=(const ClientApp&) = delete;
+		void run();
+		void sendActionToServer(ActionPacket actionPacket);
+	private:
+		sf::RenderWindow window;
+		InputHandler inputHandler;
+		GameView gameView;
+		unsigned short serverPort;
+		sf::IpAddress serverIp;
+		GameState gameState;
+		sf::Music menuMusic;
+		sf::Music actionPhaseMusic;
+	private:
+		void update(sf::Time deltaTime);
+		void updateMenu();
+		void updateLobby();
+		void updateDiscussionPhase();
+		void updateActionPhase();
+		void updateResolutionPhase();
+		void updateGameover();
+		void updateWin();
+		void render();
+		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
+		void receivePackets(sf::TcpSocket& socket);
+		void sendPacket(sf::TcpSocket* socket, sf::Packet& packet);
+	};
+}
