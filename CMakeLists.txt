@@ -57,7 +57,7 @@ add_custom_command(TARGET Client POST_BUILD
 )
 
 # ==== Server ====
-add_executable(Server "src/Server/GameHost.cpp" "src/Server/GameManager.cpp" "src/Common/Player.cpp" "src/Common/Phase.cpp" "src/Common/Country.cpp" "src/Common/Role.cpp"              "src/Common/PacketType.cpp" "src/Server/ServerMain.cpp" "src/Common/Actions.cpp")
+add_executable(Server "src/Server/GameHost.cpp" "src/Server/GameManager.cpp" "src/Common/Player.cpp" "src/Common/Phase.cpp" "src/Common/Country.cpp" "src/Common/Role.cpp" "src/Common/PacketType.cpp" "src/Server/ServerMain.cpp" "src/Common/Actions.cpp")
 
 target_link_libraries(Server PRIVATE SFML::System SFML::Network)
 

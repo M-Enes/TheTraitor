@@ -5,15 +5,15 @@ namespace TheTraitor {
 
     }
 
-    std::string Role::getName() {
+    std::string Role::getName() const {
         return name;
     }
 
-    std::vector<Action*> Role::getPublicActions() {
+    std::vector<Action*> Role::getPublicActions() const {
         return std::vector<Action*>();
     }
 
-    std::vector<SecretAction*> Role::getSecretActions() {
+    std::vector<SecretAction*> Role::getSecretActions() const {
         return std::vector<SecretAction*>();
     }
 
@@ -22,7 +22,7 @@ namespace TheTraitor {
 
     }
 
-    std::vector<SecretAction*> Traitor::getSecretActions() {
+    std::vector<SecretAction*> Traitor::getSecretActions() const {
         return std::vector<SecretAction*>{};
     }
 
@@ -30,7 +30,7 @@ namespace TheTraitor {
 
     }
 
-    std::vector<SecretAction*> TheTraitor::Innocent::getSecretActions() {
+    std::vector<SecretAction*> TheTraitor::Innocent::getSecretActions() const {
         return std::vector<SecretAction*>{};
     }
 

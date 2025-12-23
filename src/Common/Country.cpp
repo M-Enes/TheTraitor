@@ -37,14 +37,32 @@ void TheTraitor::Country::setDestroyed() {
 }
 
 void TheTraitor::Country::setEconomy(int economy) {
+    if (economy < 0) {
+        economy = 0;
+    }
+    else if (economy > 100) {
+        economy = 100;
+    }
     this->economy = economy;
 }
 
 void TheTraitor::Country::setHealth(int health) {
+    if (health < 0) {
+        health = 0;
+    }
+    else if (health > 100) {
+        health = 100;
+    }
     this->health = health;
 }
 
 void TheTraitor::Country::setEducation(int education) {
+    if (education < 0) {
+        education = 0;
+    }
+    else if (education > 100) {
+        education = 100;
+    }
     this->education = education;
 }
 
