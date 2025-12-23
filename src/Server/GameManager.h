@@ -13,7 +13,7 @@ namespace TheTraitor{
         private:
             int traitorIndex;
             int currentPhaseIndex;
-            std::clock_t currentPhaseTimer;
+            sf::Clock currentPhaseTimer;
             void goToNextPhase();
             void resetCurrentPhaseTimer();
             void sendGameStateToAllPlayers();
