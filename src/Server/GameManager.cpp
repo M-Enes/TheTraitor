@@ -19,202 +19,204 @@ TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
 }
 
 void TheTraitor::GameManager::update() {
-    switch(state.currentPhase){
-        case LOBBY: {
-            // Waiting for all players to be ready
-            std::vector<int> readyPlayers;
+	switch (state.currentPhase) {
+	case LOBBY: {
+		// Waiting for all players to be ready
+		std::vector<int> readyPlayers;
 
-            while (readyPlayers.size() < state.players.size()) {
-                // Check for ready packets from all players
-                for (auto& player : state.players) {
-                    sf::TcpSocket* socket = player.getSocket();
-                    sf::Packet packet;
-                    if (socket->receive(packet) == sf::Socket::Status::Done) {
-                        PacketType packetType;
-                        packet >> packetType;
-                        if (packetType == PacketType::READY) {
-                            if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
-                                readyPlayers.push_back(player.getPlayerID());
-                                sendGameStateToAllPlayers();
-                            }
-                        }
-                    }
-                }
-            }
+		while (readyPlayers.size() < state.players.size()) {
+			// Check for ready packets from all players
+			for (auto& player : state.players) {
+				sf::TcpSocket* socket = player.getSocket();
+				sf::Packet packet;
+				if (socket->receive(packet) == sf::Socket::Status::Done) {
+					PacketType packetType;
+					packet >> packetType;
+					if (packetType == PacketType::READY) {
+						if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
+							readyPlayers.push_back(player.getPlayerID());
+							sendGameStateToAllPlayers();
+						}
+					}
+				}
+			}
+		}
 
-            // All players are ready, start the game
-            state.currentPhase = ACTION_PHASE;
-            isGameStarted = true;
+		// All players are ready, start the game
+		state.currentPhase = ACTION_PHASE;
+		isGameStarted = true;
 
-            // Choose the traitor randomly
-            std::srand(time(nullptr));
-            int traitorIndex = std::rand() % state.players.size();
-            state.players[traitorIndex].setRole(new TheTraitor::Traitor()); // Just a placeholder, set the actual Role object later
+		// Choose the traitor randomly
+		std::srand(time(nullptr));
+		int traitorIndex = std::rand() % state.players.size();
+		state.players[traitorIndex].setRole(new TheTraitor::Traitor()); // Just a placeholder, set the actual Role object later
 
-            // Set the role of the traitor to the innocent temporarily
-            
+		// Set the role of the traitor to the innocent temporarily
 
-            // Send updated game state to all players
-            sendGameStateToAllPlayers();
 
-            break;
-        }
-        case DISCUSSION_PHASE: {
-            // Allow players to discuss
-            std::vector<int> readyPlayers;
+		// Send updated game state to all players
+		sendGameStateToAllPlayers();
 
-            while (readyPlayers.size() < state.players.size()) {
-                // Check for ready packets from all players
-                for (auto& player : state.players) {
-                    sf::TcpSocket* socket = player.getSocket();
-                    sf::Packet packet;
-                    if (socket->receive(packet) == sf::Socket::Status::Done) {
-                        PacketType packetType;
-                        packet >> packetType;
-                        if (packetType == PacketType::READY) {
-                            if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
-                                readyPlayers.push_back(player.getPlayerID());
-                            }
-                        }
-                    }
-                }
-            }
+		break;
+	}
+	case DISCUSSION_PHASE: {
+		// Allow players to discuss
+		std::vector<int> readyPlayers;
 
-            // All players are ready, start the game
-            state.currentPhase = ACTION_PHASE;
-            isGameStarted = true;
+		while (readyPlayers.size() < state.players.size()) {
+			// Check for ready packets from all players
+			for (auto& player : state.players) {
+				sf::TcpSocket* socket = player.getSocket();
+				sf::Packet packet;
+				if (socket->receive(packet) == sf::Socket::Status::Done) {
+					PacketType packetType;
+					packet >> packetType;
+					if (packetType == PacketType::READY) {
+						if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
+							readyPlayers.push_back(player.getPlayerID());
+						}
+					}
+				}
+			}
+		}
 
-            // Send updated game state to all players
-            sendGameStateToAllPlayers();
+		// All players are ready, start the game
+		state.currentPhase = ACTION_PHASE;
+		isGameStarted = true;
 
-            break;
-        }
-        case ACTION_PHASE: {
+		// Send updated game state to all players
+		sendGameStateToAllPlayers();
 
-            // Receive actions from players
-            std::vector<ActionPacket> actionPackets;
-            std::vector<int> processedPlayerIDs;
-            while (actionPackets.size() < state.players.size()) { 
-                for (auto& player : state.players) {
-                sf::TcpSocket* socket = player.getSocket();
-                sf::Packet packet;
-                if (socket->receive(packet) == sf::Socket::Status::Done) {
-                    PacketType packetType;
-                    packet >> packetType;
-                    if (packetType == PacketType::ACTION_PACKET) {
-                        ActionPacket actionPacket;
-                        packet >> actionPacket;
-                        if (std::find(processedPlayerIDs.begin(), processedPlayerIDs.end(), actionPacket.sourceID) == processedPlayerIDs.end()) {
-                            processedPlayerIDs.push_back(actionPacket.sourceID);
-                            actionPackets.push_back(actionPacket);
-                        }
-                    }
-                }
-            }
-            }
-            
+		break;
+	}
+	case ACTION_PHASE: {
 
-            // Process actions
-            for (const auto& actionPacket : actionPackets) {
-                processAction(actionPacket);
-            }
+		// Receive actions from players
+		std::vector<ActionPacket> actionPackets;
+		std::vector<int> processedPlayerIDs;
+		while (actionPackets.size() < state.players.size()) {
+			for (auto& player : state.players) {
+				sf::TcpSocket* socket = player.getSocket();
+				sf::Packet packet;
+				if (socket->receive(packet) == sf::Socket::Status::Done) {
+					PacketType packetType;
+					packet >> packetType;
+					if (packetType == PacketType::ACTION_PACKET) {
+						ActionPacket actionPacket;
+						packet >> actionPacket;
+						if (std::find(processedPlayerIDs.begin(), processedPlayerIDs.end(), actionPacket.sourceID) == processedPlayerIDs.end()) {
+							processedPlayerIDs.push_back(actionPacket.sourceID);
+							actionPackets.push_back(actionPacket);
+						}
+					}
+				}
+			}
+		}
 
-            // Move to resolution phase
-            state.currentPhase = RESOLUTION_PHASE;
 
-            // Send updated game state to all players
-            sendGameStateToAllPlayers();
+		// Process actions
+		for (const auto& actionPacket : actionPackets) {
+			processAction(actionPacket);
+		}
 
-            break;
-        }
-        case RESOLUTION_PHASE: {
-            // Process actions and update game state
-            state.currentPhase = DISCUSSION_PHASE;
+		// Move to resolution phase
+		state.currentPhase = RESOLUTION_PHASE;
 
-            // Send updated game state to all players
-            sendGameStateToAllPlayers();
+		// Send updated game state to all players
+		sendGameStateToAllPlayers();
 
-            break;
-        }
+		break;
+	}
+	case RESOLUTION_PHASE: {
+		// Process actions and update game state
+		state.currentPhase = DISCUSSION_PHASE;
 
-        default: {
-            // Do nothing
-            break;
-        }
-    }
+		// Send updated game state to all players
+		sendGameStateToAllPlayers();
+
+		break;
+	}
+
+	default: {
+		// Do nothing
+		break;
+	}
+	}
 }
 
 void TheTraitor::GameManager::processAction(ActionPacket actionPacket) {
-    Action* action = nullptr;
-    // Find the action corresponding to actionPacket.actionType
-    switch (actionPacket.actionType) {
-            case ActionType::TradePact:
-                action = new TheTraitor::TradePact();
-            break;
-        case ActionType::TradeEmbargo:
-            action = new TheTraitor::TradeEmbargo();
-            break;
-        case ActionType::JointResearch:
-            action = new TheTraitor::JointResearch();
-            break;
-        case ActionType::SpreadMisinfo:
-            action = new TheTraitor::SpreadMisinfo();
-            break;
-        case ActionType::HealthAid:
-            action = new TheTraitor::HealthAid();
-            break;
-        case ActionType::PoisonResources:
-            action = new TheTraitor::PoisonResources();
-            break;
-        case ActionType::SpreadPlague:
-            action = new TheTraitor::SpreadPlague();
-            break;
-        case ActionType::DestroySchool:
-            action = new TheTraitor::DestroySchool();
-            break;
-        case ActionType::SabotageFactory:
-            action = new TheTraitor::SabotageFactory();
-            break;
-        default:
-            break;
-    }
+	Action* action = nullptr;
+	// Find the action corresponding to actionPacket.actionType
+	switch (actionPacket.actionType) {
+	case ActionType::TradePact:
+		action = new TheTraitor::TradePact();
+		break;
+	case ActionType::TradeEmbargo:
+		action = new TheTraitor::TradeEmbargo();
+		break;
+	case ActionType::JointResearch:
+		action = new TheTraitor::JointResearch();
+		break;
+	case ActionType::SpreadMisinfo:
+		action = new TheTraitor::SpreadMisinfo();
+		break;
+	case ActionType::HealthAid:
+		action = new TheTraitor::HealthAid();
+		break;
+	case ActionType::PoisonResources:
+		action = new TheTraitor::PoisonResources();
+		break;
+	case ActionType::SpreadPlague:
+		action = new TheTraitor::SpreadPlague();
+		break;
+	case ActionType::DestroySchool:
+		action = new TheTraitor::DestroySchool();
+		break;
+	case ActionType::SabotageFactory:
+		action = new TheTraitor::SabotageFactory();
+		break;
+	default:
+		break;
+	}
 
-    action->execute(
-        state.players[actionPacket.sourceID],
-        state.players[actionPacket.targetID]
-    );
+	action->execute(
+		state.players[actionPacket.sourceID],
+		state.players[actionPacket.targetID]
+	);
+
+	delete action;
 }
 
 void TheTraitor::GameManager::resetCurrentPhaseTimer() {
-    currentPhaseTimer = std::clock();
+	currentPhaseTimer = std::clock();
 }
 
 void TheTraitor::GameManager::run() {
-    GameHost host;
-    host.establishConnectionWithClients(state);
-    while(true){
-        update();
-    }
+	GameHost host;
+	host.establishConnectionWithClients(state);
+	while (true) {
+		update();
+	}
 }
 
 void TheTraitor::GameManager::sendGameStateToAllPlayers() {
-    for (auto& player : state.players) {
-        sf::TcpSocket* socket = player.getSocket();
-        GameState gameState;
-        PacketType gameStatePacketType = PacketType::GAMESTATE;
-        sf::Packet gameStatePacket;
-        gameStatePacket << gameStatePacketType;
-        gameState.currentPhase = state.currentPhase;
-        TheTraitor::Innocent* tempRole = new TheTraitor::Innocent();
-        TheTraitor::Role* originalRole = state.players.at(traitorIndex).getRole();
-        state.players.at(traitorIndex).setRole(tempRole); // Temporarily set to Innocent
-        gameState.players = state.players;
-        state.players.at(traitorIndex).setRole(originalRole); // Restore original role
-        gameStatePacket << gameState;
-        delete tempRole; // Clean up the temporary role object
-        if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
-        {
-            //error
-        }
-    }
+	for (auto& player : state.players) {
+		sf::TcpSocket* socket = player.getSocket();
+		GameState gameState;
+		PacketType gameStatePacketType = PacketType::GAMESTATE;
+		sf::Packet gameStatePacket;
+		gameStatePacket << gameStatePacketType;
+		gameState.currentPhase = state.currentPhase;
+		TheTraitor::Innocent* tempRole = new TheTraitor::Innocent();
+		TheTraitor::Role* originalRole = state.players.at(traitorIndex).getRole();
+		state.players.at(traitorIndex).setRole(tempRole); // Temporarily set to Innocent
+		gameState.players = state.players;
+		state.players.at(traitorIndex).setRole(originalRole); // Restore original role
+		gameStatePacket << gameState;
+		delete tempRole; // Clean up the temporary role object
+		if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
+		{
+			//error
+		}
+	}
 }
