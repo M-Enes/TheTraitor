@@ -10,6 +10,7 @@ namespace TheTraitor {
 		ActionType actionType;
 		GamePhase gotoState;
 		std::string enteredPlayerName;
+		int selectedAvatarID;
 	};
 
 	struct InputData {
