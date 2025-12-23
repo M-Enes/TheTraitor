@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 
 #include "Country.h"
+#include "Actions.h"
 
 namespace TheTraitor {
 	class Role;
@@ -25,6 +26,8 @@ namespace TheTraitor {
 		sf::TcpSocket* getSocket() const;
 		int getPlayerID() const;
 		void updatePlayer();
+		/* update value is relative e.g. +10, -10 .*/
+		void updateCountryStat(CountryStatType stat, int value);
 
 	private:
 		int playerID;
