@@ -7,9 +7,23 @@
 #include "GameHost.h"
 #include "PacketType.h"
 #include "GameState.h"
+
 #include "Role.h"
 #include "Traitor.h"
 #include "Innocent.h"
+
+#include "ActionPacket.h"
+#include "DestroySchool.h"
+#include "HealthAid.h"
+#include "JointResearch.h"
+#include "PoisonResources.h"
+#include "SabotageFactory.h"
+#include "SecretAction.h"
+#include "SpreadMisinfo.h"
+#include "SpreadPlague.h"
+#include "TradeEmbargo.h"
+#include "TradePact.h"
+
 
 TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
 
@@ -32,6 +46,7 @@ void TheTraitor::GameManager::update() {
                         if (packetType == PacketType::READY) {
                             if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
                                 readyPlayers.push_back(player.getPlayerID());
+                                sendGameStateToAllPlayers();
                             }
                         }
                     }
@@ -141,7 +156,44 @@ void TheTraitor::GameManager::update() {
 }
 
 void TheTraitor::GameManager::processAction(ActionPacket actionPacket) {
-    
+    Action* action = nullptr;
+    // Find the action corresponding to actionPacket.actionType
+    switch (actionPacket.actionType) {
+            case ActionType::TradePact:
+                action = new TheTraitor::TradePact();
+            break;
+        case ActionType::TradeEmbargo:
+            action = new TheTraitor::TradeEmbargo();
+            break;
+        case ActionType::JointResearch:
+            action = new TheTraitor::JointResearch();
+            break;
+        case ActionType::SpreadMisinfo:
+            action = new TheTraitor::SpreadMisinfo();
+            break;
+        case ActionType::HealthAid:
+            action = new TheTraitor::HealthAid();
+            break;
+        case ActionType::PoisonResources:
+            action = new TheTraitor::PoisonResources();
+            break;
+        case ActionType::SpreadPlague:
+            action = new TheTraitor::SpreadPlague();
+            break;
+        case ActionType::DestroySchool:
+            action = new TheTraitor::DestroySchool();
+            break;
+        case ActionType::SabotageFactory:
+            action = new TheTraitor::SabotageFactory();
+            break;
+        default:
+            break;
+    }
+
+    action->execute(
+        &state.players[actionPacket.sourceID],
+        &state.players[actionPacket.targetID]
+    );
 }
 
 void TheTraitor::GameManager::resetCurrentPhaseTimer() {
@@ -169,8 +221,8 @@ void TheTraitor::GameManager::sendGameStateToAllPlayers() {
         state.players.at(traitorIndex).setRole(tempRole); // Temporarily set to Innocent
         gameState.players = state.players;
         state.players.at(traitorIndex).setRole(originalRole); // Restore original role
-        delete tempRole; // Clean up the temporary role object
         gameStatePacket << gameState;
+        delete tempRole; // Clean up the temporary role object
         if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
         {
             //error
