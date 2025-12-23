@@ -101,8 +101,10 @@ namespace TheTraitor {
 
 			// Receive actions from players
 			std::vector<ActionPacket> actionPackets;
+            ActionPacket secretAction;
 			std::vector<int> processedPlayerIDs;
-			while (actionPackets.size() < state.players.size()) {
+            bool secretyActionsProcessed = false;
+			while (actionPackets.size() < state.players.size() + 1) {
 				for (auto& player : state.players) {
 					sf::TcpSocket* socket = player.getSocket();
 					sf::Packet packet;
@@ -112,6 +114,15 @@ namespace TheTraitor {
 						if (packetType == PacketType::ACTION_PACKET) {
 							ActionPacket actionPacket;
 							packet >> actionPacket;
+                            
+                            if (actionPacket.actionType == ActionType::SpreadPlague || actionPacket.actionType == ActionType::DestroySchool || actionPacket.actionType == ActionType::SabotageFactory) {
+                                if (!secretyActionsProcessed && actionPacket.sourceID == traitorIndex) {
+                                    secretAction = actionPacket;
+                                    secretyActionsProcessed = true;
+                                }
+                                continue;
+                            }
+
 							if (std::find(processedPlayerIDs.begin(), processedPlayerIDs.end(), actionPacket.sourceID) == processedPlayerIDs.end()) {
 								processedPlayerIDs.push_back(actionPacket.sourceID);
 								actionPackets.push_back(actionPacket);
@@ -129,6 +140,11 @@ namespace TheTraitor {
 			for (const auto& actionPacket : actionPackets) {
 				processAction(actionPacket);
 			}
+
+            // Process secret action of the traitor
+            if (secretyActionsProcessed) {
+                processAction(secretAction);
+            }
 
 			// Move to resolution phase
 			state.currentPhase = RESOLUTION_PHASE;
