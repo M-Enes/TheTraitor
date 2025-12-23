@@ -9,20 +9,9 @@
 #include "GameState.h"
 
 #include "Role.h"
-#include "Traitor.h"
-#include "Innocent.h"
 
+#include "Actions.h"
 #include "ActionPacket.h"
-#include "DestroySchool.h"
-#include "HealthAid.h"
-#include "JointResearch.h"
-#include "PoisonResources.h"
-#include "SabotageFactory.h"
-#include "SecretAction.h"
-#include "SpreadMisinfo.h"
-#include "SpreadPlague.h"
-#include "TradeEmbargo.h"
-#include "TradePact.h"
 
 
 TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
@@ -191,8 +180,8 @@ void TheTraitor::GameManager::processAction(ActionPacket actionPacket) {
     }
 
     action->execute(
-        &state.players[actionPacket.sourceID],
-        &state.players[actionPacket.targetID]
+        state.players[actionPacket.sourceID],
+        state.players[actionPacket.targetID]
     );
 }
 
