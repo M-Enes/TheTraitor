@@ -11,7 +11,8 @@ enum class PacketType {
     ACTION_PACKET,
     READY,
     GAMESTATE,
-    STRING
+    STRING,
+    INT
 };
 
 sf::Packet& operator<<(sf::Packet& packet, const PacketType& type);

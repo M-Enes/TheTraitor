@@ -12,6 +12,7 @@ namespace TheTraitor {
 	class Player {
 	public:
 		Player(std::string name, Country* country);
+		Player(std::string name, Country* country, int avatarID);
 		Player();
 		// Name
 		void setName(std::string name);
@@ -28,9 +29,12 @@ namespace TheTraitor {
 		void updatePlayer();
 		/* update value is relative e.g. +10, -10 .*/
 		void updateCountryStat(CountryStatType stat, int value);
+		void setAvatarID(int id);
+		int getAvatarID() const;
 
 	private:
 		int playerID;
+		int avatarID;
 		std::string name;
 		Country* country;
 		Role* role;

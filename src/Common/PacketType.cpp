@@ -32,6 +32,7 @@ namespace TheTraitor {
 		for (const auto& player : gameState.players) {
 			packet << player.getName();
 			packet << player.getPlayerID();
+			packet << player.getAvatarID();
 			packet << player.getCountry()->getEconomy();
 			packet << player.getCountry()->getHealth();
 			packet << player.getCountry()->getEducation();
@@ -50,12 +51,13 @@ namespace TheTraitor {
 		for (int i = 0; i < playerCount; ++i) {
 			bool playerSet = false;
 			std::string playerName;
-			int playerID;
+			int playerID, avatarID;
 			int economy, health, education;
 			bool destroyed;
 
 			packet >> playerName;
 			packet >> playerID;
+			packet >> avatarID; // AvatarID
 			packet >> economy;
 			packet >> health;
 			packet >> education;
@@ -67,6 +69,7 @@ namespace TheTraitor {
 				if (gameState.players[j].getPlayerID() == playerID) {
 					playerSet = true;
 					gameState.players[j].setName(playerName);
+					gameState.players[j].setAvatarID(avatarID);
 					gameState.players[j].getCountry()->setEconomy(economy);
 					gameState.players[j].getCountry()->setHealth(health);
 					gameState.players[j].getCountry()->setEducation(education);

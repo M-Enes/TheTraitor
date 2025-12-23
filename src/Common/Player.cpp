@@ -24,6 +24,19 @@ namespace TheTraitor {
 
 	}
 
+	Player::Player(std::string name, Country* country, int avatarID) : country(country), avatarID(avatarID) {
+		this->name = name;
+
+		// Generating a random number
+		if (idBase == 0) {
+			std::srand(std::time(nullptr));
+			idBase = std::rand() % 100000;
+		}
+
+		this->playerID = idBase++;
+
+	}
+
 	// Default Constructor
 	Player::Player() {
 		this->name = "Unnamed Player";
@@ -97,4 +110,12 @@ namespace TheTraitor {
 		return this->playerID;
 	}
 
+}
+	
+void TheTraitor::Player::setAvatarID(int id) {
+	this->avatarID = id;
+}
+
+int TheTraitor::Player::getAvatarID() const {
+	return this->avatarID;
 }

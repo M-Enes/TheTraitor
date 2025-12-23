@@ -34,6 +34,8 @@ void TheTraitor::GameHost::establishConnectionWithClients(GlobalGameState& state
     while(connectedCount < 5) {
         //accept a new connection
         sf::TcpSocket* client = new sf::TcpSocket();
+        std::string playerName;
+        int avatarID;
         if(listener.accept(*client) != sf::Socket::Status::Done){
             //error
         } else {
@@ -45,7 +47,6 @@ void TheTraitor::GameHost::establishConnectionWithClients(GlobalGameState& state
             if (client->receive(namePacket) != sf::Socket::Status::Done) {
                 //error
             } else {
-                std::string playerName;
                 PacketType packetType;
                 namePacket >> packetType;
                 if (packetType != PacketType::STRING) {
@@ -53,33 +54,52 @@ void TheTraitor::GameHost::establishConnectionWithClients(GlobalGameState& state
                 } else {
                     // Get the name of the player
                     namePacket >> playerName;
-                    Player player = Player(playerName, country);
-                    player.setSocket(client);
-                    state.players.push_back(player);
-                    client->setBlocking(false);
-
-                    connectedCount++;
-
-                    // Send updated game state to all players
-                    for (auto& player : state.players) {
-                        sf::TcpSocket* socket = player.getSocket();
-                        GameState gameState;
-                        PacketType gameStatePacketType = PacketType::GAMESTATE;
-                        sf::Packet gameStatePacket;
-                        gameStatePacket << gameStatePacketType;
-                        gameState.currentPhase = state.currentPhase;
-                        gameState.players = state.players;
-                        gameStatePacket << gameState;
-                        if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
-                        {
-                            //error
-                        }
-                    }
-
-                    
+                                  
                 }
             }
+            
+            // Get avatarID from client
+            sf::Packet avatarPacket;
+            if (client->receive(avatarPacket) != sf::Socket::Status::Done) {
+                //error
+            } else {
+                PacketType packetType;
+                avatarPacket >> packetType;
+                if (packetType != PacketType::INT) {
+                    //error
+                } else {
+                    // Get the name of the player
+                    avatarPacket >> avatarID;         
+                }
+            }
+
+            // Create player and add to global game state
+            Player player = Player(playerName, country, avatarID);
+            player.setSocket(client);
+            state.players.push_back(player);
+            client->setBlocking(false);
+
+            connectedCount++;   
+
+            // Send updated game state to all players
+            for (auto& player : state.players) {
+                sf::TcpSocket* socket = player.getSocket();
+                GameState gameState;
+                PacketType gameStatePacketType = PacketType::GAMESTATE;
+                sf::Packet gameStatePacket;
+                gameStatePacket << gameStatePacketType;
+                gameState.currentPhase = state.currentPhase;
+                gameState.players = state.players;
+                gameStatePacket << gameState;
+                if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
+                {
+                    //error
+                }
+            }
+            
         }
+
+        
     }
 }
 
