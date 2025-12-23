@@ -35,12 +35,27 @@ namespace TheTraitor {
 		playerNameInputTextBoxString(""),
 		playerLabels({ font,font,font,font,font }),
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
-		eventLogMenu({ (float)window.getSize().x - 370, 300 }),
-		roundLabel(font, "Round 1"),
-		timerLabel(font, "01:02"),
-		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n\n"
+		eventLogMenu({ (float)window.getSize().x - 870, 300 }),
+		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n"
 			"MuhammedEnesKrc applied Trade Embargo to MuhammedEnesKrc"),
-		eventLogLabel(font, eventLogString, 15)
+		eventLogMenuLabel(font, "Event Log"),
+		eventLogLabel(font, eventLogString, 20),
+		infoMenu({ 480, (float)window.getSize().y - 40 }),
+		topBar({ 1050, 120 }),
+		roundLabel(font, "Round 1"),
+		phaseLabel(font, "Action Phase"),
+		timerLabel(font, "01:02"),
+		playerInfo({ { {font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font},
+			{font, font, font, font} } }),
+		economyIconTexture(executableFolderPath + "/assets/icons/icons8-cash-64.png"),
+		healthIconTexture(executableFolderPath + "/assets/icons/icons8-medical-kit-64.png"),
+		educationIconTexture(executableFolderPath + "/assets/icons/icons8-book-64.png"),
+		economyIconSprite(economyIconTexture),
+		healthIconSprite(healthIconTexture),
+		educationIconSprite(educationIconTexture)
 	{
 
 		actionMenu.setPosition({ 20, 20 });
@@ -75,10 +90,24 @@ namespace TheTraitor {
 		eventLogMenu.setOutlineThickness(5);
 		eventLogMenu.setOutlineColor(sf::Color::White);
 
-		//roundLabel.setPosition({ 370, (float)window.getSize().y - 300 });
-		//timerLabel.setPosition({ 370, (float)window.getSize().y - 300 });
 
+		eventLogMenuLabel.setPosition({ 370, (float)window.getSize().y - 300 });
 		eventLogLabel.setPosition({ 370, (float)window.getSize().y - 250 });
+
+
+		infoMenu.setPosition({ (float)window.getSize().x - 500, 20 });
+		infoMenu.setFillColor(sf::Color::Black);
+		infoMenu.setOutlineThickness(5);
+		infoMenu.setOutlineColor(sf::Color::White);
+
+		topBar.setPosition({ 350, 20 });
+		topBar.setFillColor(sf::Color::Black);
+		topBar.setOutlineThickness(5);
+		topBar.setOutlineColor(sf::Color::White);
+
+		roundLabel.setPosition({ 370, 40 });
+		phaseLabel.setPosition({ 750, 40 });
+		timerLabel.setPosition({ 1280, 40 });
 
 		allCountries = { {
 		{&americaPolygonPoints, &americaVertices},
@@ -113,7 +142,7 @@ namespace TheTraitor {
 		joinGameButton.render();
 	}
 
-	void GameView::renderLobby(std::vector<TheTraitor::Player> players)
+	void GameView::renderLobby(const std::vector<TheTraitor::Player>& players)
 	{
 		sf::Text playerCountText(font);
 		playerCountText.setString("Players joined: " + std::to_string(players.size()));
@@ -140,7 +169,7 @@ namespace TheTraitor {
 	{
 	}
 
-	void GameView::renderActionPhase()
+	void GameView::renderActionPhase(std::vector<Player>& players)
 	{
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
@@ -155,9 +184,46 @@ namespace TheTraitor {
 
 
 		window.draw(eventLogMenu);
-	/*	window.draw(roundLabel);
-		window.draw(timerLabel);*/
+		window.draw(eventLogMenuLabel);
 		window.draw(eventLogLabel);
+		window.draw(infoMenu);
+
+		int posY = 50;
+		int index = 0;
+
+		for (const auto& player : players) {
+			auto& [name, economy, health, education] = playerInfo[0];
+			name.setString(player.getName());
+			name.setCharacterSize(30);
+			name.setPosition({ (float)window.getSize().x - 480, (float)posY });
+			economyIconSprite.setPosition({ (float)window.getSize().x - 480, (float)posY + 80 });
+			economy.setString(std::to_string(player.getCountry()->getEconomy()));
+			economy.setCharacterSize(25);
+			economy.setPosition({ (float)window.getSize().x - 400, (float)posY + 110 });
+			healthIconSprite.setPosition({ (float)window.getSize().x - 360, (float)posY + 80 });
+			health.setString(std::to_string(player.getCountry()->getHealth()));
+			health.setCharacterSize(25);
+			health.setPosition({ (float)window.getSize().x - 280, (float)posY + 110 });
+			educationIconSprite.setPosition({ (float)window.getSize().x - 240, (float)posY + 80 });
+			education.setString(std::to_string(player.getCountry()->getEducation()));
+			education.setCharacterSize(25);
+			education.setPosition({ (float)window.getSize().x - 160, (float)posY + 110 });
+
+			posY += 200;
+			index++;
+			window.draw(name);
+			window.draw(economy);
+			window.draw(health);
+			window.draw(education);
+			window.draw(economyIconSprite);
+			window.draw(healthIconSprite);
+			window.draw(educationIconSprite);
+		}
+
+		window.draw(topBar);
+		window.draw(roundLabel);
+		window.draw(phaseLabel);
+		window.draw(timerLabel);
 	}
 
 	void GameView::renderResolutionPhase()
@@ -237,7 +303,7 @@ namespace TheTraitor {
 		}
 
 		for (const auto& countryPair : allCountries) {
-			if (isPointInPolygon(*countryPair.first, position + sf::Vector2f{ -310.0f,0.0f })) {
+			if (isPointInPolygon(*countryPair.first, position + sf::Vector2f{ -310.0f, 50.0f })) {
 				sf::Color fillColor = (inputData.isMouseClicked) ? sf::Color{ 255,0,0 } : sf::Color{ 0,200,0 };
 				if ((*countryPair.second)[0].color == sf::Color{ 255,0,0 }) fillColor = sf::Color{ 0,200,0 };
 				if ((*countryPair.second)[0].color != sf::Color{ 255,0,0 } || inputData.isMouseClicked) {
@@ -298,7 +364,7 @@ namespace TheTraitor {
 			countryPair.second->resize(indices.size());
 			int i = 0;
 			for (const auto& index : indices) {
-				(*countryPair.second)[i] = sf::Vertex{ (*countryPair.first)[index] + sf::Vector2f{310.0f, 0.0f}, sf::Color::Green };
+				(*countryPair.second)[i] = sf::Vertex{ (*countryPair.first)[index] + sf::Vector2f{310.0f, -50.0f}, sf::Color::Green };
 				i++;
 			}
 		}
