@@ -10,13 +10,14 @@ namespace TheTraitor {
 		int getEconomy();
 		int getHealth();
 		int getEducation();
+
 		bool isDestroyed();
-		void setDestroyed();
+		void checkDestroyed();
+		void setDestroyed(bool destroyed);
 
 		void setEconomy(int economy);
 		void setHealth(int health);
 		void setEducation(int education);
-		void setDestroyed(bool destroyed);
 
 	private:
 		int economy;

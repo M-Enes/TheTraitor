@@ -32,10 +32,6 @@ bool TheTraitor::Country::isDestroyed() {
     return this->destroyed;
 }
 
-void TheTraitor::Country::setDestroyed() {
-    this->destroyed = true;
-}
-
 void TheTraitor::Country::setEconomy(int economy) {
     if (economy < 0) {
         economy = 0;
@@ -64,6 +60,17 @@ void TheTraitor::Country::setEducation(int education) {
         education = 100;
     }
     this->education = education;
+}
+
+
+void TheTraitor::Country::checkDestroyed() {
+    // Destroyed if any stat reaches 0
+    // Maybe change this condition later
+    if (economy == 0 || health == 0 || education == 0) {
+        destroyed = true;
+    } else {
+        destroyed = false;
+    }
 }
 
 void TheTraitor::Country::setDestroyed(bool destroyed) {

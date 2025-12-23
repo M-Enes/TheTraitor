@@ -5,6 +5,8 @@ namespace TheTraitor {
 	void Action::execute(Player& player, Player& target) const {
 		player.updateCountryStat(effectedStatType, effectToPlayer);
 		target.updateCountryStat(effectedStatType, effectToTarget);
+        player.getCountry()->checkDestroyed();
+        target.getCountry()->checkDestroyed();
 	}
 
 	int Action::getEffectToPlayer() const {
