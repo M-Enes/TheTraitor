@@ -1,8 +1,8 @@
 #include "GameView.h"
 #include "PolygonData.h"
-#include "earcut.h"
-#include "Player.h"
-#include "GameState.h"
+#include "vendor/earcut.hpp"
+#include "Common/Player.h"
+#include "Common/GameState.h"
 
 namespace mapbox {
 	namespace util {

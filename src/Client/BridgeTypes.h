@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ActionPacket.h"
-#include "GameState.h"
+#include "Common/ActionPacket.h"
+#include "Common/GameState.h"
 
 namespace TheTraitor {
 	

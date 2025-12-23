@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-
 #include "Role.h"
 
 namespace TheTraitor {
@@ -18,6 +15,23 @@ namespace TheTraitor {
 
     std::vector<SecretAction*> Role::getSecretActions() {
         return std::vector<SecretAction*>();
+    }
+
+
+    Traitor::Traitor() : Role("Traitor") {
+
+    }
+
+    std::vector<SecretAction*> Traitor::getSecretActions() {
+        return std::vector<SecretAction*>{};
+    }
+
+    Innocent::Innocent() : Role("Innocent") {
+
+    }
+
+    std::vector<SecretAction*> TheTraitor::Innocent::getSecretActions() {
+        return std::vector<SecretAction*>{};
     }
 
 }

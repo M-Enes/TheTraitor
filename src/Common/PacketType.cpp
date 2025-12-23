@@ -1,8 +1,5 @@
 #include "PacketType.h"
 #include "ActionPacket.h"
-#include "GameHost.h"
-#include "Country.h"
-#include "Player.h"
 
 namespace TheTraitor {
 	sf::Packet& operator<<(sf::Packet& packet, const PacketType& type){

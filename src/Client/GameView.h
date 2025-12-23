@@ -1,11 +1,11 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "ActionPacket.h"
-#include "CommonTypes.h"
+#include "Common/ActionPacket.h"
+#include "BridgeTypes.h"
 #include "Button.h"
 #include <vector>
-#include "Player.h"
+#include "Common/Player.h"
 
 namespace TheTraitor {
 

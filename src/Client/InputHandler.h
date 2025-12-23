@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "ActionPacket.h"
-#include "CommonTypes.h"
+#include "Common/ActionPacket.h"
+#include "BridgeTypes.h"
 
 namespace TheTraitor {
 

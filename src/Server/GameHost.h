@@ -4,8 +4,8 @@
 #include <vector>
 #include <SFML/Network.hpp>
 
-#include "GlobalGameState.h"
-#include "GameState.h"
+#include "Common/GlobalGameState.h"
+#include "Common/GameState.h"
 #include "GameManager.h"
 
 namespace TheTraitor{

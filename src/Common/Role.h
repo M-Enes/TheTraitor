@@ -18,4 +18,16 @@ namespace TheTraitor {
 	private:
 		std::string name;
 	};
+
+	class Traitor : public Role {
+	public:
+		Traitor();
+		std::vector<SecretAction*> getSecretActions() override;
+	};
+
+	class Innocent : public Role {
+	public:
+		Innocent();
+		std::vector<SecretAction*> getSecretActions() override;
+	};
 }

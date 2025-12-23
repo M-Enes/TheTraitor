@@ -13,6 +13,7 @@ endif()
 
 # Static Linking
 set(SFML_STATIC_LIBRARIES TRUE)
+include_directories("src")
 
 
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.2")
@@ -27,7 +28,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # ==== Client ====
-add_executable(Client src/GameView.cpp src/InputHandler.cpp src/ClientApp.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/PacketType.cpp "src/ClientMain.cpp" "src/Button.cpp")
+add_executable(Client "src/Client/GameView.cpp" "src/Client/InputHandler.cpp" "src/Client/ClientApp.cpp" "src/Common/Player.cpp" "src/Common/Phase.cpp" "src/Common/Country.cpp" "src/Common/Role.cpp"              "src/Common/PacketType.cpp" "src/Client/ClientMain.cpp" "src/Client/Button.cpp" "src/Common/Actions.cpp")
 
 target_link_libraries(Client PRIVATE
     SFML::Graphics 
@@ -56,7 +57,7 @@ add_custom_command(TARGET Client POST_BUILD
 )
 
 # ==== Server ====
-add_executable(Server src/GameHost.cpp src/GameManager.cpp src/Player.cpp src/Phase.cpp src/Country.cpp src/Role.cpp src/Innocent.cpp src/Traitor.cpp src/Action.cpp src/TradePact.cpp src/TradeEmbargo.cpp src/HealthAid.cpp src/PoisonResources.cpp src/JointResearch.cpp src/SpreadMisinfo.cpp src/SecretAction.cpp src/SabotageFactory.cpp src/SpreadPlague.cpp src/DestroySchool.cpp src/PacketType.cpp "src/ServerMain.cpp")
+add_executable(Server "src/Server/GameHost.cpp" "src/Server/GameManager.cpp" "src/Common/Player.cpp" "src/Common/Phase.cpp" "src/Common/Country.cpp" "src/Common/Role.cpp"              "src/Common/PacketType.cpp" "src/Server/ServerMain.cpp" "src/Common/Actions.cpp")
 
 target_link_libraries(Server PRIVATE SFML::System SFML::Network)
 

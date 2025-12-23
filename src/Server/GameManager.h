@@ -3,10 +3,10 @@
 #include <vector>
 #include <ctime>
 
-#include "Player.h"
-#include "Phase.h"
-#include "ActionPacket.h"
-#include "GlobalGameState.h"
+#include "Common/Player.h"
+#include "Common/Phase.h"
+#include "Common/ActionPacket.h"
+#include "Common/GlobalGameState.h"
 
 namespace TheTraitor{
     class GameManager {

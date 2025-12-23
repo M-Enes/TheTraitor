@@ -5,11 +5,9 @@
 
 #include "GameManager.h"
 #include "GameHost.h"
-#include "PacketType.h"
-#include "GameState.h"
-#include "Role.h"
-#include "Traitor.h"
-#include "Innocent.h"
+#include "Common/PacketType.h"
+#include "Common/GameState.h"
+#include "Common/Role.h"
 
 TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
 

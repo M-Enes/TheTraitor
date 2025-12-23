@@ -2,10 +2,10 @@
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 
-#include "CommonTypes.h"
+#include "BridgeTypes.h"
 #include "ClientApp.h"
-#include "GameState.h"
-#include "PacketType.h"
+#include "Common/GameState.h"
+#include "Common/PacketType.h"
 
 namespace TheTraitor {
 

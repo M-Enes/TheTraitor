@@ -6,7 +6,7 @@
 
 #include "InputHandler.h"
 #include "GameView.h"
-#include "PacketType.h"
+#include "Common/PacketType.h"
 
 namespace TheTraitor {
 

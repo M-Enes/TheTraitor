@@ -1,12 +1,9 @@
 #include "GameHost.h"
-
 #include <SFML/Network.hpp>
 #include <vector>
 #include <algorithm>
-
-#include "GameHost.h"
-#include "Country.h"
-#include "PacketType.h"
+#include "Common/Country.h"
+#include "Common/PacketType.h"
 
 TheTraitor::GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/) : serverIp(sf::IpAddress::LocalHost), serverPort(53000){
     clientConnectionTimeout = 30; //seconds
