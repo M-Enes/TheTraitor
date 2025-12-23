@@ -60,7 +60,7 @@ namespace TheTraitor {
 		countryNormalColor(sf::Color::Green),
 		countryHoverColor(sf::Color{ 0,200,0 }),
 		countrySelectedColor(sf::Color::Red),
-		countriesOffset(sf::Vector2f{ 310.0f, -50.0f }),
+		countriesOffset(sf::Vector2f{ 305.0f, -50.0f }),
 		gameoverTitle(font, "GAME OVER", 80),
 		winTitle(font, "VICTORY!", 80),
 		totalRoundsLabel(font),

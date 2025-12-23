@@ -19,6 +19,7 @@ namespace TheTraitor {
 		void run();
 		void sendActionToServer(ActionPacket actionPacket);
 	private:
+		sf::ContextSettings windowSettings;
 		sf::RenderWindow window;
 		InputHandler inputHandler;
 		GameView gameView;

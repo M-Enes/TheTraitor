@@ -18,7 +18,10 @@ namespace TheTraitor {
 		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
 		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3")
 	{
-
+		// TODO: add antialiasing option
+		//windowSettings.antiAliasingLevel = 4;
+		//window.create(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen, windowSettings);
+		
 		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
 		menuMusic.play();
 
