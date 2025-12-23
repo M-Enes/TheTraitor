@@ -5,13 +5,13 @@
 
 #include "GameManager.h"
 #include "GameHost.h"
-#include "PacketType.h"
-#include "GameState.h"
+#include "Common/PacketType.h"
+#include "Common/GameState.h"
 
-#include "Role.h"
+#include "Common/Role.h"
 
-#include "Actions.h"
-#include "ActionPacket.h"
+#include "Common/Actions.h"
+#include "Common/ActionPacket.h"
 
 
 TheTraitor::GameManager::GameManager() : currentPhaseIndex(0) {
