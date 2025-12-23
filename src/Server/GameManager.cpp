@@ -129,12 +129,32 @@ void TheTraitor::GameManager::update() {
 	}
 	case RESOLUTION_PHASE: {
 		// Process actions and update game state
-		state.currentPhase = DISCUSSION_PHASE;
+        if (state.players[traitorIndex].getCountry()->isDestroyed()) {
+            // Traitor lost, innocents win
+            state.currentPhase = WIN; // win for innocents
+            sendGameStateToAllPlayers();
+            state.currentPhase = MENU; 
+        } else {
+            int destroyedCountries = 0;
+            for (const auto& player : state.players) if (player.getCountry()->isDestroyed()) destroyedCountries++;
+            if (destroyedCountries == state.players.size() - 1) {
+                // Traitor wins
+                state.currentPhase = GAMEOVER; // gamover for innocents
+                sendGameStateToAllPlayers();
+                state.currentPhase = MENU;
+            } else {
+                // Continue game
+                state.currentPhase = DISCUSSION_PHASE;
 
-		// Send updated game state to all players
-		sendGameStateToAllPlayers();
+                // Send updated game state to all players
+                sendGameStateToAllPlayers();
 
-		break;
+                break;
+            }
+
+        }
+
+		
 	}
 
 	default: {
@@ -202,21 +222,33 @@ void TheTraitor::GameManager::run() {
 void TheTraitor::GameManager::sendGameStateToAllPlayers() {
 	for (auto& player : state.players) {
 		sf::TcpSocket* socket = player.getSocket();
-		GameState gameState;
+		GameState stateToSend;
 		PacketType gameStatePacketType = PacketType::GAMESTATE;
 		sf::Packet gameStatePacket;
 		gameStatePacket << gameStatePacketType;
-		gameState.currentPhase = state.currentPhase;
-		TheTraitor::Innocent* tempRole = new TheTraitor::Innocent();
-		TheTraitor::Role* originalRole = state.players.at(traitorIndex).getRole();
-		state.players.at(traitorIndex).setRole(tempRole); // Temporarily set to Innocent
-		gameState.players = state.players;
-		state.players.at(traitorIndex).setRole(originalRole); // Restore original role
-		gameStatePacket << gameState;
-		delete tempRole; // Clean up the temporary role object
-		if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
-		{
-			//error
-		}
+		stateToSend.currentPhase = state.currentPhase;
+        if ( state.currentPhase == WIN || state.currentPhase == GAMEOVER ) {
+            // Reveal the traitor's role at the end of the game
+            stateToSend.players = state.players;
+            gameStatePacket << stateToSend;
+            if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
+            {
+                //error
+            }
+            continue;
+        } else {
+            // Hide the traitor's role during the game
+            TheTraitor::Role* originalRole = state.players.at(traitorIndex).getRole();
+            TheTraitor::Innocent* tempRole = new TheTraitor::Innocent(); //
+            state.players.at(traitorIndex).setRole(tempRole); // Temporarily set to Innocent
+            stateToSend.players = state.players;
+            state.players.at(traitorIndex).setRole(originalRole); // Restore original role
+            gameStatePacket << stateToSend;
+            delete tempRole; // Clean up the temporary role object
+            if (socket->send(gameStatePacket) != sf::Socket::Status::Done)
+            {
+                //error
+            }
+        }
 	}
 }
