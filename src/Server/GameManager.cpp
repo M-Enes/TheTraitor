@@ -104,7 +104,7 @@ namespace TheTraitor {
             ActionPacket secretAction;
 			std::vector<int> processedPlayerIDs;
             bool secretyActionsProcessed = false;
-			while (actionPackets.size() < state.players.size() + 1) {
+			while (actionPackets.size() < state.players.size()) {
 				for (auto& player : state.players) {
 					sf::TcpSocket* socket = player.getSocket();
 					sf::Packet packet;
