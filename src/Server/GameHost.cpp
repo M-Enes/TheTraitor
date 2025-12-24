@@ -111,6 +111,7 @@ namespace TheTraitor {
 
 
 		}
+
 	}
 
 	void GameHost::receivePacket(sf::TcpSocket* socket) {
