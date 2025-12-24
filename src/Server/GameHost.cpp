@@ -80,6 +80,15 @@ namespace TheTraitor {
 				state.players.push_back(player);
 				client->setBlocking(false);
 
+				// Send playerID to client
+				sf::Packet playerIDPacket;
+				PacketType playerIDPacketType = PacketType::INT;
+				playerIDPacket << playerIDPacketType;
+				playerIDPacket << player.getPlayerID();
+				if (client->send(playerIDPacket) != sf::Socket::Status::Done){
+					//error
+				}
+
 				connectedCount++;
 
 				// Send updated game state to all players
