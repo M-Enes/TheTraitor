@@ -84,14 +84,6 @@ namespace TheTraitor {
 			isConnected = true;
 
 			socket.setBlocking(false);
-
-			// Send ready packet to server
-			sf::Packet readyPacket;
-			PacketType readyPacketType = PacketType::READY;
-			readyPacket << readyPacketType;
-			if (socket.send(readyPacket) != sf::Socket::Status::Done) {
-				//error
-			}
 		}
 
 		receivePackets(); // Update the view regarding the updated game state
