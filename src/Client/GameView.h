@@ -27,6 +27,7 @@ namespace TheTraitor {
 		void renderResolutionPhase(const GameState& gameState);
 		void renderGameover(const GameState& gameState);
 		void renderWin(const GameState& gameState);
+		const ViewData& getViewData();
 	private:
 		sf::RenderWindow& window;
 		ViewData viewData;

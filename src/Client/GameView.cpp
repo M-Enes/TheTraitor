@@ -460,6 +460,13 @@ namespace TheTraitor {
 		viewData.isActionRequested = false;
 		viewData.gotoState = NONE;
 	}
+
+	const ViewData& GameView::getViewData() {
+		return viewData;
+	}
+
+
+
 	bool GameView::isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point)
 	{
 		bool isInside = false;
