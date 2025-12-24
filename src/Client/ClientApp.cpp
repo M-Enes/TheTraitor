@@ -13,7 +13,7 @@ namespace TheTraitor {
 		: window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window, executableFolderPath),
-		serverPort(5000),
+		serverPort(53000),
 		serverIp(sf::IpAddress::LocalHost),
 		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
 		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3"),
@@ -88,9 +88,9 @@ namespace TheTraitor {
 
 		receivePackets(); // Update the view regarding the updated game state
 
-		sf::sleep(sf::seconds(1));
-		menuMusic.stop();
-		actionPhaseMusic.play();
+		//sf::sleep(sf::seconds(1));
+		//menuMusic.stop();
+		//actionPhaseMusic.play();
 	}
 
 	void ClientApp::updateDiscussionPhase() {
