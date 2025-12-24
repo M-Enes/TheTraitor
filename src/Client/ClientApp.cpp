@@ -49,6 +49,13 @@ namespace TheTraitor {
 	void ClientApp::updateMenu() {
 		const InputData& inputData = inputHandler.getInputData();
 		const ViewData& viewData = gameView.handleMenuInput(inputData);
+
+		if (viewData.gotoState == LOBBY) {
+			// send these
+			viewData.enteredPlayerName;
+			viewData.avatarID;
+			gameState.currentPhase = LOBBY;
+		}
 	}
 
 	void ClientApp::updateLobby() {
