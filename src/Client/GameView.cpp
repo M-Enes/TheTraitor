@@ -27,7 +27,7 @@ namespace TheTraitor {
 
 	GameView::GameView(sf::RenderWindow& window, std::string executableFolderPath) :
 		window(window),
-		viewData{ false, ActionType::TradePact, NONE, "" },
+		viewData{ false, ActionType::TradePact, 0, NONE, "", 0 },
 		font(executableFolderPath + "/assets/fonts/CascadiaMono.ttf"),
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window,
 			24, sf::Color::Black, sf::Color::White, 5, sf::Color(200, 200, 200), sf::Color::White),
@@ -96,14 +96,32 @@ namespace TheTraitor {
 			"Spread Plague"
 		};
 
+		std::array<ActionType, 9> actionTypes{
+			ActionType::TradePact,
+			ActionType::TradeEmbargo,
+			ActionType::JointResearch,
+			ActionType::SpreadMisinfo,
+			ActionType::HealthAid,
+			ActionType::PoisonResources,
+			ActionType::SabotageFactory,
+			ActionType::DestroySchool,
+			ActionType::SpreadPlague
+		};
+
 		float actionMenuButtonPositionY = 100;
 
 		actionMenuButtons.reserve(actionMenuButtonStrings.size());
+		int buttonIndex = 0;
 		for (const auto& buttonString : actionMenuButtonStrings) {
-			actionMenuButtons.push_back({ buttonString ,{
+			actionMenuButtons.push_back({ buttonString ,
+				{
 				sf::Vector2f(50, actionMenuButtonPositionY), sf::Vector2f(240, 50), sf::Vector2f(10, 10), buttonString, font, window,
-				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White} });
+				24, sf::Color::Black, sf::Color::White, 5, sf::Color(200,200,200), sf::Color::White
+				},
+				actionTypes[buttonIndex]
+				});
 			actionMenuButtonPositionY += 100;
+			buttonIndex++;
 		}
 
 		eventLogMenu.setPosition({ 350, (float)window.getSize().y - 320 });
@@ -194,7 +212,7 @@ namespace TheTraitor {
 	{
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
-			buttonPair.second.render();
+			std::get<1>(buttonPair).render();
 		}
 
 		for (const auto& [points, vertices] : allCountries) {
@@ -376,7 +394,7 @@ namespace TheTraitor {
 
 
 		bool isHovered;
-		for (auto& [name, button] : actionMenuButtons) {
+		for (auto& [name, button, actionType] : actionMenuButtons) {
 			isHovered = false;
 			isHovered = button.isMouseOver(position);
 
@@ -384,6 +402,9 @@ namespace TheTraitor {
 
 			if (inputData.isMouseClicked && isHovered) {
 				// TODO: send the action packet
+				viewData.isActionRequested = true;
+				viewData.actionType = actionType;
+				viewData.actionTargetID = 1;// TODO: fill this
 			}
 		}
 

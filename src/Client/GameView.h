@@ -39,7 +39,7 @@ namespace TheTraitor {
 		const int playerNameCharLimit = 15;
 		std::array<sf::Text, 5> playerLabels;
 		sf::RectangleShape actionMenu;
-		std::vector<std::pair<std::string, Button>> actionMenuButtons;
+		std::vector<std::tuple<std::string, Button, ActionType>> actionMenuButtons;
 		sf::RectangleShape eventLogMenu;
 		std::string eventLogString;
 		sf::Text eventLogMenuLabel;

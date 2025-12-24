@@ -88,8 +88,11 @@ namespace TheTraitor {
 
 		receivePackets(); // Update the view regarding the updated game state
 
-		menuMusic.stop();
-		actionPhaseMusic.play();
+		
+
+		//sf::sleep(sf::seconds(1));
+		//menuMusic.stop();
+		//actionPhaseMusic.play();
 	}
 
 	void ClientApp::updateDiscussionPhase() {
@@ -100,7 +103,7 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
-			ActionPacket actionPacket; // TODO: fill actionPacket based on viewData
+			ActionPacket actionPacket{viewData.actionType, playerID, viewData.actionTargetID}; // TODO: fill actionPacket based on viewData
 			sendActionToServer(actionPacket);
 		}
 	}

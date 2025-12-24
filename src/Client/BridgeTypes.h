@@ -8,6 +8,7 @@ namespace TheTraitor {
 	struct ViewData {
 		bool isActionRequested;
 		ActionType actionType;
+		int actionTargetID;
 		GamePhase gotoState;
 		std::string enteredPlayerName;
 		int avatarID;
