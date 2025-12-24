@@ -30,7 +30,7 @@ namespace TheTraitor {
 
 			// Choose the traitor randomly
 			std::srand(time(nullptr));
-			int traitorIndex = std::rand() % state.players.size();
+			traitorIndex = std::rand() % 5;
 			state.players[traitorIndex].setRole(new Traitor()); // Just a placeholder, set the actual Role object later
 
 			// Set the role of the traitor to the innocent temporarily
