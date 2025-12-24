@@ -80,9 +80,9 @@ namespace TheTraitor {
 
 			// Receive actions from players
 			std::vector<ActionPacket> actionPackets;
-            ActionPacket secretAction;
+			ActionPacket secretAction;
 			std::vector<int> processedPlayerIDs;
-            bool secretyActionsProcessed = false;
+			bool secretyActionsProcessed = false;
 			while (actionPackets.size() < state.players.size()) {
 				for (auto& player : state.players) {
 					sf::TcpSocket* socket = player.getSocket();
@@ -93,14 +93,14 @@ namespace TheTraitor {
 						if (packetType == PacketType::ACTION_PACKET) {
 							ActionPacket actionPacket;
 							packet >> actionPacket;
-                            
-                            if (actionPacket.actionType == ActionType::SpreadPlague || actionPacket.actionType == ActionType::DestroySchool || actionPacket.actionType == ActionType::SabotageFactory) {
-                                if (!secretyActionsProcessed && actionPacket.sourceID == traitorIndex) {
-                                    secretAction = actionPacket;
-                                    secretyActionsProcessed = true;
-                                }
-                                continue;
-                            }
+
+							if (actionPacket.actionType == ActionType::SpreadPlague || actionPacket.actionType == ActionType::DestroySchool || actionPacket.actionType == ActionType::SabotageFactory) {
+								if (!secretyActionsProcessed && actionPacket.sourceID == traitorIndex) {
+									secretAction = actionPacket;
+									secretyActionsProcessed = true;
+								}
+								continue;
+							}
 
 							if (std::find(processedPlayerIDs.begin(), processedPlayerIDs.end(), actionPacket.sourceID) == processedPlayerIDs.end()) {
 								processedPlayerIDs.push_back(actionPacket.sourceID);
@@ -120,10 +120,10 @@ namespace TheTraitor {
 				processAction(actionPacket);
 			}
 
-            // Process secret action of the traitor
-            if (secretyActionsProcessed) {
-                processAction(secretAction);
-            }
+			// Process secret action of the traitor
+			if (secretyActionsProcessed) {
+				processAction(secretAction);
+			}
 
 			// Move to resolution phase
 			state.currentPhase = RESOLUTION_PHASE;
@@ -208,9 +208,23 @@ namespace TheTraitor {
 			break;
 		}
 
+		int sourceIndex = 0, targetIndex = 0, index = 0;
+
+		for (const auto& player : state.players) {
+			if (player.getPlayerID() == actionPacket.sourceID) {
+				sourceIndex = index;
+			}
+
+			if (player.getPlayerID() == actionPacket.targetID) {
+				targetIndex = index;
+			}
+
+			index++;
+		}
+
 		action->execute(
-			state.players[actionPacket.sourceID],
-			state.players[actionPacket.targetID]
+			state.players[sourceIndex],
+			state.players[targetIndex]
 		);
 
 		delete action;
