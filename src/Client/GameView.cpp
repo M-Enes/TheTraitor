@@ -163,21 +163,21 @@ namespace TheTraitor {
 		joinGameButton.render();
 	}
 
-	void GameView::renderLobby(const std::vector<TheTraitor::Player>& players)
+	void GameView::renderLobby(const GameState& gameState)
 	{
 		sf::Text playerCountText(font);
-		playerCountText.setString("Players joined: " + std::to_string(players.size()));
+		playerCountText.setString("Players joined: " + std::to_string(gameState.players.size()));
 		playerCountText.setCharacterSize(24);
 		playerCountText.setFillColor(sf::Color::White);
 		playerCountText.setPosition(sf::Vector2f(100, 100));
 
 		int i = 0;
 		for (auto& label : playerLabels) {
-			if (players.size() <= i) {
+			if (gameState.players.size() <= i) {
 				label.setString("Waiting for player...");
 			}
 			else {
-				label.setString(players[i].getName());
+				label.setString(gameState.players[i].getName());
 			}
 			window.draw(label);
 			i++;
@@ -186,11 +186,11 @@ namespace TheTraitor {
 		window.draw(playerCountText);
 	}
 
-	void GameView::renderDiscussionPhase()
+	void GameView::renderDiscussionPhase(const GameState& gameState)
 	{
 	}
 
-	void GameView::renderActionPhase(std::vector<Player>& players)
+	void GameView::renderActionPhase(const GameState& gameState)
 	{
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
@@ -209,7 +209,7 @@ namespace TheTraitor {
 		int posY = 50;
 		int index = 0;
 
-		for (const auto& player : players) {
+		for (const auto& player : gameState.players) {
 			auto& [name, economy, health, education] = playerInfo[0];
 			name.setString(player.getName());
 			name.setCharacterSize(30);
@@ -249,11 +249,11 @@ namespace TheTraitor {
 		window.draw(timerLabel);
 	}
 
-	void GameView::renderResolutionPhase()
+	void GameView::renderResolutionPhase(const GameState& gameState)
 	{
 	}
 
-	void GameView::renderGameover()
+	void GameView::renderGameover(const GameState& gameState)
 	{
 		// Background overlay
 		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -289,7 +289,7 @@ namespace TheTraitor {
 		quitGameButton.render();
 	}
 
-	void GameView::renderWin()
+	void GameView::renderWin(const GameState& gameState)
 	{
 		// Background overlay
 		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));

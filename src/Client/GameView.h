@@ -21,12 +21,12 @@ namespace TheTraitor {
 		const ViewData& handleGameoverInput(const InputData& inputData);
 		const ViewData& handleWinInput(const InputData& inputData);
 		void renderMenu();
-		void renderLobby(const std::vector<Player>& players);
-		void renderDiscussionPhase();
-		void renderActionPhase(std::vector<Player>& players);
-		void renderResolutionPhase();
-		void renderGameover();
-		void renderWin();
+		void renderLobby(const GameState& gameState);
+		void renderDiscussionPhase(const GameState& gameState);
+		void renderActionPhase(const GameState& gameState);
+		void renderResolutionPhase(const GameState& gameState);
+		void renderGameover(const GameState& gameState);
+		void renderWin(const GameState& gameState);
 	private:
 		sf::RenderWindow& window;
 		ViewData viewData;
