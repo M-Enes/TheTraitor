@@ -24,27 +24,6 @@ namespace TheTraitor {
 	void GameManager::update() {
 		switch (state.currentPhase) {
 		case LOBBY: {
-			// Waiting for all players to be ready
-			std::vector<int> readyPlayers;
-
-			while (readyPlayers.size() < state.players.size()) {
-				// Check for ready packets from all players
-				for (auto& player : state.players) {
-					sf::TcpSocket* socket = player.getSocket();
-					sf::Packet packet;
-					if (socket->receive(packet) == sf::Socket::Status::Done) {
-						PacketType packetType;
-						packet >> packetType;
-						if (packetType == PacketType::READY) {
-							if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
-								readyPlayers.push_back(player.getPlayerID());
-								sendGameStateToAllPlayers();
-							}
-						}
-					}
-				}
-			}
-
 			// All players are ready, start the game
 			state.currentPhase = ACTION_PHASE;
 			isGameStarted = true;

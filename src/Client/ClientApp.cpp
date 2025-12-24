@@ -13,7 +13,7 @@ namespace TheTraitor {
 		: window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window, executableFolderPath),
-		serverPort(5000),
+		serverPort(53000),
 		serverIp(sf::IpAddress::LocalHost),
 		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
 		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3"),
@@ -84,14 +84,6 @@ namespace TheTraitor {
 			isConnected = true;
 
 			socket.setBlocking(false);
-
-			// Send ready packet to server
-			sf::Packet readyPacket;
-			PacketType readyPacketType = PacketType::READY;
-			readyPacket << readyPacketType;
-			if (socket.send(readyPacket) != sf::Socket::Status::Done) {
-				//error
-			}
 		}
 
 		receivePackets(); // Update the view regarding the updated game state
