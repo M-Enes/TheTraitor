@@ -28,6 +28,7 @@ namespace TheTraitor {
 		GameState gameState;
 		sf::Music menuMusic;
 		sf::Music actionPhaseMusic;
+		sf::TcpSocket socket;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();
@@ -38,8 +39,7 @@ namespace TheTraitor {
 		void updateGameover();
 		void updateWin();
 		void render();
-		sf::TcpSocket* openTCPSocket(sf::IpAddress ip, unsigned short port);
-		void receivePackets(sf::TcpSocket& socket);
-		void sendPacket(sf::TcpSocket* socket, sf::Packet& packet);
+		void openTCPSocket(sf::IpAddress ip, unsigned short port);
+		void receivePackets();
 	};
 }

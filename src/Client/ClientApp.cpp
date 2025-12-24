@@ -28,14 +28,14 @@ namespace TheTraitor {
 		window.setFramerateLimit(60);
 
 		// Dummy players for initial testing
-		gameState.players.push_back(Player("Player 1", new Country()));
-		gameState.players.push_back(Player("Player 2", new Country()));
-		gameState.players.push_back(Player("Player 3", new Country()));
-		gameState.players.push_back(Player("Player 4", new Country()));
-		gameState.players.push_back(Player("Player 5", new Country())); // for ui test
+		//gameState.players.push_back(Player("Player 1", new Country()));
+		//gameState.players.push_back(Player("Player 2", new Country()));
+		//gameState.players.push_back(Player("Player 3", new Country()));
+		//gameState.players.push_back(Player("Player 4", new Country()));
+		//gameState.players.push_back(Player("Player 5", new Country())); // for ui test
 	}
 
-		void ClientApp::run() {
+	void ClientApp::run() {
 		sf::Clock clock;
 
 		while (window.isOpen()) {
@@ -49,18 +49,14 @@ namespace TheTraitor {
 	void ClientApp::updateMenu() {
 		const InputData& inputData = inputHandler.getInputData();
 		const ViewData& viewData = gameView.handleMenuInput(inputData);
-
-		if (viewData.gotoState == LOBBY) {
-			gameState.currentPhase = LOBBY; // Placeholder until menu transitions are wired
-		}
 	}
 
 	void ClientApp::updateLobby() {
-		// TODO: Get actual player names from server
+		receivePackets(); // Update the view regarding the updated game state
+
 		sf::sleep(sf::seconds(1));
 		menuMusic.stop();
 		actionPhaseMusic.play();
-		gameState.currentPhase = ACTION_PHASE; // TODO: action set for debugging purposes
 	}
 
 	void ClientApp::updateDiscussionPhase() {
@@ -71,6 +67,8 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
+			ActionPacket actionPacket; // TODO: fill actionPacket based on viewData
+			sendActionToServer(actionPacket);
 		}
 	}
 
@@ -98,6 +96,8 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::update(sf::Time deltaTime) {
+		receivePackets();
+
 		inputHandler.handleEvents();
 		switch (gameState.currentPhase) {
 		case MENU:
@@ -155,16 +155,15 @@ namespace TheTraitor {
 		window.display();
 	}
 
-	sf::TcpSocket* ClientApp::openTCPSocket(sf::IpAddress ip, unsigned short port) {
-		sf::TcpSocket* socket = new sf::TcpSocket();
-		if (socket->connect(ip, port) != sf::Socket::Status::Done) {
+	void ClientApp::openTCPSocket(sf::IpAddress ip, unsigned short port) {
+		socket = sf::TcpSocket();
+		if (socket.connect(ip, port) != sf::Socket::Status::Done) {
 			//error
 		}
-		socket->setBlocking(false);
-		return socket;
+		socket.setBlocking(false);
 	}
 
-	void ClientApp::receivePackets(sf::TcpSocket& socket) {
+	void ClientApp::receivePackets() {
 		sf::Packet packet;
 		PacketType packetType;
 		if (socket.receive(packet) != sf::Socket::Status::Done) {
@@ -173,21 +172,32 @@ namespace TheTraitor {
 		}
 		packet >> packetType;
 		switch (packetType) {
-		case PacketType::ACTION_PACKET: {
-			ActionPacket actionPacket;
-			packet >> actionPacket;
-			// Process actionPacket
-			break;
-		}
-		default:
-			break;
+			case PacketType::ACTION_PACKET: {
+				// This case is not possible for client, but included for now
+				ActionPacket actionPacket;
+				packet >> actionPacket;
+				// Process actionPacket
+				break;
+			} case PacketType::GAMESTATE: {
+				GameState newGameState;
+				packet >> newGameState;
+				gameState = newGameState;
+				break;
+			} default:
+				break;
 		}
 	}
 
-void ClientApp::sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
-    if (socket->send(packet) != sf::Socket::Status::Done) {
-        //error
-    }
-}
+	void ClientApp::sendActionToServer(ActionPacket actionPacket) {
+		sf::Packet packet;
+		PacketType packetType = PacketType::ACTION_PACKET;
+		packet << packetType;
+		packet << actionPacket;
+		if (socket.send(packet) != sf::Socket::Status::Done) {
+			//error
+		}
+	}
+
+
 
 } // namespace TheTraitor
