@@ -88,9 +88,6 @@ namespace TheTraitor {
 
 		receivePackets(); // Update the view regarding the updated game state
 
-		
-
-		sf::sleep(sf::seconds(1));
 		menuMusic.stop();
 		actionPhaseMusic.play();
 	}
