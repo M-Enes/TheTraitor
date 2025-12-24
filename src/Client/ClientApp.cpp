@@ -16,7 +16,8 @@ namespace TheTraitor {
 		serverPort(5000),
 		serverIp(sf::IpAddress::LocalHost),
 		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
-		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3")
+		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3"),
+		isConnected(false)
 	{
 		// TODO: add antialiasing option
 		//windowSettings.antiAliasingLevel = 4;
@@ -26,13 +27,6 @@ namespace TheTraitor {
 		menuMusic.play();
 
 		window.setFramerateLimit(60);
-
-		// Dummy players for initial testing
-		//gameState.players.push_back(Player("Player 1", new Country()));
-		//gameState.players.push_back(Player("Player 2", new Country()));
-		//gameState.players.push_back(Player("Player 3", new Country()));
-		//gameState.players.push_back(Player("Player 4", new Country()));
-		//gameState.players.push_back(Player("Player 5", new Country())); // for ui test
 	}
 
 	void ClientApp::run() {
@@ -51,14 +45,47 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleMenuInput(inputData);
 
 		if (viewData.gotoState == LOBBY) {
-			// send these
-			viewData.enteredPlayerName;
-			viewData.avatarID;
 			gameState.currentPhase = LOBBY;
 		}
 	}
 
 	void ClientApp::updateLobby() {
+		// How can i check if the tcp socket is connected?
+		if (!isConnected) {
+			openTCPSocket(serverIp, serverPort);
+			// Send name
+			sf::Packet namePacket;
+			PacketType namePacketType = PacketType::STRING;
+			namePacket << namePacketType;
+			namePacket << gameView.handleMenuInput(inputHandler.getInputData()).enteredPlayerName;
+			if (socket.send(namePacket) != sf::Socket::Status::Done) {
+				//error
+			}
+
+			// Send avatarID
+			sf::Packet avatarPacket;
+			PacketType avatarPacketType = PacketType::INT;
+			avatarPacket << avatarPacketType;
+			avatarPacket << gameView.handleMenuInput(inputHandler.getInputData()).avatarID;
+			if (socket.send(avatarPacket) != sf::Socket::Status::Done) {
+				//error
+			}
+
+			// Receive playerID from server
+			sf::Packet playerIDPacket;
+			if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
+				PacketType packetType;
+				playerIDPacket >> packetType;
+				if (packetType == PacketType::INT) {
+					playerIDPacket >> playerID;
+				}
+			}
+
+			isConnected = true;
+
+			socket.setBlocking(false);
+		}
+
 		receivePackets(); // Update the view regarding the updated game state
 
 		sf::sleep(sf::seconds(1));

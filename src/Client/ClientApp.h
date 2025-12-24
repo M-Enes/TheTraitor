@@ -29,6 +29,9 @@ namespace TheTraitor {
 		sf::Music menuMusic;
 		sf::Music actionPhaseMusic;
 		sf::TcpSocket socket;
+
+		bool isConnected;
+		int playerID;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();
