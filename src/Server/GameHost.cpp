@@ -44,39 +44,33 @@ namespace TheTraitor {
 			else {
 				//add client to list
 				Country* country = new Country(); // TODO: Randomly generate country stats here later
+				bool isNameReceived = false;
+				bool isAvatarReceived = false;
 
-				// Get name from client
-				sf::Packet namePacket;
-				if (client->receive(namePacket) != sf::Socket::Status::Done) {
-					//error
-				}
-				else {
-					PacketType packetType;
-					namePacket >> packetType;
-					if (packetType != PacketType::STRING) {
-						//error
+				while ( !isNameReceived || !isAvatarReceived ) {
+					// Wait until both name and avatarID are received
+					// Get name from client
+					sf::Packet namePacket;
+					if (client->receive(namePacket) == sf::Socket::Status::Done) {
+						PacketType packetType;
+						namePacket >> packetType;
+						if (packetType == PacketType::STRING) {
+							// Get the name of the player
+							namePacket >> playerName;
+							isNameReceived = true;
+						}
 					}
-					else {
-						// Get the name of the player
-						namePacket >> playerName;
 
-					}
-				}
-
-				// Get avatarID from client
-				sf::Packet avatarPacket;
-				if (client->receive(avatarPacket) != sf::Socket::Status::Done) {
-					//error
-				}
-				else {
-					PacketType packetType;
-					avatarPacket >> packetType;
-					if (packetType != PacketType::INT) {
-						//error
-					}
-					else {
-						// Get the name of the player
-						avatarPacket >> avatarID;
+					// Get avatarID from client
+					sf::Packet avatarPacket;
+					if (client->receive(avatarPacket) == sf::Socket::Status::Done) {
+						PacketType packetType;
+						avatarPacket >> packetType;
+						if (packetType == PacketType::INT) {
+							// Get the avatarID of the player
+							avatarPacket >> avatarID;
+							isAvatarReceived = true;
+						}
 					}
 				}
 

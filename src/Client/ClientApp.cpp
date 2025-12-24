@@ -26,13 +26,6 @@ namespace TheTraitor {
 		menuMusic.play();
 
 		window.setFramerateLimit(60);
-
-		// Dummy players for initial testing
-		//gameState.players.push_back(Player("Player 1", new Country()));
-		//gameState.players.push_back(Player("Player 2", new Country()));
-		//gameState.players.push_back(Player("Player 3", new Country()));
-		//gameState.players.push_back(Player("Player 4", new Country()));
-		//gameState.players.push_back(Player("Player 5", new Country())); // for ui test
 	}
 
 	void ClientApp::run() {
@@ -59,6 +52,13 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateLobby() {
+		openTCPSocket(serverIp, serverPort); // Ensure socket is open
+		// Send name
+		sf::Packet namePacket;
+		PacketType namePacketType = PacketType::STRING;
+		namePacket << namePacketType;
+
+
 		receivePackets(); // Update the view regarding the updated game state
 
 		sf::sleep(sf::seconds(1));
