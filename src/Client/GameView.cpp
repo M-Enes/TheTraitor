@@ -357,6 +357,21 @@ namespace TheTraitor {
 			education.setCharacterSize(25);
 			education.setPosition({ (float)window.getSize().x - 160, (float)posY + 110 });
 
+			// Draw Avatar in Action Phase
+			int avatarID = player.getAvatarID();
+			if (avatarID >= 0 && avatarID < static_cast<int>(avatarTextures.size())) {
+				sf::Sprite avatarSprite(avatarTextures[avatarID]);
+				float size = 64.0f; // Size for action phase
+				sf::Vector2u texSize = avatarTextures[avatarID].getSize();
+				if (texSize.x > 0 && texSize.y > 0) {
+					avatarSprite.setScale({ size / texSize.x, size / texSize.y });
+				}
+				// Position to the right of the name (Fixed column)
+				//decrease f to move right, increase y with f to move up (posY + 10.0f)
+				avatarSprite.setPosition({ (float)window.getSize().x - 120.0f, (float)posY + 80.0f });
+				window.draw(avatarSprite);
+			}
+
 			posY += 200;
 			index++;
 			window.draw(name);

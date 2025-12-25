@@ -11,7 +11,7 @@ namespace TheTraitor {
 	static int idBase = 0;
 
 
-	Player::Player(std::string name, Country* country) : country(country) {
+	Player::Player(std::string name, Country* country) : country(country), avatarID(-1) {
 		this->name = name;
 
 		// Generating a random number
@@ -38,7 +38,7 @@ namespace TheTraitor {
 	}
 
 	// Default Constructor
-	Player::Player() {
+	Player::Player() : avatarID(-1) {
 		this->name = "Unnamed Player";
 		this->country = new Country();
 
