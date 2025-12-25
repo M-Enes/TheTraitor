@@ -2,6 +2,7 @@
 #include <SFML/Network.hpp>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 #include "Common/Country.h"
 #include "Common/PacketType.h"
 
@@ -11,19 +12,9 @@ namespace TheTraitor {
 		clientConnectionTimeout = 30; //seconds
 		isGameStarted = false;
 
-	}
-
-	void GameHost::kickDisconnectedClient() {
+		std::cout << "Game Host created at " << serverIp.toString() << ":" << serverPort << std::endl;
 
 	}
-	GameState* GameHost::prepareGameStateForClient(int clientID) {
-		return nullptr;
-	}
-	void GameHost::updateGlobalGameState() {
-
-
-	}
-
 
 	void GameHost::establishConnectionWithClients(GlobalGameState& state) {
 		state.currentPhase = LOBBY;
@@ -42,6 +33,8 @@ namespace TheTraitor {
 				//error
 			}
 			else {
+				std::cout << "New client connected: " << std::endl;
+
 				//add client to list
 				Country* country = new Country(); // TODO: Randomly generate country stats here later
 				bool isNameReceived = false;
@@ -79,6 +72,8 @@ namespace TheTraitor {
 				player.setSocket(client);
 				state.players.push_back(player);
 				client->setBlocking(false);
+
+				std::cout << "Player " << playerName << " joined the game with ID " << player.getPlayerID() << std::endl;
 
 				// Send playerID to client
 				sf::Packet playerIDPacket;
@@ -119,14 +114,18 @@ namespace TheTraitor {
 		if (socket->receive(packet) != sf::Socket::Status::Done) {
 			//error
 			return;
+		} else {
+			// Process packet
+			std::cout << "Packet received from client: " << std::endl;
 		}
-
-		// Process packet as needed
+		
 	}
 
 	void GameHost::sendPacket(sf::TcpSocket* socket, sf::Packet& packet) {
 		if (socket->send(packet) != sf::Socket::Status::Done) {
 			//error
+		} else {
+			std::cout << "Packet sent to client: " << std::endl;
 		}
 	}
 
