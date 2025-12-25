@@ -17,6 +17,7 @@ namespace TheTraitor{
             void goToNextPhase();
             void resetCurrentPhaseTimer();
             void sendGameStateToAllPlayers();
+            void sendActionPacketToAllPlayers(std::vector<ActionPacket> actionPackets);
         public:
             GlobalGameState state;
             GameManager();
