@@ -22,6 +22,7 @@ namespace TheTraitor {
 	}
 
 	void GameManager::update() {
+		std::vector<ActionPacket> actionPackets;
 		switch (state.currentPhase) {
 		case LOBBY: {
 			// All players are ready, start the game
@@ -83,7 +84,7 @@ namespace TheTraitor {
 		case ACTION_PHASE: {
 
 			// Receive actions from players
-			std::vector<ActionPacket> actionPackets;
+			actionPackets;
 			ActionPacket secretAction;
 			std::vector<int> processedPlayerIDs;
 			bool secretyActionsProcessed = false;
@@ -167,6 +168,10 @@ namespace TheTraitor {
 
 					// Send updated game state to all players
 					sendGameStateToAllPlayers();
+					sendActionPacketToAllPlayers(actionPackets);
+
+					// Clear the action packets vector
+					actionPackets.clear();
 
 					break;
 				}
@@ -294,4 +299,23 @@ namespace TheTraitor {
 
 		std::cout << "Game state sent to all players." << std::endl;
 	}
+
+	void GameManager::sendActionPacketToAllPlayers(std::vector<ActionPacket> actionPackets) {	
+		for (auto& player : state.players) {
+			sf::TcpSocket* socket = player.getSocket();
+			for (auto& actionPacket : actionPackets) {
+				PacketType actionPacketType = PacketType::ACTION_PACKET;
+				sf::Packet packet;
+				packet << actionPacketType;
+				packet << actionPacket;
+				if (socket->send(packet) != sf::Socket::Status::Done)
+				{
+					//error
+				}
+			}
+		}
+
+		std::cout << "Action packets sent to all players." << std::endl;
+	}
+
 }
