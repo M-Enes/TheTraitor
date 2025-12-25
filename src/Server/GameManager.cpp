@@ -25,6 +25,8 @@ namespace TheTraitor {
 		switch (state.currentPhase) {
 		case LOBBY: {
 			// All players are ready, start the game
+			
+			std::cout << "All players connected. Starting the game..." << std::endl;
 			state.currentPhase = ACTION_PHASE;
 			isGameStarted = true;
 
@@ -57,6 +59,7 @@ namespace TheTraitor {
 						if (packetType == PacketType::READY) {
 							if (std::find(readyPlayers.begin(), readyPlayers.end(), player.getPlayerID()) == readyPlayers.end()) {
 								readyPlayers.push_back(player.getPlayerID());
+								std::cout << "Player " << player.getPlayerID() << " is ready." << std::endl;
 							}
 						}
 					}
@@ -68,6 +71,7 @@ namespace TheTraitor {
 
 			// All players are ready, start the game
 			state.currentPhase = ACTION_PHASE;
+			std::cout << "All players are ready. Moving to ACTION_PHASE..." << std::endl;
 			isGameStarted = true;
 
 			// Send updated game state to all players
@@ -114,6 +118,7 @@ namespace TheTraitor {
 				}
 			}
 
+			std::cout << "All actions received. Processing actions..." << std::endl;
 
 			// Process actions
 			for (const auto& actionPacket : actionPackets) {
@@ -128,6 +133,8 @@ namespace TheTraitor {
 			// Move to resolution phase
 			state.currentPhase = RESOLUTION_PHASE;
 
+			std::cout << "All actions are processed. Moving to RESOLUTION_PHASE..." << std::endl;
+
 			// Send updated game state to all players
 			sendGameStateToAllPlayers();
 			currentPhaseTimer.restart();
@@ -141,6 +148,7 @@ namespace TheTraitor {
 				state.currentPhase = WIN; // win for innocents
 				sendGameStateToAllPlayers();
 				state.currentPhase = MENU;
+				std::cout << "Innocents win! The traitor's country is destroyed." << std::endl;
 			}
 			else {
 				int destroyedCountries = 0;
@@ -150,10 +158,12 @@ namespace TheTraitor {
 					state.currentPhase = GAMEOVER; // gamover for innocents
 					sendGameStateToAllPlayers();
 					state.currentPhase = MENU;
+					std::cout << "Traitor wins! All innocent countries are destroyed." << std::endl;
 				}
 				else {
 					// Continue game
 					state.currentPhase = DISCUSSION_PHASE;
+					std::cout << "Game continues. Moving to DISCUSSION_PHASE..." << std::endl;
 
 					// Send updated game state to all players
 					sendGameStateToAllPlayers();
@@ -179,30 +189,39 @@ namespace TheTraitor {
 		switch (actionPacket.actionType) {
 		case ActionType::TradePact:
 			action = new TradePact();
+			std::cout << "The player " << actionPacket.sourceID << " performed TradePact on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::TradeEmbargo:
 			action = new TradeEmbargo();
+			std::cout << "The player " << actionPacket.sourceID << " performed TradeEmbargo on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::JointResearch:
 			action = new JointResearch();
+			std::cout << "The player " << actionPacket.sourceID << " performed JointResearch on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::SpreadMisinfo:
 			action = new SpreadMisinfo();
+			std::cout << "The player " << actionPacket.sourceID << " performed SpreadMisinfo on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::HealthAid:
 			action = new HealthAid();
+			std::cout << "The player " << actionPacket.sourceID << " performed HealthAid on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::PoisonResources:
 			action = new PoisonResources();
+			std::cout << "The player " << actionPacket.sourceID << " performed PoisonResources on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::SpreadPlague:
 			action = new SpreadPlague();
+			std::cout << "The player " << actionPacket.sourceID << " performed SpreadPlague on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::DestroySchool:
 			action = new DestroySchool();
+			std::cout << "The player " << actionPacket.sourceID << " performed DestroySchool on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		case ActionType::SabotageFactory:
 			action = new SabotageFactory();
+			std::cout << "The player " << actionPacket.sourceID << " performed SabotageFactory on player " << actionPacket.targetID << "." << std::endl;
 			break;
 		default:
 			break;
@@ -226,6 +245,8 @@ namespace TheTraitor {
 			state.players[sourceIndex],
 			state.players[targetIndex]
 		);
+
+		std::cout << "Action executed: " << action->getLogMessage(state.players[sourceIndex], state.players[targetIndex]) << std::endl;
 
 		delete action;
 	}
@@ -270,5 +291,7 @@ namespace TheTraitor {
 				}
 			}
 		}
+
+		std::cout << "Game state sent to all players." << std::endl;
 	}
 }
