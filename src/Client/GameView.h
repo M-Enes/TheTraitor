@@ -67,6 +67,12 @@ namespace TheTraitor {
 		sf::Color countrySelectedColor;
 		sf::Vector2f countriesOffset;
 
+		// Avatar UI
+		sf::Text avatarLabel;
+		std::vector<sf::Texture> avatarTextures;
+		std::vector<sf::Sprite> avatarSprites;
+		int currentSelectedAvatarIndex;
+
 		// Gameover and Win screen elements
 		sf::Text gameoverTitle;
 		sf::Text winTitle;

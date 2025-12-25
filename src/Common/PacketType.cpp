@@ -81,7 +81,7 @@ namespace TheTraitor {
 			if (!playerSet) {
 				Country* country = new Country(economy, health, education);
 				country->setDestroyed(destroyed);
-				Player newPlayer(playerName, country);
+				Player newPlayer(playerName, country, avatarID);
 				newPlayer.setSocket(nullptr); // No socket info in GameState packet
 				gameState.players.push_back(newPlayer);
 			}

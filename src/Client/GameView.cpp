@@ -60,7 +60,9 @@ namespace TheTraitor {
 		countryNormalColor(sf::Color::Green),
 		countryHoverColor(sf::Color{ 0,200,0 }),
 		countrySelectedColor(sf::Color::Red),
-		countriesOffset(sf::Vector2f{ 305.0f, -50.0f }),
+		countriesOffset(sf::Vector2f{ 310.0f, -50.0f }),
+		avatarLabel(font, "Select Avatar", 24),
+		currentSelectedAvatarIndex(-1),
 		gameoverTitle(font, "GAME OVER", 80),
 		winTitle(font, "VICTORY!", 80),
 		totalRoundsLabel(font),
@@ -160,7 +162,7 @@ namespace TheTraitor {
 		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
 		playerNameInputLabel.setString("Player name");
 
-		sf::Vector2f labelPosition(100, 200);
+		sf::Vector2f labelPosition(180, 200);
 		for (auto& label : playerLabels) {
 			label.setPosition(labelPosition);
 			labelPosition += {0, 100};
@@ -172,12 +174,106 @@ namespace TheTraitor {
 		playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
 		playerNameInputTextBox.setString(playerNameInputTextBoxString);
 
+		// Avatar Loading
+		avatarTextures.reserve(10);
+		avatarSprites.reserve(10);
+
+		for (int i = 1; i <= 10; ++i) {
+			sf::Texture texture;
+			if (texture.loadFromFile(
+				executableFolderPath + "/assets/avatars/pixel" + std::to_string(i) + ".png")) {
+				avatarTextures.push_back(std::move(texture));
+			}
+		}
+
+		// Avatar Layout Configuration
+		const float avatarDisplaySize = 80.0f; // Increased size (was 64.0f)
+		const float gap = 20.0f; // Increased gap (was 15.0f)
+		const int cols = 5;
+
+		// Calculate total width to right-align
+		float totalGridWidth = cols * avatarDisplaySize + (cols - 1) * gap;
+
+		float startX = window.getSize().x - totalGridWidth - 150.0f; // Moved left (was 100.0f)
+		float startY = 350.0f; // Moved down (was 300.0f)
+
+		for (size_t i = 0; i < avatarTextures.size(); ++i) {
+			sf::Sprite sprite(avatarTextures[i]);
+
+			// Scale to fixed size
+			sf::Vector2u texSize = avatarTextures[i].getSize();
+			if (texSize.x > 0 && texSize.y > 0) {
+				sprite.setScale({
+					avatarDisplaySize / static_cast<float>(texSize.x),
+					avatarDisplaySize / static_cast<float>(texSize.y)
+					});
+			}
+
+			int col = i % cols;
+			int row = i / cols;
+
+			float x = startX + col * (avatarDisplaySize + gap);
+			float y = startY + row * (avatarDisplaySize + gap);
+
+			sprite.setPosition({ x, y });
+			avatarSprites.push_back(sprite);
+		}
+
+		avatarLabel.setPosition({ startX, startY - 40.f });
+
+
 	}
 
 	void GameView::renderMenu()
 	{
 		window.draw(playerNameInputLabel);
 		window.draw(playerNameInputTextBox);
+
+		// Draw Avatar Background (Table feel)
+		if (!avatarSprites.empty()) {
+			sf::Vector2f firstPos = avatarSprites.front().getPosition();
+			sf::Vector2f lastPos = avatarSprites.back().getPosition();
+			sf::Vector2f size = { 
+				avatarSprites.front().getGlobalBounds().size.x, 
+				avatarSprites.front().getGlobalBounds().size.y 
+			};
+
+			float padding = 10.0f;
+			sf::RectangleShape bgRect;
+			bgRect.setPosition({ firstPos.x - padding, firstPos.y - padding });
+
+			float width = (lastPos.x + size.x) - firstPos.x + 2 * padding;
+			float height = (lastPos.y + size.y) - firstPos.y + 2 * padding;
+
+			bgRect.setSize({ width, height });
+			bgRect.setFillColor(sf::Color(50, 50, 50, 150)); // Semi-transparent dark gray
+			bgRect.setOutlineColor(sf::Color::White);
+			bgRect.setOutlineThickness(2.0f);
+			window.draw(bgRect);
+		}
+
+		window.draw(avatarLabel);
+
+		for (size_t i = 0; i < avatarSprites.size(); ++i) {
+			window.draw(avatarSprites[i]);
+
+			if (currentSelectedAvatarIndex == static_cast<int>(i)) {
+				sf::RectangleShape selectionRect;
+				selectionRect.setSize({
+					avatarSprites[i].getGlobalBounds().size.x + 6,
+					avatarSprites[i].getGlobalBounds().size.y + 6
+					});
+				selectionRect.setPosition({
+					avatarSprites[i].getPosition().x - 3,
+					avatarSprites[i].getPosition().y - 3
+				});
+				selectionRect.setFillColor(sf::Color::Transparent);
+				selectionRect.setOutlineColor(sf::Color::Yellow);
+				selectionRect.setOutlineThickness(3);
+				window.draw(selectionRect);
+			}
+		}
+
 		joinGameButton.render();
 	}
 
@@ -196,6 +292,22 @@ namespace TheTraitor {
 			}
 			else {
 				label.setString(gameState.players[i].getName());
+
+				// Draw Avatar
+				int avatarID = gameState.players[i].getAvatarID();
+				if (avatarID >= 0 && avatarID < static_cast<int>(avatarTextures.size())) {
+					sf::Sprite avatarSprite(avatarTextures[avatarID]);
+					float size = 50.0f; 
+					sf::Vector2u texSize = avatarTextures[avatarID].getSize();
+					if (texSize.x > 0 && texSize.y > 0) {
+						avatarSprite.setScale({ size / texSize.x, size / texSize.y });
+					}
+
+					// Position to the left of the name (assuming name is at x=100)
+					sf::Vector2f pos = label.getPosition();
+					avatarSprite.setPosition({ 100.0f, pos.y - 10.0f });
+					window.draw(avatarSprite);
+				}
 			}
 			window.draw(label);
 			i++;
@@ -349,9 +461,19 @@ namespace TheTraitor {
 		bool isHovered = joinGameButton.isMouseOver(position);
 		joinGameButton.updateHoverEffect(isHovered);
 
-		if (inputData.isMouseClicked && isHovered) {
-			viewData.enteredPlayerName = playerNameInputTextBoxString;
-			viewData.gotoState = LOBBY;
+		if (inputData.isMouseClicked) {
+
+			if (isHovered) {
+				viewData.enteredPlayerName = playerNameInputTextBoxString;
+				viewData.gotoState = LOBBY;
+			}
+
+			for (size_t i = 0; i < avatarSprites.size(); ++i) {
+				if (avatarSprites[i].getGlobalBounds().contains(position)) {
+					currentSelectedAvatarIndex = i;
+					viewData.avatarID = currentSelectedAvatarIndex;
+				}
+			}
 		}
 
 		if (inputData.isKeyEntered) {
