@@ -109,6 +109,22 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateResolutionPhase() {
+		std::vector<ActionPacket> actionPackets;
+		// Receive action packets from server
+		while ( actionPackets.size() < 5) {
+			sf::Packet packet;
+			PacketType packetType;
+			if (socket.receive(packet) != sf::Socket::Status::Done) {
+				//error
+				continue;
+			}
+			packet >> packetType;
+			if (packetType == PacketType::ACTION_PACKET) {
+				ActionPacket actionPacket;
+				packet >> actionPacket;
+				actionPackets.push_back(actionPacket);
+			}
+		}
 	}
 
 	void ClientApp::updateGameover() {
