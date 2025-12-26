@@ -11,15 +11,12 @@
 namespace TheTraitor{
     class GameHost {
     private:
-        // std::vector<> clientListeners
-        // std::vector<> clientSockets
         int clientConnectionTimeout;
         bool isGameStarted;
         sf::IpAddress serverIp;
         unsigned short serverPort;
 
-        //void receiveActionsFromClients(std::vector<> clientSockets);
-        //void sendGameStateToClients(std::vector<> clientSockets);
+    private:
         void kickDisconnectedClient();
         GameState* prepareGameStateForClient(int clientID);
         void updateGlobalGameState();
@@ -29,9 +26,6 @@ namespace TheTraitor{
         void establishConnectionWithClients(GlobalGameState& state);
         void receivePacket(sf::TcpSocket* socket);
         void sendPacket(sf::TcpSocket* socket, sf::Packet& packet);
-        void setIpAndPort(sf::IpAddress ip, unsigned short port){
-            serverIp = ip;
-            serverPort = port;
-        }
+        void setIpAndPort(sf::IpAddress ip, unsigned short port);
     };
 }
