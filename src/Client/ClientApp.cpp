@@ -71,15 +71,20 @@ namespace TheTraitor {
 				//error
 			}
 
-			// Receive playerID from server
-			sf::Packet playerIDPacket;
-			if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
-				PacketType packetType;
-				playerIDPacket >> packetType;
-				if (packetType == PacketType::INT) {
-					playerIDPacket >> playerID;
-				}
+			bool isIDReceived = false;
+			while (!isIDReceived) {
+				// Receive playerID from server
+				sf::Packet playerIDPacket;
+				if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
+					PacketType packetType;
+					playerIDPacket >> packetType;
+					if (packetType == PacketType::INT) {
+						playerIDPacket >> playerID;
+						isIDReceived = true;
+					}
 			}
+			}
+			
 
 			isConnected = true;
 
