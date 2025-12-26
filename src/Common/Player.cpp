@@ -18,6 +18,7 @@ namespace TheTraitor {
 		if (idBase == 0) {
 			std::srand(std::time(nullptr));
 			idBase = std::rand() % 100000;
+			idBase = idBase < 0 ? -idBase : idBase;
 		}
 
 		this->playerID = idBase++;

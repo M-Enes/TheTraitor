@@ -275,6 +275,17 @@ namespace TheTraitor {
 	void GameManager::sendActionPacketToAllPlayers(std::vector<ActionPacket> actionPackets) {	
 		for (auto& player : state.players) {
 			sf::TcpSocket* socket = player.getSocket();
+
+			// Send the number of action packets first
+			PacketType actionPacketCountType = PacketType::INT;
+			sf::Packet actionPacketCountPacket;
+			actionPacketCountPacket << actionPacketCountType;
+			actionPacketCountPacket << static_cast<int>(actionPackets.size());
+			if (socket->send(actionPacketCountPacket) != sf::Socket::Status::Done) {
+				//error
+			}
+
+			// Send each action packet
 			for (auto& actionPacket : actionPackets) {
 				PacketType actionPacketType = PacketType::ACTION_PACKET;
 				sf::Packet packet;
