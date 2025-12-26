@@ -73,7 +73,6 @@ namespace TheTraitor {
 			}
 			case ACTION_PHASE: {
 				// Receive actions from players
-				actionPackets;
 				ActionPacket secretAction;
 				std::vector<int> handledPlayerIDs;
 				bool secretyActionsReceived = false;
@@ -141,7 +140,7 @@ namespace TheTraitor {
 					std::cout << "Innocents win! The traitor's country is destroyed." << std::endl;
 				}
 				else {
-					int destroyedCountries = 0;
+					unsigned long int destroyedCountries = 0;
 					for (const auto& player : state.players) if (player.getCountry()->isDestroyed()) destroyedCountries++;
 					if (destroyedCountries == state.players.size() - 1) {
 						// Traitor wins
@@ -165,6 +164,13 @@ namespace TheTraitor {
 				}
 				break;
 			}
+			case MENU:
+			case GAMEOVER:
+			case WIN:
+			case NONE:
+			default:
+				// Do nothing
+				break;
 		}
 	}
 

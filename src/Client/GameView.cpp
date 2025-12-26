@@ -285,7 +285,7 @@ namespace TheTraitor {
 		playerCountText.setFillColor(sf::Color::White);
 		playerCountText.setPosition(sf::Vector2f(100, 100));
 
-		int i = 0;
+		long unsigned int i = 0;
 		for (auto& label : playerLabels) {
 			if (gameState.players.size() <= i) {
 				label.setString("Waiting for player...");
@@ -550,7 +550,7 @@ namespace TheTraitor {
 				sf::Color fillColor = (inputData.isMouseClicked) ? countrySelectedColor : countryHoverColor;
 				if ((*countryPair.second)[0].color == countrySelectedColor) fillColor = countryHoverColor;
 				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
-					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
+					for (long unsigned int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
 						(*countryPair.second)[i].color = fillColor;
 					}
 
@@ -559,7 +559,7 @@ namespace TheTraitor {
 			else {
 				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
 
-					for (int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
+					for (long unsigned int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
 						(*countryPair.second)[i].color = countryNormalColor;
 					}
 				}
@@ -629,9 +629,9 @@ namespace TheTraitor {
 	{
 		bool isInside = false;
 
-		for (int i = 0, j = 0; i < polygonPoints.size(); i++) {
+		for (long unsigned int i = 0, j = 0; i < polygonPoints.size(); i++) {
 			j = (i + 1) % polygonPoints.size();
-			if ((point.x >= polygonPoints[i].x != point.x >= polygonPoints[j].x)
+			if (((point.x >= polygonPoints[i].x) != (point.x >= polygonPoints[j].x))
 				&& point.y < polygonPoints[i].y + (polygonPoints[j].y - polygonPoints[i].y) * (point.x - polygonPoints[i].x) / (polygonPoints[j].x - polygonPoints[i].x)) {
 				isInside = !isInside;
 			}

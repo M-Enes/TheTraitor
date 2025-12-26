@@ -65,7 +65,7 @@ namespace TheTraitor {
 
 
 
-			for(int j = 0; j < gameState.players.size(); ++j) {
+			for(unsigned long int j = 0; j < gameState.players.size(); ++j) {
 				if (gameState.players[j].getPlayerID() == playerID) {
 					playerSet = true;
 					gameState.players[j].setName(playerName);

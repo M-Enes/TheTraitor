@@ -36,7 +36,7 @@ namespace TheTraitor {
 		sf::Text playerNameInputLabel;
 		sf::Text playerNameInputTextBox;
 		std::string playerNameInputTextBoxString;
-		const int playerNameCharLimit = 15;
+		const unsigned long int playerNameCharLimit = 15;
 		std::array<sf::Text, 5> playerLabels;
 		sf::RectangleShape actionMenu;
 		std::vector<std::tuple<std::string, Button, ActionType>> actionMenuButtons;
