@@ -77,7 +77,6 @@ namespace TheTraitor {
 				Player player = Player(playerName, country, avatarID);
 				player.setSocket(client);
 				state.players.push_back(player);
-				client->setBlocking(false);
 
 				std::cout << "Player " << playerName << " joined the game with ID " << player.getPlayerID() << std::endl;
 

@@ -6,6 +6,7 @@
 #include "ClientApp.h"
 #include "Common/GameState.h"
 #include "Common/PacketType.h"
+#include <iostream>
 
 namespace TheTraitor {
 
@@ -22,7 +23,7 @@ namespace TheTraitor {
 		// TODO: add antialiasing option
 		//windowSettings.antiAliasingLevel = 4;
 		//window.create(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen, windowSettings);
-		
+
 		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
 		menuMusic.play();
 
@@ -72,32 +73,29 @@ namespace TheTraitor {
 			}
 
 			bool isIDReceived = false;
-			while (!isIDReceived) {
-				// Receive playerID from server
-				sf::Packet playerIDPacket;
-				if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
-					PacketType packetType;
-					playerIDPacket >> packetType;
-					if (packetType == PacketType::INT) {
-						playerIDPacket >> playerID;
-						isIDReceived = true;
-					}
-			}
-			}
-			
+			// Receive playerID from server
+			sf::Packet playerIDPacket;
+			if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
+				PacketType packetType;
+				playerIDPacket >> packetType;
+				if (packetType == PacketType::INT) {
+					playerIDPacket >> playerID;
+					isIDReceived = true;
+				}
+				std::cout << "playerID: " << playerID << std::endl;
+				socket.setBlocking(false);
 
-			isConnected = true;
+				isConnected = true;
+			}
 
-			socket.setBlocking(false);
+			receivePackets(); // Update the view regarding the updated game state
+
+
+
+			//sf::sleep(sf::seconds(1));
+			//menuMusic.stop();
+			//actionPhaseMusic.play();
 		}
-
-		receivePackets(); // Update the view regarding the updated game state
-
-		
-
-		//sf::sleep(sf::seconds(1));
-		//menuMusic.stop();
-		//actionPhaseMusic.play();
 	}
 
 	void ClientApp::updateDiscussionPhase() {
@@ -108,7 +106,7 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
-			ActionPacket actionPacket{viewData.actionType, playerID, playerID}; // TODO: fill targetID correctly
+			ActionPacket actionPacket{ viewData.actionType, playerID, playerID }; // TODO: fill targetID correctly
 			sendActionToServer(actionPacket);
 		}
 	}
@@ -120,7 +118,8 @@ namespace TheTraitor {
 		sf::Packet packetSizePacket;
 		if (socket.receive(packetSizePacket) != sf::Socket::Status::Done) {
 			//error
-		} else {
+		}
+		else {
 			PacketType packetType;
 			packetSizePacket >> packetType;
 			if (packetType == PacketType::INT) {
@@ -130,7 +129,7 @@ namespace TheTraitor {
 			}
 		}
 
-		while ( actionPackets.size() < packetCount) {
+		while (actionPackets.size() < packetCount) {
 			sf::Packet packet;
 			PacketType packetType;
 			if (socket.receive(packet) != sf::Socket::Status::Done) {
@@ -234,7 +233,6 @@ namespace TheTraitor {
 		if (socket.connect(ip, port) != sf::Socket::Status::Done) {
 			//error
 		}
-		socket.setBlocking(false);
 	}
 
 	void ClientApp::receivePackets() {
@@ -246,19 +244,19 @@ namespace TheTraitor {
 		}
 		packet >> packetType;
 		switch (packetType) {
-			case PacketType::ACTION_PACKET: {
-				// This case is not possible for client, but included for now
-				ActionPacket actionPacket;
-				packet >> actionPacket;
-				// Process actionPacket
-				break;
-			} case PacketType::GAMESTATE: {
-				GameState newGameState;
-				packet >> newGameState;
-				gameState = newGameState;
-				break;
-			} default:
-				break;
+		case PacketType::ACTION_PACKET: {
+			// This case is not possible for client, but included for now
+			ActionPacket actionPacket;
+			packet >> actionPacket;
+			// Process actionPacket
+			break;
+		} case PacketType::GAMESTATE: {
+			GameState newGameState;
+			packet >> newGameState;
+			gameState = newGameState;
+			break;
+		} default:
+			break;
 		}
 	}
 
