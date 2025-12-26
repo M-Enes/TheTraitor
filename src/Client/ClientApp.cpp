@@ -119,7 +119,9 @@ namespace TheTraitor {
 			PacketType packetType;
 			packetSizePacket >> packetType;
 			if (packetType == PacketType::INT) {
-				packetSizePacket >> packetCount;
+				int tempPacketCount;
+				packetSizePacket >> tempPacketCount;
+				packetCount = static_cast<unsigned long int>(tempPacketCount);
 			}
 		}
 
