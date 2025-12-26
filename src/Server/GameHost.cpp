@@ -1,14 +1,16 @@
 #include "GameHost.h"
+
 #include <SFML/Network.hpp>
 #include <vector>
 #include <algorithm>
 #include <iostream>
+
 #include "Common/Country.h"
 #include "Common/PacketType.h"
 
 namespace TheTraitor {
 
-	GameHost::GameHost(/*clientListeners, clientSockets, clientConnectionTimeout*/) : serverIp(sf::IpAddress::LocalHost), serverPort(53000) {
+	GameHost::GameHost() : serverIp(sf::IpAddress::LocalHost), serverPort(53000) {
 		clientConnectionTimeout = 30; //seconds
 		isGameStarted = false;
 
@@ -23,7 +25,9 @@ namespace TheTraitor {
 		sf::TcpListener listener;
 		if (listener.listen(serverPort) != sf::Socket::Status::Done) {
 			//error
+			std::cout << "Error: Could not start listening on port " << serverPort << std::endl;
 		}
+
 		while (connectedCount < 5) {
 			//accept a new connection
 			sf::TcpSocket* client = new sf::TcpSocket();
@@ -35,34 +39,36 @@ namespace TheTraitor {
 			else {
 				std::cout << "New client connected: " << std::endl;
 
-				//add client to list
 				Country* country = new Country(); // TODO: Randomly generate country stats here later
+
+				// Receive player name and avatarID
 				bool isNameReceived = false;
 				bool isAvatarReceived = false;
-
 				while ( !isNameReceived || !isAvatarReceived ) {
 					// Wait until both name and avatarID are received
 					// Get name from client
 					sf::Packet namePacket;
-					if (client->receive(namePacket) == sf::Socket::Status::Done) {
+					if (client->receive(namePacket) == sf::Socket::Status::Done && !isNameReceived) {
 						PacketType packetType;
 						namePacket >> packetType;
 						if (packetType == PacketType::STRING) {
 							// Get the name of the player
 							namePacket >> playerName;
 							isNameReceived = true;
+							std::cout << "Player name received: " << playerName << std::endl;
 						}
 					}
 
 					// Get avatarID from client
 					sf::Packet avatarPacket;
-					if (client->receive(avatarPacket) == sf::Socket::Status::Done) {
+					if (client->receive(avatarPacket) == sf::Socket::Status::Done && !isAvatarReceived) {
 						PacketType packetType;
 						avatarPacket >> packetType;
 						if (packetType == PacketType::INT) {
 							// Get the avatarID of the player
 							avatarPacket >> avatarID;
 							isAvatarReceived = true;
+							std::cout << "Avatar ID received: " << avatarID << std::endl;
 						}
 					}
 				}
@@ -82,10 +88,11 @@ namespace TheTraitor {
 				playerIDPacket << player.getPlayerID();
 				if (client->send(playerIDPacket) != sf::Socket::Status::Done){
 					//error
+					std::cout << "Error: Could not send player ID to client." << std::endl;
 				}
 
 				connectedCount++;
-
+				
 				// Send updated game state to all players
 				for (auto& player : state.players) {
 					sf::TcpSocket* socket = player.getSocket();
@@ -101,12 +108,8 @@ namespace TheTraitor {
 						//error
 					}
 				}
-
 			}
-
-
 		}
-
 	}
 
 	void GameHost::receivePacket(sf::TcpSocket* socket) {
@@ -129,4 +132,8 @@ namespace TheTraitor {
 		}
 	}
 
+	void GameHost::setIpAndPort(sf::IpAddress ip, unsigned short port){
+            serverIp = ip;
+            serverPort = port;
+    }
 }
