@@ -111,7 +111,20 @@ namespace TheTraitor {
 	void ClientApp::updateResolutionPhase() {
 		std::vector<ActionPacket> actionPackets;
 		// Receive action packets from server
-		while ( actionPackets.size() < 5) {
+		int packetCount = 0;
+		sf::Packet packetSizePacket;
+		if (socket.receive(packetSizePacket) != sf::Socket::Status::Done) {
+			//error
+		} else {
+			PacketType packetType;
+			packetSizePacket >> packetType;
+			if (packetType == PacketType::INT) {
+				int expectedPacketCount;
+				packetSizePacket >> packetCount;
+			}
+		}
+
+		while ( actionPackets.size() < packetCount) {
 			sf::Packet packet;
 			PacketType packetType;
 			if (socket.receive(packet) != sf::Socket::Status::Done) {
