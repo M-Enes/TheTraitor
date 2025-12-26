@@ -111,7 +111,7 @@ namespace TheTraitor {
 	void ClientApp::updateResolutionPhase() {
 		std::vector<ActionPacket> actionPackets;
 		// Receive action packets from server
-		int packetCount = 0;
+		unsigned long int packetCount = 0;
 		sf::Packet packetSizePacket;
 		if (socket.receive(packetSizePacket) != sf::Socket::Status::Done) {
 			//error
@@ -119,7 +119,6 @@ namespace TheTraitor {
 			PacketType packetType;
 			packetSizePacket >> packetType;
 			if (packetType == PacketType::INT) {
-				int expectedPacketCount;
 				packetSizePacket >> packetCount;
 			}
 		}
@@ -214,6 +213,9 @@ namespace TheTraitor {
 			break;
 		case WIN:
 			gameView.renderWin(gameState);
+			break;
+		case NONE:
+			// Do nothing
 			break;
 		}
 
