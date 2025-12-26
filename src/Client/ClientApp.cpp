@@ -103,7 +103,7 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
-			ActionPacket actionPacket{viewData.actionType, playerID, viewData.actionTargetID}; // TODO: fill actionPacket based on viewData
+			ActionPacket actionPacket{viewData.actionType, playerID, playerID}; // TODO: fill targetID correctly
 			sendActionToServer(actionPacket);
 		}
 	}

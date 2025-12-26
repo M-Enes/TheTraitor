@@ -541,7 +541,7 @@ namespace TheTraitor {
 				// TODO: send the action packet
 				viewData.isActionRequested = true;
 				viewData.actionType = actionType;
-				viewData.actionTargetID = 1;// TODO: fill this
+				viewData.actionTargetID = 1;// TODO: fill this with targetID
 			}
 		}
 
