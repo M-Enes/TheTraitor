@@ -38,6 +38,8 @@ namespace TheTraitor {
 
 			update(deltaTime);
 			render();
+			sendPackets();
+			receivePackets();
 		}
 	}
 
@@ -54,47 +56,47 @@ namespace TheTraitor {
 		// How can i check if the tcp socket is connected?
 		if (!isConnected) {
 			openTCPSocket(serverIp, serverPort);
-			// Send name
-			sf::Packet namePacket;
-			PacketType namePacketType = PacketType::STRING;
-			namePacket << namePacketType;
-			namePacket << gameView.handleMenuInput(inputHandler.getInputData()).enteredPlayerName;
-			if (socket.send(namePacket) != sf::Socket::Status::Done) {
-				//error
+			socket.setBlocking(false);
+
+			if (packetsToSend.size() > 0) {
+				// Send name
+				sf::Packet namePacket;
+				PacketType namePacketType = PacketType::STRING;
+				namePacket << namePacketType;
+				namePacket << gameView.handleMenuInput(inputHandler.getInputData()).enteredPlayerName;
+				packetsToSend.push_back(namePacket);
+
+				// Send avatarID
+				sf::Packet avatarPacket;
+				PacketType avatarPacketType = PacketType::INT;
+				avatarPacket << avatarPacketType;
+				avatarPacket << gameView.handleMenuInput(inputHandler.getInputData()).avatarID;
+				packetsToSend.push_back(avatarPacket);
 			}
 
-			// Send avatarID
-			sf::Packet avatarPacket;
-			PacketType avatarPacketType = PacketType::INT;
-			avatarPacket << avatarPacketType;
-			avatarPacket << gameView.handleMenuInput(inputHandler.getInputData()).avatarID;
-			if (socket.send(avatarPacket) != sf::Socket::Status::Done) {
-				//error
-			}
-
-			bool isIDReceived = false;
-			// Receive playerID from server
-			sf::Packet playerIDPacket;
-			if (socket.receive(playerIDPacket) == sf::Socket::Status::Done) {
+			for (int i = 0; i < packetsReceived.size(); ++i) {
 				PacketType packetType;
-				playerIDPacket >> packetType;
-				if (packetType == PacketType::INT) {
-					playerIDPacket >> playerID;
+				packetsReceived[i] >> packetType;
+				if (packetType == PacketType::INT && !isIDReceived) {
+					int tempID;
+					packetsReceived[i] >> tempID;
+					playerID = tempID;
 					isIDReceived = true;
 				}
-				std::cout << "playerID: " << playerID << std::endl;
-				socket.setBlocking(false);
-
-				isConnected = true;
+				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
-
-			receivePackets(); // Update the view regarding the updated game state
-
-
-
-			//sf::sleep(sf::seconds(1));
-			//menuMusic.stop();
-			//actionPhaseMusic.play();
+			
+			if (isIDReceived && packetsToSend.size() == 0) isConnected = true;
+		}
+		for (int i = 0; i < packetsReceived.size(); ++i) {
+			PacketType packetType;
+			packetsReceived[i] >> packetType;
+			if (packetType == PacketType::GAMESTATE) {
+				GameState newGameState;
+				packetsReceived[i] >> newGameState;
+				gameState = newGameState;
+			}
+			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
 	}
 
@@ -112,37 +114,20 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateResolutionPhase() {
-		std::vector<ActionPacket> actionPackets;
-		// Receive action packets from server
 		unsigned long int packetCount = 0;
-		sf::Packet packetSizePacket;
-		if (socket.receive(packetSizePacket) != sf::Socket::Status::Done) {
-			//error
-		}
-		else {
-			PacketType packetType;
-			packetSizePacket >> packetType;
-			if (packetType == PacketType::INT) {
-				int tempPacketCount;
-				packetSizePacket >> tempPacketCount;
-				packetCount = static_cast<unsigned long int>(tempPacketCount);
-			}
-		}
 
-		while (actionPackets.size() < packetCount) {
-			sf::Packet packet;
+		for (int i = 0; i < packetsReceived.size(); ++i) {
 			PacketType packetType;
-			if (socket.receive(packet) != sf::Socket::Status::Done) {
-				//error
-				continue;
-			}
-			packet >> packetType;
-			if (packetType == PacketType::ACTION_PACKET) {
-				ActionPacket actionPacket;
-				packet >> actionPacket;
-				actionPackets.push_back(actionPacket);
+			packetsReceived[i] >> packetType;
+			if (packetType == PacketType::ACTION_PACKET) packetCount++;
+			else if (packetType == PacketType::GAMESTATE) {
+				GameState newGameState;
+				packetsReceived[i] >> newGameState;
+				gameState = newGameState;
+				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 		}
+		
 	}
 
 	void ClientApp::updateGameover() {
@@ -236,27 +221,11 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::receivePackets() {
-		sf::Packet packet;
-		PacketType packetType;
-		if (socket.receive(packet) != sf::Socket::Status::Done) {
-			//error
-			return;
-		}
-		packet >> packetType;
-		switch (packetType) {
-		case PacketType::ACTION_PACKET: {
-			// This case is not possible for client, but included for now
-			ActionPacket actionPacket;
-			packet >> actionPacket;
-			// Process actionPacket
-			break;
-		} case PacketType::GAMESTATE: {
-			GameState newGameState;
-			packet >> newGameState;
-			gameState = newGameState;
-			break;
-		} default:
-			break;
+		for (int i = 0; i < NUMBER_OF_RECEIVE_ATTEMPTS; ++i) {
+			sf::Packet packet;
+			sf::Socket::Status status = socket.receive(packet);
+			if (status == sf::Socket::Status::Done) 
+				packetsReceived.push_back(packet);
 		}
 	}
 
@@ -265,9 +234,14 @@ namespace TheTraitor {
 		PacketType packetType = PacketType::ACTION_PACKET;
 		packet << packetType;
 		packet << actionPacket;
-		if (socket.send(packet) != sf::Socket::Status::Done) {
-			//error
-		}
+		packetsToSend.push_back(packet);
+	}
+
+
+	void ClientApp::sendPackets() {
+		for (int i = 0; i < packetsToSend.size(); ++i) 
+		if (socket.send(packetsToSend[i]) == sf::Socket::Status::Done) 
+		packetsToSend.erase(packetsToSend.begin() + i--);
 	}
 
 

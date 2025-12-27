@@ -8,6 +8,8 @@
 #include "GameView.h"
 #include "Common/PacketType.h"
 
+#define NUMBER_OF_RECEIVE_ATTEMPTS 20
+
 namespace TheTraitor {
 
 	class ClientApp
@@ -29,9 +31,14 @@ namespace TheTraitor {
 		sf::Music menuMusic;
 		sf::Music actionPhaseMusic;
 		sf::TcpSocket socket;
+		std::vector<sf::Packet> packetsToSend;
+		std::vector<sf::Packet> packetsReceived;
 
-		bool isConnected;
 		int playerID;
+
+		// Flags
+		bool isIDReceived = false;
+		bool isConnected;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();
@@ -44,5 +51,6 @@ namespace TheTraitor {
 		void render();
 		void openTCPSocket(sf::IpAddress ip, unsigned short port);
 		void receivePackets();
+		void sendPackets();
 	};
 }
