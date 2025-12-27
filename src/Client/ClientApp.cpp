@@ -56,7 +56,6 @@ namespace TheTraitor {
 		// How can i check if the tcp socket is connected?
 		if (!isConnected) {
 			openTCPSocket(serverIp, serverPort);
-			socket.setBlocking(false);
 
 			if (packetsToSend.size() > 0) {
 				// Send name
@@ -218,6 +217,7 @@ namespace TheTraitor {
 		if (socket.connect(ip, port) != sf::Socket::Status::Done) {
 			//error
 		}
+		socket.setBlocking(false);
 	}
 
 	void ClientApp::receivePackets() {
