@@ -38,6 +38,7 @@ namespace TheTraitor {
 
 		// Flags
 		bool isIDReceived = false;
+		bool isNameAndAvatarSent = false;
 		bool isConnected;
 	private:
 		void update(sf::Time deltaTime);
