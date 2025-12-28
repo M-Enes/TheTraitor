@@ -57,7 +57,7 @@ namespace TheTraitor {
 		if (!isConnected) {
 			openTCPSocket(serverIp, serverPort);
 
-			if (packetsToSend.size() > 0) {
+			if (!isNameAndAvatarSent) {
 				// Send name
 				sf::Packet namePacket;
 				PacketType namePacketType = PacketType::STRING;
@@ -71,6 +71,8 @@ namespace TheTraitor {
 				avatarPacket << avatarPacketType;
 				avatarPacket << gameView.handleMenuInput(inputHandler.getInputData()).avatarID;
 				packetsToSend.push_back(avatarPacket);
+
+				isNameAndAvatarSent = true;
 			}
 
 			for (int i = 0; i < packetsReceived.size(); ++i) {
