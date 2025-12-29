@@ -120,3 +120,7 @@ void TheTraitor::Player::setAvatarID(int id) {
 int TheTraitor::Player::getAvatarID() const {
 	return this->avatarID;
 }
+
+void TheTraitor::Player::setPlayerID(int id) {
+	this->playerID = id;
+}

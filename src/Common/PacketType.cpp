@@ -1,5 +1,6 @@
 #include "PacketType.h"
 #include "ActionPacket.h"
+#include "Role.h"
 
 namespace TheTraitor {
 	sf::Packet& operator<<(sf::Packet& packet, const PacketType& type){
@@ -33,6 +34,7 @@ namespace TheTraitor {
 			packet << player.getName();
 			packet << player.getPlayerID();
 			packet << player.getAvatarID();
+			packet << player.getRole()->getName();
 			packet << player.getCountry()->getEconomy();
 			packet << player.getCountry()->getHealth();
 			packet << player.getCountry()->getEducation();
@@ -50,7 +52,7 @@ namespace TheTraitor {
 		packet >> playerCount;
 		for (int i = 0; i < playerCount; ++i) {
 			bool playerSet = false;
-			std::string playerName;
+			std::string playerName, roleName;
 			int playerID, avatarID;
 			int economy, health, education;
 			bool destroyed;
@@ -58,6 +60,7 @@ namespace TheTraitor {
 			packet >> playerName;
 			packet >> playerID;
 			packet >> avatarID; // AvatarID
+			packet >> roleName;
 			packet >> economy;
 			packet >> health;
 			packet >> education;
@@ -74,6 +77,8 @@ namespace TheTraitor {
 					gameState.players[j].getCountry()->setHealth(health);
 					gameState.players[j].getCountry()->setEducation(education);
 					gameState.players[j].getCountry()->setDestroyed(destroyed);
+					Role* role = roleName == "Traitor" ? static_cast<Role*>(new Traitor()) : static_cast<Role*>(new Innocent());
+					gameState.players[j].setRole(role);
 					break;
 				}
 			}
@@ -83,6 +88,8 @@ namespace TheTraitor {
 				country->setDestroyed(destroyed);
 				Player newPlayer(playerName, country, avatarID);
 				newPlayer.setSocket(nullptr); // No socket info in GameState packet
+				newPlayer.setRole(roleName == "Traitor" ? static_cast<Role*>(new Traitor()) : static_cast<Role*>(new Innocent()));
+				newPlayer.setPlayerID(playerID);
 				gameState.players.push_back(newPlayer);
 			}
 

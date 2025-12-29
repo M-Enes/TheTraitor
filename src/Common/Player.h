@@ -31,6 +31,7 @@ namespace TheTraitor {
 		void updateCountryStat(CountryStatType stat, int value);
 		void setAvatarID(int id);
 		int getAvatarID() const;
+		void setPlayerID(int id);
 
 	private:
 		int playerID;
