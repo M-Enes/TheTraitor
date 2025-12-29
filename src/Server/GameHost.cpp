@@ -7,6 +7,7 @@
 
 #include "Common/Country.h"
 #include "Common/PacketType.h"
+#include "Common/Role.h"
 
 namespace TheTraitor {
 
@@ -76,6 +77,7 @@ namespace TheTraitor {
 				// Create player and add to global game state
 				Player player = Player(playerName, country, avatarID);
 				player.setSocket(client);
+				player.setRole(new Innocent());
 				state.players.push_back(player);
 
 				std::cout << "Player " << playerName << " joined the game with ID " << player.getPlayerID() << std::endl;

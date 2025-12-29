@@ -6,6 +6,7 @@
 #include "ClientApp.h"
 #include "Common/GameState.h"
 #include "Common/PacketType.h"
+#include "Common/Role.h"
 #include <iostream>
 
 namespace TheTraitor {
@@ -129,6 +130,21 @@ namespace TheTraitor {
 			if (packetType == PacketType::GAMESTATE) {
 				GameState newGameState;
 				packet >> newGameState;
+				Role* role;
+				for (const auto& player : newGameState.players) {
+					if (player.getPlayerID() == playerID) {
+						std::cout << "player found" << std::endl;
+						role = player.getRole();
+					}
+				}
+				if (role->getName() == "Traitor") {
+					if (newGameState.currentPhase == WIN) {
+						newGameState.currentPhase = GAMEOVER;
+					}
+					else if (newGameState.currentPhase == GAMEOVER) {
+						newGameState.currentPhase = WIN;
+					}
+				}
 				gameState = newGameState;
 			}
 			packetsReceived.erase(packetsReceived.begin() + i--);
