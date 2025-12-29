@@ -49,13 +49,13 @@ namespace TheTraitor {
 
 		if (viewData.gotoState == LOBBY) {
 			gameState.currentPhase = LOBBY;
+			openTCPSocket(serverIp, serverPort);
 		}
 	}
 
 	void ClientApp::updateLobby() {
 		// How can i check if the tcp socket is connected?
 		if (!isConnected) {
-			openTCPSocket(serverIp, serverPort);
 
 			if (!isNameAndAvatarSent) {
 				// Send name
@@ -76,28 +76,36 @@ namespace TheTraitor {
 			}
 
 			for (int i = 0; i < packetsReceived.size(); ++i) {
+				sf::Packet packet = packetsReceived[i];
 				PacketType packetType;
-				packetsReceived[i] >> packetType;
+				packet >> packetType;
+				std::cout << static_cast<int>(packetType) << std::endl;
 				if (packetType == PacketType::INT && !isIDReceived) {
 					int tempID;
-					packetsReceived[i] >> tempID;
+					packet >> tempID;
 					playerID = tempID;
 					isIDReceived = true;
+					std::cout << "player id received and set to " << playerID << std::endl;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+			}
+
+			if (isIDReceived && packetsToSend.size() == 0) isConnected = true;
+		}
+		else {
+
+			for (int i = 0; i < packetsReceived.size(); ++i) {
+				sf::Packet packet = packetsReceived[i];
+				PacketType packetType;
+				packet >> packetType;
+				std::cout << "gamestate receiving loop " << static_cast<int>(packetType) << std::endl;
+				if (packetType == PacketType::GAMESTATE) {
+					GameState newGameState;
+					packet >> newGameState;
+					gameState = newGameState;
 				}
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
-			
-			if (isIDReceived && packetsToSend.size() == 0) isConnected = true;
-		}
-		for (int i = 0; i < packetsReceived.size(); ++i) {
-			PacketType packetType;
-			packetsReceived[i] >> packetType;
-			if (packetType == PacketType::GAMESTATE) {
-				GameState newGameState;
-				packetsReceived[i] >> newGameState;
-				gameState = newGameState;
-			}
-			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
 	}
 
@@ -111,6 +119,19 @@ namespace TheTraitor {
 			// TODO: send action packet
 			ActionPacket actionPacket{ viewData.actionType, playerID, playerID }; // TODO: fill targetID correctly
 			sendActionToServer(actionPacket);
+		}
+
+		for (int i = 0; i < packetsReceived.size(); ++i) {
+			sf::Packet packet = packetsReceived[i];
+			PacketType packetType;
+			packet >> packetType;
+			std::cout << "action phase gamestate receiving loop " << static_cast<int>(packetType) << std::endl;
+			if (packetType == PacketType::GAMESTATE) {
+				GameState newGameState;
+				packet >> newGameState;
+				gameState = newGameState;
+			}
+			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
 	}
 
@@ -128,7 +149,7 @@ namespace TheTraitor {
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 		}
-		
+
 	}
 
 	void ClientApp::updateGameover() {
@@ -223,11 +244,13 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::receivePackets() {
+		sf::Packet packet;
 		for (int i = 0; i < NUMBER_OF_RECEIVE_ATTEMPTS; ++i) {
-			sf::Packet packet;
 			sf::Socket::Status status = socket.receive(packet);
-			if (status == sf::Socket::Status::Done) 
+			if (status == sf::Socket::Status::Done) {
+				std::cout << "received packet" << std::endl;
 				packetsReceived.push_back(packet);
+			}
 		}
 	}
 
@@ -241,9 +264,9 @@ namespace TheTraitor {
 
 
 	void ClientApp::sendPackets() {
-		for (int i = 0; i < packetsToSend.size(); ++i) 
-		if (socket.send(packetsToSend[i]) == sf::Socket::Status::Done) 
-		packetsToSend.erase(packetsToSend.begin() + i--);
+		for (int i = 0; i < packetsToSend.size(); ++i)
+			if (socket.send(packetsToSend[i]) == sf::Socket::Status::Done)
+				packetsToSend.erase(packetsToSend.begin() + i--);
 	}
 
 
