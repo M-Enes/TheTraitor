@@ -30,7 +30,17 @@ namespace TheTraitor {
 				// Choose the traitor randomly
 				std::srand(time(nullptr));
 				traitorIndex = std::rand() % 5;
-				state.players[traitorIndex].setRole(new Traitor());
+				for (int i = 0; i < state.players.size(); ++i) {
+					if (i == traitorIndex) {
+						Role* traitorRole = new Traitor();
+						state.players[i].setRole(traitorRole);
+						std::cout << "Player " << state.players[i].getPlayerID() << " is the Traitor." << std::endl;
+					}
+					else {
+						Role* innocentRole = new Innocent();
+						state.players[i].setRole(innocentRole);
+					}
+				}
 
 				// Send updated game state to all players
 				sendGameStateToAllPlayers();
@@ -252,8 +262,8 @@ namespace TheTraitor {
 			sf::Packet gameStatePacket;
 			gameStatePacket << gameStatePacketType;
 			stateToSend.currentPhase = state.currentPhase;
-			if (state.currentPhase == WIN || state.currentPhase == GAMEOVER) {
-				// Reveal the traitor's role at the end of the game
+			if (state.currentPhase == WIN || state.currentPhase == GAMEOVER || player.getPlayerID() == state.players[traitorIndex].getPlayerID()) {
+				// Reveal the traitor's role at the end of the game, and send full state to the traitor
 				stateToSend.players = state.players;
 				gameStatePacket << stateToSend;
 				if (socket->send(gameStatePacket) != sf::Socket::Status::Done) {				
