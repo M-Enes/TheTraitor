@@ -11,7 +11,7 @@
 
 namespace TheTraitor {
 
-	ClientApp::ClientApp(std::string executableFolderPath)
+	ClientApp::ClientApp(std::string executableFolderPath, bool testResolutionPhase)
 		: window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
 		inputHandler(window),
 		gameView(window, executableFolderPath),
@@ -27,7 +27,19 @@ namespace TheTraitor {
 		//windowSettings.antiAliasingLevel = 4;
 		//window.create(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen, windowSettings);
 
-		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
+		if (testResolutionPhase) {
+			gameState.currentPhase = RESOLUTION_PHASE;
+			// Add dummy players for testing
+			TheTraitor::Player p1; p1.setName("Alice"); p1.setAvatarID(0);
+			TheTraitor::Player p2; p2.setName("Bob"); p2.setAvatarID(1);
+			TheTraitor::Player p3; p3.setName("Charlie"); p3.setAvatarID(2);
+			gameState.players.push_back(p1);
+			gameState.players.push_back(p2);
+			gameState.players.push_back(p3);
+		}
+		else {
+			gameState.currentPhase = MENU;
+		}
 		menuMusic.play();
 
 		window.setFramerateLimit(60);

@@ -15,7 +15,7 @@ namespace TheTraitor {
 	class ClientApp
 	{
 	public:
-		ClientApp(std::string executableFolderPath);
+		ClientApp(std::string executableFolderPath, bool testResolutionPhase = false);
 		ClientApp(const ClientApp&) = delete;
 		ClientApp& operator=(const ClientApp&) = delete;
 		void run();

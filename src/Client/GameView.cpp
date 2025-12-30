@@ -398,6 +398,85 @@ namespace TheTraitor {
 
 	void GameView::renderResolutionPhase(const GameState& gameState)
 	{
+		// 1. Clear the background or add a semi-transparent layer (optional)
+		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+		overlay.setFillColor(sf::Color(0, 0, 0, 200));
+		window.draw(overlay);
+
+		// 2. Title
+		sf::Text title(font, "Resolution Phase - Action Log", 40);
+		title.setFillColor(sf::Color::Yellow);
+		title.setPosition(sf::Vector2f(window.getSize().x / 2.0f - title.getGlobalBounds().size.x / 2.0f, 50));
+		window.draw(title);
+
+		// 3. Manual ActionPacket List (As requested)
+		std::vector<ActionPacket> actions = {
+			{ ActionType::TradePact, 0, 1 },
+			{ ActionType::SabotageFactory, 1, 2 },
+			{ ActionType::HealthAid, 2, 0 },
+			{ ActionType::SpreadMisinfo, 0, 2 },
+			{ ActionType::TradeEmbargo, 1, 0 }
+		};
+
+		// 4. Helper lambda to convert ActionTypes to String
+		auto actionToString = [](ActionType type) -> std::string {
+			switch (type) {
+			case ActionType::TradePact: return "Trade Pact";
+			case ActionType::TradeEmbargo: return "Trade Embargo";
+			case ActionType::JointResearch: return "Joint Research";
+			case ActionType::SpreadMisinfo: return "Spread Misinfo";
+			case ActionType::HealthAid: return "Health Aid";
+			case ActionType::PoisonResources: return "Poison Resources";
+			case ActionType::SabotageFactory: return "Sabotage Factory";
+			case ActionType::DestroySchool: return "Destroy School";
+			case ActionType::SpreadPlague: return "Spread Plague";
+			default: return "Unknown Action";
+			}
+		};
+
+		// 5. Render the list to the screen
+		float startY = 150.0f;
+		float startX = 200.0f;
+		int index = 1;
+
+		for (const auto& action : actions) {
+			std::string sourceName = "Unknown";
+			std::string targetName = "Unknown";
+
+			// Attempt to fetch player names from GameState (Safe access)
+			if (action.sourceID >= 0 && action.sourceID < (int)gameState.players.size()) {
+				sourceName = gameState.players[action.sourceID].getName();
+			}
+			if (action.targetID >= 0 && action.targetID < (int)gameState.players.size()) {
+				targetName = gameState.players[action.targetID].getName();
+			}
+
+			// Format: [1] Ali --( Sabotage Factory )--> Veli
+			std::string logText = "[" + std::to_string(index) + "] " + 
+				sourceName + " --( " + actionToString(action.actionType) + " )--> " + targetName;
+
+			sf::Text logEntry(font, logText, 24);
+			logEntry.setFillColor(sf::Color::White);
+			logEntry.setPosition(sf::Vector2f(startX, startY));
+			
+			// Visual effect: Source player's color (Optional, white for now)
+			
+			window.draw(logEntry);
+
+			// Avatar drawing (Optional: We can place the source player's avatar at the start of the line)
+			if (action.sourceID >= 0 && action.sourceID < (int)gameState.players.size()) {
+				int avatarID = gameState.players[action.sourceID].getAvatarID();
+				if (avatarID >= 0 && avatarID < (int)avatarTextures.size()) {
+					sf::Sprite avatar(avatarTextures[avatarID]);
+					avatar.setScale({ 32.0f / avatar.getLocalBounds().size.x, 32.0f / avatar.getLocalBounds().size.y });
+					avatar.setPosition({ startX - 40.0f, startY });
+					window.draw(avatar);
+				}
+			}
+
+			startY += 50.0f; // Line spacing
+			index++;
+		}
 	}
 
 	void GameView::renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter)
