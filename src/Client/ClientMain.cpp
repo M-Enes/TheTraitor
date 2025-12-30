@@ -1,12 +1,10 @@
 #include "ClientApp.h"
-#include <filesystem>
-#include <string>
 
 #ifdef _WIN32
 #include "Windows.h"
 #endif // _WIN32
 
-int main(int argc, char* argv[]) {
+int main() {
 	std::filesystem::path executablePath;
 #ifdef _WIN32
 	char exePath[1000];
@@ -16,14 +14,6 @@ int main(int argc, char* argv[]) {
 	executablePath = std::filesystem::canonical("/proc/self/exe"); // LINUX
 #endif // _WIN32
 	std::string exeFolderPath = executablePath.parent_path().string();
-
-	bool testResolution = false;
-	for (int i = 1; i < argc; ++i) {
-		if (std::string(argv[i]) == "--test-resolution") {
-			testResolution = true;
-		}
-	}
-
-	TheTraitor::ClientApp clientApp(exeFolderPath, testResolution);
+	TheTraitor::ClientApp clientApp(exeFolderPath);
 	clientApp.run();
 }
