@@ -221,7 +221,6 @@ namespace TheTraitor {
 
 		avatarLabel.setPosition({ startX, startY - 40.f });
 
-
 	}
 
 	void GameView::renderMenu()
@@ -233,9 +232,9 @@ namespace TheTraitor {
 		if (!avatarSprites.empty()) {
 			sf::Vector2f firstPos = avatarSprites.front().getPosition();
 			sf::Vector2f lastPos = avatarSprites.back().getPosition();
-			sf::Vector2f size = { 
-				avatarSprites.front().getGlobalBounds().size.x, 
-				avatarSprites.front().getGlobalBounds().size.y 
+			sf::Vector2f size = {
+				avatarSprites.front().getGlobalBounds().size.x,
+				avatarSprites.front().getGlobalBounds().size.y
 			};
 
 			float padding = 10.0f;
@@ -266,7 +265,7 @@ namespace TheTraitor {
 				selectionRect.setPosition({
 					avatarSprites[i].getPosition().x - 3,
 					avatarSprites[i].getPosition().y - 3
-				});
+					});
 				selectionRect.setFillColor(sf::Color::Transparent);
 				selectionRect.setOutlineColor(sf::Color::Yellow);
 				selectionRect.setOutlineThickness(3);
@@ -297,7 +296,7 @@ namespace TheTraitor {
 				int avatarID = gameState.players[i].getAvatarID();
 				if (avatarID >= 0 && avatarID < static_cast<int>(avatarTextures.size())) {
 					sf::Sprite avatarSprite(avatarTextures[avatarID]);
-					float size = 50.0f; 
+					float size = 50.0f;
 					sf::Vector2u texSize = avatarTextures[avatarID].getSize();
 					if (texSize.x > 0 && texSize.y > 0) {
 						avatarSprite.setScale({ size / texSize.x, size / texSize.y });
@@ -320,7 +319,7 @@ namespace TheTraitor {
 	{
 	}
 
-	void GameView::renderActionPhase(const GameState& gameState)
+	void GameView::renderActionPhase(const GameState& gameState, int elapsedTimeSeconds, int roundCounter)
 	{
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
@@ -389,8 +388,11 @@ namespace TheTraitor {
 		}
 
 		window.draw(topBar);
+		roundLabel.setString("Round " + std::to_string(roundCounter));
 		window.draw(roundLabel);
 		window.draw(phaseLabel);
+		int remainingSeconds = 90 - elapsedTimeSeconds;
+		timerLabel.setString(std::to_string(remainingSeconds / 60) + ":" + std::to_string(remainingSeconds % 60));
 		window.draw(timerLabel);
 	}
 
@@ -398,7 +400,7 @@ namespace TheTraitor {
 	{
 	}
 
-	void GameView::renderGameover(const GameState& gameState)
+	void GameView::renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter)
 	{
 		// Background overlay
 		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -413,7 +415,7 @@ namespace TheTraitor {
 		window.draw(gameoverTitle);
 
 		// Total rounds
-		totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+		totalRoundsLabel.setString("Total Rounds: " + std::to_string(roundCounter)); // TODO: Get actual value from game state
 		totalRoundsLabel.setCharacterSize(30);
 		totalRoundsLabel.setFillColor(sf::Color::White);
 		totalRoundsLabel.setPosition(sf::Vector2f(
@@ -422,7 +424,7 @@ namespace TheTraitor {
 		window.draw(totalRoundsLabel);
 
 		// Total time
-		totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+		totalTimeLabel.setString("Total Time: " + std::to_string(totalTimeSeconds / 60) + ":" + std::to_string(totalTimeSeconds % 60)); // TODO: Get actual value from game state
 		totalTimeLabel.setCharacterSize(30);
 		totalTimeLabel.setFillColor(sf::Color::White);
 		totalTimeLabel.setPosition(sf::Vector2f(
@@ -434,7 +436,7 @@ namespace TheTraitor {
 		quitGameButton.render();
 	}
 
-	void GameView::renderWin(const GameState& gameState)
+	void GameView::renderWin(const GameState& gameState, int totalTimeSeconds, int roundCounter)
 	{
 		// Background overlay
 		sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -449,7 +451,7 @@ namespace TheTraitor {
 		window.draw(winTitle);
 
 		// Total rounds
-		totalRoundsLabel.setString("Total Rounds: 5"); // TODO: Get actual value from game state
+		totalRoundsLabel.setString("Total Rounds: " + std::to_string(roundCounter)); // TODO: Get actual value from game state
 		totalRoundsLabel.setCharacterSize(30);
 		totalRoundsLabel.setFillColor(sf::Color::White);
 		totalRoundsLabel.setPosition(sf::Vector2f(
@@ -458,7 +460,7 @@ namespace TheTraitor {
 		window.draw(totalRoundsLabel);
 
 		// Total time
-		totalTimeLabel.setString("Total Time: 15:30"); // TODO: Get actual value from game state
+		totalTimeLabel.setString("Total Time: " + std::to_string(totalTimeSeconds / 60) + ":" + std::to_string(totalTimeSeconds % 60)); // TODO: Get actual value from game state
 		totalTimeLabel.setCharacterSize(30);
 		totalTimeLabel.setFillColor(sf::Color::White);
 		totalTimeLabel.setPosition(sf::Vector2f(

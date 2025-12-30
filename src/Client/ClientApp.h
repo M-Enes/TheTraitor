@@ -42,6 +42,10 @@ namespace TheTraitor {
 		bool isIDReceived = false;
 		bool isNameAndAvatarSent = false;
 		bool isConnected;
+
+		sf::Clock totalTimer;
+		sf::Clock phaseTimer;
+		int roundCounter = 1;
 	private:
 		void update(sf::Time deltaTime);
 		void updateMenu();

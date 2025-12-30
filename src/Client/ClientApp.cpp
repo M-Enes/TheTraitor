@@ -109,6 +109,8 @@ namespace TheTraitor {
 					if (newGameState.currentPhase == ACTION_PHASE) {
 						menuMusic.stop();
 						actionPhaseMusic.play();
+						totalTimer.restart();
+						phaseTimer.restart();
 					}
 				}
 				packetsReceived.erase(packetsReceived.begin() + i--);
@@ -153,6 +155,7 @@ namespace TheTraitor {
 				}
 				gameState = newGameState;
 				actionPhaseMusic.stop();
+				totalTimer.stop();
 				if (newGameState.currentPhase == WIN) {
 					winMusic.play();
 				}
@@ -245,16 +248,16 @@ namespace TheTraitor {
 			gameView.renderDiscussionPhase(gameState);
 			break;
 		case ACTION_PHASE:
-			gameView.renderActionPhase(gameState);
+			gameView.renderActionPhase(gameState, phaseTimer.getElapsedTime().asSeconds(), roundCounter);
 			break;
 		case RESOLUTION_PHASE:
 			gameView.renderResolutionPhase(gameState);
 			break;
 		case GAMEOVER:
-			gameView.renderGameover(gameState);
+			gameView.renderGameover(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
 			break;
 		case WIN:
-			gameView.renderWin(gameState);
+			gameView.renderWin(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
 			break;
 		case NONE:
 			// Do nothing

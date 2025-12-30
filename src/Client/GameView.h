@@ -23,10 +23,10 @@ namespace TheTraitor {
 		void renderMenu();
 		void renderLobby(const GameState& gameState);
 		void renderDiscussionPhase(const GameState& gameState);
-		void renderActionPhase(const GameState& gameState);
+		void renderActionPhase(const GameState& gameState, int elapsedTimeSeconds, int roundCounter);
 		void renderResolutionPhase(const GameState& gameState);
-		void renderGameover(const GameState& gameState);
-		void renderWin(const GameState& gameState);
+		void renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter);
+		void renderWin(const GameState& gameState, int totalTimeSeconds, int roundCounter);
 		const ViewData& getViewData();
 	private:
 		sf::RenderWindow& window;
