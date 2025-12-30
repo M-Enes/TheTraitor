@@ -30,6 +30,8 @@ namespace TheTraitor {
 		GameState gameState;
 		sf::Music menuMusic;
 		sf::Music actionPhaseMusic;
+		sf::Music winMusic;
+		sf::Music gameoverMusic;
 		sf::TcpSocket socket;
 		std::vector<sf::Packet> packetsToSend;
 		std::vector<sf::Packet> packetsReceived;

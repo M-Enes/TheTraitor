@@ -19,6 +19,8 @@ namespace TheTraitor {
 		serverIp(sf::IpAddress::LocalHost),
 		menuMusic(executableFolderPath + "/assets/music/enchantedtiki86.mp3"),
 		actionPhaseMusic(executableFolderPath + "/assets/music/battleThemeB.mp3"),
+		winMusic(executableFolderPath + "/assets/music/Victory1.mp3"),
+		gameoverMusic(executableFolderPath + "/assets/music/NoHope.mp3"),
 		isConnected(false)
 	{
 		// TODO: add antialiasing option
@@ -104,6 +106,10 @@ namespace TheTraitor {
 					GameState newGameState;
 					packet >> newGameState;
 					gameState = newGameState;
+					if (newGameState.currentPhase == ACTION_PHASE) {
+						menuMusic.stop();
+						actionPhaseMusic.play();
+					}
 				}
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
@@ -146,6 +152,13 @@ namespace TheTraitor {
 					}
 				}
 				gameState = newGameState;
+				actionPhaseMusic.stop();
+				if (newGameState.currentPhase == WIN) {
+					winMusic.play();
+				}
+				else if (newGameState.currentPhase == GAMEOVER) {
+					gameoverMusic.play();
+				}
 			}
 			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
