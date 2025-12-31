@@ -28,7 +28,26 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # ==== Client ====
-add_executable(Client "src/Client/GameView.cpp" "src/Client/InputHandler.cpp" "src/Client/ClientApp.cpp" "src/Common/Player.cpp" "src/Common/Phase.cpp" "src/Common/Country.cpp" "src/Common/Role.cpp"              "src/Common/PacketType.cpp" "src/Client/ClientMain.cpp" "src/Client/Button.cpp" "src/Common/Actions.cpp")
+add_executable(Client 
+    "src/Client/GameView.cpp" 
+    "src/Client/InputHandler.cpp" 
+    "src/Client/ClientApp.cpp" 
+    "src/Common/Player.cpp" 
+    "src/Common/Phase.cpp" 
+    "src/Common/Country.cpp" 
+    "src/Common/Role.cpp" 
+    "src/Common/PacketType.cpp" 
+    "src/Client/ClientMain.cpp" 
+    "src/Client/Button.cpp" 
+    "src/Common/Actions.cpp"
+    "src/Client/Phases/MenuPhase.cpp"
+    "src/Client/Phases/LobbyPhase.cpp"
+    "src/Client/Phases/ActionPhase.cpp"
+    "src/Client/Phases/DiscussionPhase.cpp"
+    "src/Client/Phases/ResolutionPhase.cpp"
+    "src/Client/Phases/GameoverPhase.cpp"
+    "src/Client/Phases/WinPhase.cpp"
+)
 
 target_link_libraries(Client PRIVATE
     SFML::Graphics 
