@@ -13,7 +13,7 @@ namespace TheTraitor {
 	public:
 		ActionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath);
 
-		void render(const GameState& gameState, float elapsedTime = 0, int roundCounter = 0) override;
+		void render(const GameState& gameState, int localPlayerID, float elapsedTime = 0, int roundCounter = 0) override;
 		const ViewData& handleInput(const InputData& inputData) override;
 
 	private:

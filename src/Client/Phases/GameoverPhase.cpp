@@ -28,7 +28,7 @@ namespace TheTraitor {
 			window.getSize().y / 2.0f - 200));
 	}
 
-	void GameoverPhase::render(const GameState& gameState, float elapsedTime, int roundCounter) {
+	void GameoverPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 		int totalTimeSeconds = static_cast<int>(elapsedTime);
 
 		// Background overlay

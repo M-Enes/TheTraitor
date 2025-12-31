@@ -29,12 +29,12 @@ namespace TheTraitor {
 		const ViewData& handleWinInput(const InputData& inputData);
 		
 		void renderMenu();
-		void renderLobby(const GameState& gameState);
-		void renderDiscussionPhase(const GameState& gameState);
-		void renderActionPhase(const GameState& gameState, int elapsedTimeSeconds, int roundCounter);
-		void renderResolutionPhase(const GameState& gameState);
-		void renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter);
-		void renderWin(const GameState& gameState, int totalTimeSeconds, int roundCounter);
+		void renderLobby(const GameState& gameState, int localPlayerID);
+		void renderDiscussionPhase(const GameState& gameState, int localPlayerID);
+		void renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
+		void renderResolutionPhase(const GameState& gameState, int localPlayerID);
+		void renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
+		void renderWin(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
 		
 		const ViewData& getViewData(); // Needed? ClientApp doesn't seem to use it except via return values of handlers.
 	private:

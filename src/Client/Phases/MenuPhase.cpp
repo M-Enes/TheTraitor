@@ -61,7 +61,7 @@ namespace TheTraitor {
 		avatarLabel.setPosition({ startX, startY - 40.f });
 	}
 
-	void MenuPhase::render(const GameState& gameState, float elapsedTime, int roundCounter) {
+	void MenuPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 		window.draw(playerNameInputLabel);
 		window.draw(playerNameInputTextBox);
 

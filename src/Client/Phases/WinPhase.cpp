@@ -28,7 +28,7 @@ namespace TheTraitor {
 			window.getSize().y / 2.0f - 200));
 	}
 
-	void WinPhase::render(const GameState& gameState, float elapsedTime, int roundCounter) {
+	void WinPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 		int totalTimeSeconds = static_cast<int>(elapsedTime);
 
 		sf::RectangleShape overlay(sf::Vector2f((float)window.getSize().x, (float)window.getSize().y));

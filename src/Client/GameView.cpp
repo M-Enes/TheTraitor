@@ -55,25 +55,32 @@ namespace TheTraitor {
 	}
 
 	void GameView::renderMenu() {
-		menuPhase.render(GameState()); // Menu doesn't need gamestate
+		// Menu phase doesn't use gamestate yet, passing default
+		menuPhase.render(GameState(), -1); 
 	}
-	void GameView::renderLobby(const GameState& gameState) {
-		lobbyPhase.render(gameState);
+
+	void GameView::renderLobby(const GameState& gameState, int localPlayerID) {
+		lobbyPhase.render(gameState, localPlayerID);
 	}
-	void GameView::renderDiscussionPhase(const GameState& gameState) {
-		discussionPhase.render(gameState);
+
+	void GameView::renderDiscussionPhase(const GameState& gameState, int localPlayerID) {
+		discussionPhase.render(gameState, localPlayerID);
 	}
-	void GameView::renderActionPhase(const GameState& gameState, int elapsedTimeSeconds, int roundCounter) {
-		actionPhase.render(gameState, (float)elapsedTimeSeconds, roundCounter);
+
+	void GameView::renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter) {
+		actionPhase.render(gameState, localPlayerID, static_cast<float>(elapsedTimeSeconds), roundCounter);
 	}
-	void GameView::renderResolutionPhase(const GameState& gameState) {
-		resolutionPhase.render(gameState);
+
+	void GameView::renderResolutionPhase(const GameState& gameState, int localPlayerID) {
+		resolutionPhase.render(gameState, localPlayerID);
 	}
-	void GameView::renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter) {
-		gameoverPhase.render(gameState, (float)totalTimeSeconds, roundCounter);
+
+	void GameView::renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter) {
+		gameoverPhase.render(gameState, localPlayerID, static_cast<float>(totalTimeSeconds), roundCounter);
 	}
-	void GameView::renderWin(const GameState& gameState, int totalTimeSeconds, int roundCounter) {
-		winPhase.render(gameState, (float)totalTimeSeconds, roundCounter);
+
+	void GameView::renderWin(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter) {
+		winPhase.render(gameState, localPlayerID, static_cast<float>(totalTimeSeconds), roundCounter);
 	}
 
 }

@@ -14,7 +14,7 @@ namespace TheTraitor {
 		}
 	}
 
-	void LobbyPhase::render(const GameState& gameState, float elapsedTime, int roundCounter) {
+	void LobbyPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 		sf::Text playerCountText(font);
 		playerCountText.setString("Players joined: " + std::to_string(gameState.players.size()));
 		playerCountText.setCharacterSize(24);
@@ -27,7 +27,11 @@ namespace TheTraitor {
 				label.setString("Waiting for player...");
 			}
 			else {
-				label.setString(gameState.players[i].getName());
+				std::string displayName = gameState.players[i].getName();
+				if (gameState.players[i].getPlayerID() == localPlayerID) {
+					displayName += " (You)";
+				}
+				label.setString(displayName);
 
 				// Draw Avatar
 				int avatarID = gameState.players[i].getAvatarID();

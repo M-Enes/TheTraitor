@@ -242,22 +242,22 @@ namespace TheTraitor {
 			gameView.renderMenu();
 			break;
 		case LOBBY:
-			gameView.renderLobby(gameState);
+			gameView.renderLobby(gameState, playerID);
 			break;
 		case DISCUSSION_PHASE:
-			gameView.renderDiscussionPhase(gameState);
+			gameView.renderDiscussionPhase(gameState, playerID);
 			break;
 		case ACTION_PHASE:
-			gameView.renderActionPhase(gameState, phaseTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderActionPhase(gameState, playerID, static_cast<int>(phaseTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case RESOLUTION_PHASE:
-			gameView.renderResolutionPhase(gameState);
+			gameView.renderResolutionPhase(gameState, playerID);
 			break;
 		case GAMEOVER:
-			gameView.renderGameover(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderGameover(gameState, playerID, static_cast<int>(totalTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case WIN:
-			gameView.renderWin(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderWin(gameState, playerID, static_cast<int>(totalTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case NONE:
 			// Do nothing

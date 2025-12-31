@@ -7,7 +7,7 @@ namespace TheTraitor {
 	{
 	}
 
-	void ResolutionPhase::render(const GameState& gameState, float elapsedTime, int roundCounter) {
+	void ResolutionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 	}
 
 	const ViewData& ResolutionPhase::handleInput(const InputData& inputData) {

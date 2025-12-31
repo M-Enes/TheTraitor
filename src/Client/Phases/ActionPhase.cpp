@@ -162,7 +162,7 @@ namespace TheTraitor {
 		return isInside;
 	}
 
-	void ActionPhase::render(const GameState& gameState, float elapsedTimeSeconds, int roundCounter)
+	void ActionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTimeSeconds, int roundCounter)
 	{
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
@@ -183,8 +183,13 @@ namespace TheTraitor {
 
 		for (const auto& player : gameState.players) {
 			auto& [name, economy, health, education] = playerInfo;
-            
-			name.setString(player.getName());
+
+			std::string displayName = player.getName();
+			if (player.getPlayerID() == localPlayerID) {
+				displayName += " (You)";
+			}
+
+			name.setString(displayName);
 			name.setCharacterSize(30);
 			name.setPosition({ (float)window.getSize().x - 480, (float)posY });
 			economyIconSprite.setPosition({ (float)window.getSize().x - 480, (float)posY + 80 });
