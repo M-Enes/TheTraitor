@@ -52,7 +52,20 @@ namespace TheTraitor {
 			else {
 				std::cout << "New client connected: " << std::endl;
 
-				Country* country = new Country(); // TODO: Randomly generate country stats here later
+				// Generate fair random stats around 80 (total 240)
+				std::uniform_int_distribution<> disE(60, 100);
+				int economy = disE(g);
+				
+				int remaining = 240 - economy;
+				// Ensure health leaves enough room for education (60-100)
+				int hMin = std::max(60, remaining - 100);
+				int hMax = std::min(100, remaining - 60);
+				std::uniform_int_distribution<> disH(hMin, hMax);
+				int health = disH(g);
+				
+				int education = 240 - economy - health;
+
+				Country* country = new Country(economy, health, education);
 				if (!availableTypes.empty()) {
 					country->setType(availableTypes.back());
 					availableTypes.pop_back();
