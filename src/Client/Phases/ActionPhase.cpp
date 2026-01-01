@@ -164,6 +164,21 @@ namespace TheTraitor {
 		return isInside;
 	}
 
+	ActionPhase::ActionEffect ActionPhase::getPreviewEffects(ActionType type) {
+		switch (type) {
+		case ActionType::TradePact: return { 10, 10, CountryStatType::Economy };
+		case ActionType::TradeEmbargo: return { -5, -20, CountryStatType::Economy };
+		case ActionType::JointResearch: return { 10, 10, CountryStatType::Education };
+		case ActionType::SpreadMisinfo: return { -5, -20, CountryStatType::Education };
+		case ActionType::HealthAid: return { 10, 10, CountryStatType::Health };
+		case ActionType::PoisonResources: return { -5, -20, CountryStatType::Health };
+		case ActionType::SabotageFactory: return { 0, -50, CountryStatType::Economy };
+		case ActionType::DestroySchool: return { 0, -50, CountryStatType::Education };
+		case ActionType::SpreadPlague: return { 0, -50, CountryStatType::Health };
+		default: return { 0, 0, CountryStatType::Economy };
+		}
+	}
+
 	void ActionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTimeSeconds, int roundCounter)
 	{
 		// Identify if the local player is a traitor
@@ -181,11 +196,11 @@ namespace TheTraitor {
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
 			if (!isTraitor && (std::get<2>(buttonPair) == ActionType::SabotageFactory ||
-				 std::get<2>(buttonPair) == ActionType::DestroySchool ||
-				 std::get<2>(buttonPair) == ActionType::SpreadPlague)) {
-					std::get<1>(buttonPair).setShapeOutlineColor(sf::Color(255,255,255,128));
-					std::get<1>(buttonPair).setLabelFillColor(sf::Color(255,255,255,128));
-				}
+				std::get<2>(buttonPair) == ActionType::DestroySchool ||
+				std::get<2>(buttonPair) == ActionType::SpreadPlague)) {
+				std::get<1>(buttonPair).setShapeOutlineColor(sf::Color(255, 255, 255, 128));
+				std::get<1>(buttonPair).setLabelFillColor(sf::Color(255, 255, 255, 128));
+			}
 			std::get<1>(buttonPair).render();
 		}
 
@@ -201,11 +216,15 @@ namespace TheTraitor {
 		int posY = 50;
 		int index = 0;
 
+		sf::Text effectText(font);
+		effectText.setCharacterSize(20);
+
 		for (const auto& player : gameState.players) {
 			auto& [name, economy, health, education] = playerInfo;
 
 			std::string displayName = player.getName();
-			if (player.getPlayerID() == localPlayerID) {
+			bool isLocal = (player.getPlayerID() == localPlayerID);
+			if (isLocal) {
 				displayName += " (You)";
 			}
 
@@ -217,10 +236,13 @@ namespace TheTraitor {
 
 			CountryType type = player.getCountry()->getType();
 			int typeIndex = static_cast<int>(type);
+			bool isTarget = false;
+
 			if (type != CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
 				sf::Color currentColor = (*allCountries[typeIndex].second)[0].color;
 				if (currentColor == countrySelectedColor) {
 					highlightRect.setFillColor(sf::Color(150, 0, 50, 128)); 
+					isTarget = true;
 				} else if (currentColor == countryHoverColor) {
 					highlightRect.setFillColor(sf::Color(0, 150, 50, 128));
 				}
@@ -266,6 +288,49 @@ namespace TheTraitor {
 			window.draw(economyIconSprite);
 			window.draw(healthIconSprite);
 			window.draw(educationIconSprite);
+
+			// Render Preview Effects
+			if (isActionHovered && (isLocal || isTarget)) {
+				// Check if any country is actually selected (global check)
+				// We can infer a country is selected if we found a target?
+				// But we need to make sure we only show effects if SOME country is selected.
+				// However, if isTarget is true, then a country IS selected (this one).
+				// We also need to know if ANY country is selected to show Local Player effects.
+				
+				bool anyCountrySelected = false;
+				for (const auto& cPair : allCountries) {
+					if ((*cPair.second)[0].color == countrySelectedColor) {
+						anyCountrySelected = true;
+						break;
+					}
+				}
+
+				if (anyCountrySelected) {
+					ActionEffect effect = getPreviewEffects(hoveredAction);
+					int value = 0;
+					// If this is local player, add player effect
+					if (isLocal) value += effect.playerEffect;
+					// If this is target player, add target effect
+					if (isTarget) value += effect.targetEffect;
+					
+					// Only draw if non-zero AND if the stat type matches
+					// The user wanted effects below "related stats".
+					
+					if (value != 0) {
+						std::string valStr = (value > 0 ? "+" : "") + std::to_string(value);
+						effectText.setString(valStr);
+						effectText.setFillColor(value > 0 ? sf::Color::Green : sf::Color::Red);
+						
+						float xPos = 0;
+						if (effect.statType == CountryStatType::Economy) xPos = (float)window.getSize().x - 400;
+						else if (effect.statType == CountryStatType::Health) xPos = (float)window.getSize().x - 280;
+						else if (effect.statType == CountryStatType::Education) xPos = (float)window.getSize().x - 160;
+
+						effectText.setPosition({ xPos, (float)(posY - 200) + 135 }); // posY was incremented already
+						window.draw(effectText);
+					}
+				}
+			}
 		}
 
 		window.draw(topBar);
@@ -283,6 +348,7 @@ namespace TheTraitor {
 		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
 
 		bool isHovered;
+		isActionHovered = false; // Reset per frame
 		for (auto& [name, button, actionType] : actionMenuButtons) {
 			// Check if it is a secret action
 			if (actionType == ActionType::SabotageFactory ||
@@ -295,6 +361,11 @@ namespace TheTraitor {
 			isHovered = button.isMouseOver(position);
 
 			button.updateHoverEffect(isHovered);
+			
+			if (isHovered) {
+				isActionHovered = true;
+				hoveredAction = actionType;
+			}
 
 			if (inputData.isMouseClicked && isHovered) {
 
@@ -317,6 +388,7 @@ namespace TheTraitor {
 				return viewData;
 			}
 		}
+
 
 		for (const auto& countryPair : allCountries) {
 			if (isPointInPolygon(*countryPair.first, position - countriesOffset)) {

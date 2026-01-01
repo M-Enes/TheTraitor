@@ -60,6 +60,16 @@ namespace TheTraitor {
 		sf::Vector2f countriesOffset;
 		
 		bool isTraitor;
+		ActionType hoveredAction;
+		bool isActionHovered;
+
+		struct ActionEffect {
+			int playerEffect;
+			int targetEffect;
+			CountryStatType statType;
+		};
+
+		ActionEffect getPreviewEffects(ActionType type);
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
