@@ -182,26 +182,51 @@ namespace TheTraitor {
 	void ActionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTimeSeconds, int roundCounter)
 	{
 		// Identify if the local player is a traitor
+		// Update cached state
+		cachedLocalPlayerID = localPlayerID;
+		cachedIsTraitor = false;
 		for (const auto& player : gameState.players) {
 			if (player.getPlayerID() == localPlayerID) {
 				if (player.getRole()->getName() == "Traitor") {
 					isTraitor = true;
+					cachedIsTraitor = true;
 				} else {
 					isTraitor = false;
+					cachedIsTraitor = false;
 				}
 				break;
 			}
 		}
 
+		// Reset restrictions on round change
+		if (roundCounter != currentRound) {
+			currentRound = roundCounter;
+			publicActionUsed = false;
+			secretActionUsed = false;
+		}
+
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
-			if (!isTraitor && (std::get<2>(buttonPair) == ActionType::SabotageFactory ||
-				std::get<2>(buttonPair) == ActionType::DestroySchool ||
-				std::get<2>(buttonPair) == ActionType::SpreadPlague)) {
-				std::get<1>(buttonPair).setShapeOutlineColor(sf::Color(255, 255, 255, 128));
-				std::get<1>(buttonPair).setLabelFillColor(sf::Color(255, 255, 255, 128));
+			ActionType type = std::get<2>(buttonPair);
+			Button& btn = std::get<1>(buttonPair);
+
+			// Logic to visually fade buttons if not allowed
+			if (!isActionAllowed(type)) {
+				btn.setDisabled(true);
+			} else {
+				btn.setDisabled(false);
 			}
-			std::get<1>(buttonPair).render();
+
+			if (!isTraitor && (type == ActionType::SabotageFactory ||
+				type == ActionType::DestroySchool ||
+				type == ActionType::SpreadPlague)) {
+				btn.setShapeOutlineColor(sf::Color(255, 255, 255, 128));
+				btn.setLabelFillColor(sf::Color(255, 255, 255, 128));
+				
+				// Ensure innocent secret buttons are disabled (logic covered by isActionAllowed too)
+				btn.setDisabled(true);
+			}
+			btn.render();
 		}
 
 		for (const auto& [points, vertices] : allCountries) {
@@ -237,6 +262,11 @@ namespace TheTraitor {
 			CountryType type = player.getCountry()->getType();
 			int typeIndex = static_cast<int>(type);
 			bool isTarget = false;
+			
+			// Cache local player country type
+			if (isLocal) {
+				cachedLocalPlayerCountryType = type;
+			}
 
 			if (type != CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
 				sf::Color currentColor = (*allCountries[typeIndex].second)[0].color;
@@ -314,7 +344,7 @@ namespace TheTraitor {
 					if (isTarget) value += effect.targetEffect;
 					
 					// Only draw if non-zero AND if the stat type matches
-					// The user wanted effects below "related stats".
+					// Effects should be below "related stats".
 					
 					if (value != 0) {
 						std::string valStr = (value > 0 ? "+" : "") + std::to_string(value);
@@ -384,7 +414,37 @@ namespace TheTraitor {
 					viewData.isActionRequested = false;
 					return viewData;
 				}
-				viewData.actionTargetCountryType = static_cast<CountryType>(typeIndex);
+				CountryType targetType = static_cast<CountryType>(typeIndex);
+
+				// --- Validation Logic ---
+
+				// 1. Check if action is allowed by rules (usage limits)
+				if (!isActionAllowed(actionType)) {
+					viewData.isActionRequested = false;
+					return viewData;
+				}
+
+				// 2. Self-Targeting Validation
+				if (targetType == cachedLocalPlayerCountryType) {
+					// Logic: Only Traitor can self-target with specific secret actions
+					
+					bool isTraitorSelfTargetAllowed = false;
+					if (cachedIsTraitor && (actionType == ActionType::SpreadPlague ||
+											actionType == ActionType::DestroySchool ||
+											actionType == ActionType::SabotageFactory)) {
+						isTraitorSelfTargetAllowed = true;
+					}
+
+					if (!isTraitorSelfTargetAllowed) {
+						// Invalid self-target. Do NOT consume action. Do NOT send packet.
+						viewData.isActionRequested = false;
+						return viewData; 
+					}
+				}
+
+				// If we got here, the action is VALID to be sent.
+				markActionUsed(actionType);
+				viewData.actionTargetCountryType = targetType;
 				return viewData;
 			}
 		}
@@ -411,6 +471,50 @@ namespace TheTraitor {
 		}
 
 		return viewData;
+	}
+
+	void ActionPhase::markActionUsed(ActionType type) {
+		if (type == ActionType::SabotageFactory ||
+			type == ActionType::DestroySchool ||
+			type == ActionType::SpreadPlague) {
+			secretActionUsed = true;
+		}
+		else {
+			publicActionUsed = true;
+		}
+	}
+
+	bool ActionPhase::isActionAllowed(ActionType type) const {
+		bool isSecret = (type == ActionType::SabotageFactory ||
+			type == ActionType::DestroySchool ||
+			type == ActionType::SpreadPlague);
+
+		// Traitor Logic
+		if (cachedIsTraitor) {
+			// If public action used -> NOTHING allowed
+			if (publicActionUsed) return false;
+
+			// If secret action used -> ONLY Public allowed (Secret disabled)
+			if (secretActionUsed) {
+				if (isSecret) return false;
+				else return true;
+			}
+
+			// If nothing used -> EVERYTHING allowed
+			return true;
+		}
+
+		// Innocent Logic
+		else {
+			// Secrets never allowed for innocents
+			if (isSecret) return false;
+
+			// If public used -> NOTHING allowed
+			if (publicActionUsed) return false;
+
+			// If nothing used -> Public allowed
+			return true;
+		}
 	}
 
 	void ActionPhase::resetViewData() {

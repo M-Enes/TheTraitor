@@ -14,11 +14,13 @@ namespace TheTraitor {
 		void render();
 		void setShapeOutlineColor(sf::Color color);
 		void setLabelFillColor(sf::Color color);
+		void setDisabled(bool disabled);
 	private:
 		sf::RectangleShape shape;
 		sf::Text label;
 		sf::RenderWindow& window;
 		sf::Color shapeFillColor;
 		sf::Color shapeHoverColor;
+		bool isDisabled = false;
 	};
 }

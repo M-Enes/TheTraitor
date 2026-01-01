@@ -59,7 +59,22 @@ namespace TheTraitor {
 		sf::Color countrySelectedColor;
 		sf::Vector2f countriesOffset;
 		
-		bool isTraitor;
+		
+		// Game Rules Tracking
+		bool publicActionUsed = false;
+		bool secretActionUsed = false;
+		int currentRound = 0;
+		
+		// Cached State (Updated per render)
+		int cachedLocalPlayerID = -1;
+		bool cachedIsTraitor = false; 
+		CountryType cachedLocalPlayerCountryType = CountryType::NONE;
+
+		void markActionUsed(ActionType type);
+		bool isActionAllowed(ActionType type) const;
+
+		// Existing members
+		bool isTraitor; // Keeping for existing render logic compatibility (will sync with cachedIsTraitor)
 		ActionType hoveredAction;
 		bool isActionHovered;
 
