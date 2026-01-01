@@ -3,7 +3,7 @@
 namespace TheTraitor {
 
 	DiscussionPhase::DiscussionPhase() 
-		: viewData{ false, ActionType::TradePact, 0, NONE, "", 0 }
+		: viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0}
 	{
 	}
 

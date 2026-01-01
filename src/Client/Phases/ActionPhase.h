@@ -58,6 +58,8 @@ namespace TheTraitor {
 		sf::Color countryHoverColor;
 		sf::Color countrySelectedColor;
 		sf::Vector2f countriesOffset;
+		
+		bool isTraitor;
 
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);

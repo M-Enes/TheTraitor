@@ -126,8 +126,41 @@ namespace TheTraitor {
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
 			// TODO: send action packet
-			ActionPacket actionPacket{ viewData.actionType, playerID, playerID }; // TODO: fill targetID correctly
-			sendActionToServer(actionPacket);
+			if (static_cast<int>(viewData.actionTargetCountryType) != -1) {
+				int actionTargetPlayerID = -1;
+				for (const auto& player : gameState.players) {
+					if (player.getCountry()->getType() == static_cast<CountryType>(viewData.actionTargetCountryType)) {
+						actionTargetPlayerID = player.getPlayerID();
+						break;
+					}
+				}
+				if (actionTargetPlayerID == playerID) {
+					// if the current player is traitor and action type is one of SpreadPlague, DestroySchool, SabotageFactory
+					// then send action packet to server
+					// else do not send it
+					int playerIndex = -1;
+					for (int i = 0; i < gameState.players.size(); i++) {
+						if (gameState.players[i].getPlayerID() == playerID) {
+							playerIndex = i;
+							break;
+						}
+					}
+					if (playerIndex == -1) {
+						return;
+					}
+					if (gameState.players[playerIndex].getRole()->getName() == "Traitor" && 
+						(viewData.actionType == ActionType::SpreadPlague ||
+						 viewData.actionType == ActionType::DestroySchool ||
+						 viewData.actionType == ActionType::SabotageFactory)) {
+						ActionPacket actionPacket{ viewData.actionType, playerID, actionTargetPlayerID };
+						sendActionToServer(actionPacket);
+					}
+				} else {
+					// if the current player is not targeting himself then send action packet to server
+					ActionPacket actionPacket{ viewData.actionType, playerID, actionTargetPlayerID };
+					sendActionToServer(actionPacket);
+				}
+			}
 		}
 
 		for (int i = 0; i < packetsReceived.size(); ++i) {
@@ -291,6 +324,10 @@ namespace TheTraitor {
 		PacketType packetType = PacketType::ACTION_PACKET;
 		packet << packetType;
 		packet << actionPacket;
+		std::cout << "action packet sent" << std::endl;
+		std::cout << "action packet type: " << static_cast<int>(actionPacket.actionType) << std::endl;
+		std::cout << "action packet source ID: " << actionPacket.sourceID << std::endl;
+		std::cout << "action packet target ID: " << actionPacket.targetID << std::endl;
 		packetsToSend.push_back(packet);
 	}
 

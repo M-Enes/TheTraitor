@@ -1,6 +1,7 @@
 #include "Client/Phases/ActionPhase.h"
 #include "Client/PolygonData.h"
-#include "vendor/earcut.hpp" // Vendor is in src/vendor/earcut.hpp
+#include "vendor/earcut.hpp"
+#include "Common/Role.h"
 
 namespace mapbox {
 	namespace util {
@@ -25,7 +26,7 @@ namespace TheTraitor {
 
 	ActionPhase::ActionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath)
 		: window(window), font(font), avatarTextures(avatarTextures),
-		viewData{ false, ActionType::TradePact, 0, NONE, "", 0 },
+		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0},
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
 		eventLogMenu({ (float)window.getSize().x - 870, 300 }),
 		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n"
@@ -47,7 +48,8 @@ namespace TheTraitor {
 		countryNormalColor(sf::Color::Green),
 		countryHoverColor(sf::Color{ 0,200,0 }),
 		countrySelectedColor(sf::Color::Red),
-		countriesOffset(sf::Vector2f{ 310.0f, -50.0f })
+		countriesOffset(sf::Vector2f{ 310.0f, -50.0f }),
+		isTraitor(false)
 	{
 		actionMenu.setPosition({ 20, 20 });
 		actionMenu.setFillColor(sf::Color::Black);
@@ -164,8 +166,26 @@ namespace TheTraitor {
 
 	void ActionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTimeSeconds, int roundCounter)
 	{
+		// Identify if the local player is a traitor
+		for (const auto& player : gameState.players) {
+			if (player.getPlayerID() == localPlayerID) {
+				if (player.getRole()->getName() == "Traitor") {
+					isTraitor = true;
+				} else {
+					isTraitor = false;
+				}
+				break;
+			}
+		}
+
 		window.draw(actionMenu);
 		for (auto& buttonPair : actionMenuButtons) {
+			if (!isTraitor && (std::get<2>(buttonPair) == ActionType::SabotageFactory ||
+				 std::get<2>(buttonPair) == ActionType::DestroySchool ||
+				 std::get<2>(buttonPair) == ActionType::SpreadPlague)) {
+					std::get<1>(buttonPair).setShapeOutlineColor(sf::Color(255,255,255,128));
+					std::get<1>(buttonPair).setLabelFillColor(sf::Color(255,255,255,128));
+				}
 			std::get<1>(buttonPair).render();
 		}
 
@@ -195,9 +215,9 @@ namespace TheTraitor {
 			highlightRect.setSize({ 480, 190 });
 			highlightRect.setFillColor(sf::Color::Transparent);
 
-			Country::CountryType type = player.getCountry()->getType();
+			CountryType type = player.getCountry()->getType();
 			int typeIndex = static_cast<int>(type);
-			if (type != Country::CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
+			if (type != CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
 				sf::Color currentColor = (*allCountries[typeIndex].second)[0].color;
 				if (currentColor == countrySelectedColor) {
 					highlightRect.setFillColor(sf::Color(150, 0, 50, 128)); 
@@ -264,15 +284,37 @@ namespace TheTraitor {
 
 		bool isHovered;
 		for (auto& [name, button, actionType] : actionMenuButtons) {
+			// Check if it is a secret action
+			if (actionType == ActionType::SabotageFactory ||
+				actionType == ActionType::DestroySchool ||
+				actionType == ActionType::SpreadPlague) {
+
+				if (!isTraitor) continue;
+			}
 			isHovered = false;
 			isHovered = button.isMouseOver(position);
 
 			button.updateHoverEffect(isHovered);
 
 			if (inputData.isMouseClicked && isHovered) {
+
 				viewData.isActionRequested = true;
 				viewData.actionType = actionType;
-				viewData.actionTargetID = 1;// TODO: fill this with targetID
+				// set targetID based on the country that is color is selected color
+				viewData.actionTargetCountryType = CountryType::NONE;
+				int typeIndex = 0;
+				for (const auto& countryPair : allCountries) {
+					if ((*countryPair.second)[0].color == countrySelectedColor) {
+						break;
+					}
+					typeIndex++;
+				}
+				if (typeIndex >= static_cast<int>(CountryType::NONE) || typeIndex < 0) {
+					viewData.isActionRequested = false;
+					return viewData;
+				}
+				viewData.actionTargetCountryType = static_cast<CountryType>(typeIndex);
+				return viewData;
 			}
 		}
 

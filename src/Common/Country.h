@@ -3,16 +3,16 @@
 #include <cstdbool>
 
 namespace TheTraitor {
+	enum class CountryType {
+		AMERICA, // 0
+		AFRICA,  // 1
+		ASIA,    // 2
+		AUSTRALIA, // 3
+		EUROPE,   // 4
+		NONE
+	};
 	class Country {
 	public:
-		enum class CountryType {
-			AMERICA, // 0
-			AFRICA,  // 1
-			ASIA,    // 2
-			AUSTRALIA, // 3
-			EUROPE,   // 4
-			NONE
-		};
 
 		Country(int economy, int health, int education, CountryType type = CountryType::NONE);
 		Country();

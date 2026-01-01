@@ -43,4 +43,12 @@ namespace TheTraitor {
 		window.draw(shape);
 		window.draw(label);
 	}
+
+	void Button::setShapeOutlineColor(sf::Color color) {
+		shape.setOutlineColor(color);
+	}
+
+	void Button::setLabelFillColor(sf::Color color) {
+		label.setFillColor(color);
+	}
 }

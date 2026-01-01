@@ -5,13 +5,13 @@ namespace TheTraitor {
 
 	GameoverPhase::GameoverPhase(sf::RenderWindow& window, sf::Font& font)
 		: window(window), font(font),
-		viewData{ false, ActionType::TradePact, 0, NONE, "", 0 },
+		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0 },
 		title(font, "GAME OVER", 80),
 		totalRoundsLabel(font),
 		totalTimeLabel(font),
 		quitGameButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150),
-			sf::Vector2f(200, 60), 
-			sf::Vector2f(45, 15), 
+			sf::Vector2f(200, 60),
+			sf::Vector2f(45, 15),
 			"Quit Game",
 			font,
 			window,
@@ -79,7 +79,7 @@ namespace TheTraitor {
 
 	void GameoverPhase::resetViewData() {
 		viewData.isActionRequested = false;
-        viewData.gotoState = NONE;
+		viewData.gotoState = NONE;
 	}
 
 }

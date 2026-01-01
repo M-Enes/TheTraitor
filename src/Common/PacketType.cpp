@@ -80,7 +80,7 @@ namespace TheTraitor {
 					gameState.players[j].getCountry()->setHealth(health);
 					gameState.players[j].getCountry()->setEducation(education);
 					gameState.players[j].getCountry()->setDestroyed(destroyed);
-					gameState.players[j].getCountry()->setType(static_cast<Country::CountryType>(countryTypeValue));
+					gameState.players[j].getCountry()->setType(static_cast<CountryType>(countryTypeValue));
 					Role* role = roleName == "Traitor" ? static_cast<Role*>(new Traitor()) : static_cast<Role*>(new Innocent());
 					gameState.players[j].setRole(role);
 					break;
@@ -88,7 +88,7 @@ namespace TheTraitor {
 			}
 
 			if (!playerSet) {
-				Country* country = new Country(economy, health, education, static_cast<Country::CountryType>(countryTypeValue));
+				Country* country = new Country(economy, health, education, static_cast<CountryType>(countryTypeValue));
 				country->setDestroyed(destroyed);
 				Player newPlayer(playerName, country, avatarID);
 				newPlayer.setSocket(nullptr); // No socket info in GameState packet

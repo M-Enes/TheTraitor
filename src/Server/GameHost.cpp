@@ -24,12 +24,12 @@ namespace TheTraitor {
 		state.currentPhase = LOBBY;
 		short connectedCount = 0;
 
-		std::vector<Country::CountryType> availableTypes = {
-			Country::CountryType::AMERICA,
-			Country::CountryType::AFRICA,
-			Country::CountryType::EUROPE,
-			Country::CountryType::ASIA,
-			Country::CountryType::AUSTRALIA
+		std::vector<CountryType> availableTypes = {
+			CountryType::AMERICA,
+			CountryType::AFRICA,
+			CountryType::EUROPE,
+			CountryType::ASIA,
+			CountryType::AUSTRALIA
 		};
 		std::random_device rd;
 		std::mt19937 g(rd());

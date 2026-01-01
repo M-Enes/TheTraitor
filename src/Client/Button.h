@@ -12,6 +12,8 @@ namespace TheTraitor {
 		bool isMouseOver(sf::Vector2f mousePosition) const;
 		void updateHoverEffect(bool isHovered);
 		void render();
+		void setShapeOutlineColor(sf::Color color);
+		void setLabelFillColor(sf::Color color);
 	private:
 		sf::RectangleShape shape;
 		sf::Text label;

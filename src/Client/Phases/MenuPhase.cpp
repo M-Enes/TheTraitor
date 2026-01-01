@@ -5,7 +5,7 @@ namespace TheTraitor {
 
 	MenuPhase::MenuPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures)
 		: window(window), font(font), 
-		viewData{ false, ActionType::TradePact, 0, NONE, "", 0 },
+		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0},
 		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window,
 			24, sf::Color::Black, sf::Color::White, 5, sf::Color(200, 200, 200), sf::Color::White),
 		playerNameInputLabel(font),
