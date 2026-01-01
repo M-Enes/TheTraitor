@@ -189,6 +189,24 @@ namespace TheTraitor {
 				displayName += " (You)";
 			}
 
+			// Highlight player info if country is hovered or selected
+			sf::RectangleShape highlightRect;
+			highlightRect.setPosition({ (float)window.getSize().x - 500, (float)posY - 10 });
+			highlightRect.setSize({ 480, 190 });
+			highlightRect.setFillColor(sf::Color::Transparent);
+
+			Country::CountryType type = player.getCountry()->getType();
+			int typeIndex = static_cast<int>(type);
+			if (type != Country::CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
+				sf::Color currentColor = (*allCountries[typeIndex].second)[0].color;
+				if (currentColor == countrySelectedColor) {
+					highlightRect.setFillColor(sf::Color(150, 0, 50, 128)); 
+				} else if (currentColor == countryHoverColor) {
+					highlightRect.setFillColor(sf::Color(0, 150, 50, 128));
+				}
+			}
+			window.draw(highlightRect);
+
 			name.setString(displayName);
 			name.setCharacterSize(30);
 			name.setPosition({ (float)window.getSize().x - 480, (float)posY });

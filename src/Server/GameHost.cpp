@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <random>
 
 #include "Common/Country.h"
 #include "Common/PacketType.h"
@@ -23,6 +24,17 @@ namespace TheTraitor {
 		state.currentPhase = LOBBY;
 		short connectedCount = 0;
 
+		std::vector<Country::CountryType> availableTypes = {
+			Country::CountryType::AMERICA,
+			Country::CountryType::AFRICA,
+			Country::CountryType::EUROPE,
+			Country::CountryType::ASIA,
+			Country::CountryType::AUSTRALIA
+		};
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(availableTypes.begin(), availableTypes.end(), g);
+
 		sf::TcpListener listener;
 		if (listener.listen(serverPort) != sf::Socket::Status::Done) {
 			//error
@@ -41,6 +53,10 @@ namespace TheTraitor {
 				std::cout << "New client connected: " << std::endl;
 
 				Country* country = new Country(); // TODO: Randomly generate country stats here later
+				if (!availableTypes.empty()) {
+					country->setType(availableTypes.back());
+					availableTypes.pop_back();
+				}
 
 				// Receive player name and avatarID
 				bool isNameReceived = false;

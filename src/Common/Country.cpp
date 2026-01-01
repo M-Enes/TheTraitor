@@ -1,11 +1,12 @@
 #include <iostream>
 #include "Country.h"
 
-TheTraitor::Country::Country(int economy, int health, int education) {
+TheTraitor::Country::Country(int economy, int health, int education, CountryType type) {
     this->economy = economy;
     this->health = health;
     this->education = education;
     this->destroyed = false;
+    this->type = type;
 }
 
 
@@ -14,21 +15,30 @@ TheTraitor::Country::Country() {
     this->health = 0;
     this->education = 0;
     this->destroyed = false;
+    this->type = CountryType::NONE;
 }
 
-int TheTraitor::Country::getEconomy() {
+TheTraitor::Country::CountryType TheTraitor::Country::getType() const {
+    return this->type;
+}
+
+void TheTraitor::Country::setType(CountryType type) {
+    this->type = type;
+}
+
+int TheTraitor::Country::getEconomy() const {
     return this->economy;
 }
 
-int TheTraitor::Country::getHealth() {
+int TheTraitor::Country::getHealth() const {
     return this->health;
 }
 
-int TheTraitor::Country::getEducation() {
+int TheTraitor::Country::getEducation() const {
     return this->education;
 }
 
-bool TheTraitor::Country::isDestroyed() {
+bool TheTraitor::Country::isDestroyed() const {
     return this->destroyed;
 }
 
