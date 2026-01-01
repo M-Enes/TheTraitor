@@ -48,6 +48,7 @@ namespace TheTraitor {
 		countryNormalColor(sf::Color::Green),
 		countryHoverColor(sf::Color{ 0,200,0 }),
 		countrySelectedColor(sf::Color::Red),
+		countryDestroyedColor(sf::Color(100, 100, 100)),
 		countriesOffset(sf::Vector2f{ 310.0f, -50.0f }),
 		isTraitor(false)
 	{
@@ -128,6 +129,11 @@ namespace TheTraitor {
 		{&europePolygonPoints, &europeVertices}
 		} };
 		calculateCountries();
+
+		// Initialize destroyed countries map
+		for (int i = 0; i < 5; i++) {
+			destroyedCountries[static_cast<CountryType>(i)] = false;
+		}
 	}
 
 	void ActionPhase::calculateCountries()
@@ -191,7 +197,18 @@ namespace TheTraitor {
 		// Update cached state
 		cachedLocalPlayerID = localPlayerID;
 		cachedIsTraitor = false;
+		// Reset destroyed status logic
+		for (int i = 0; i < 5; i++) {
+			destroyedCountries[static_cast<CountryType>(i)] = false;
+		}
+		isLocalPlayerDestroyed = false;
+
 		for (const auto& player : gameState.players) {
+			CountryType type = player.getCountry()->getType();
+			if (type != CountryType::NONE) {
+				destroyedCountries[type] = player.getCountry()->isDestroyed();
+			}
+
 			if (player.getPlayerID() == localPlayerID) {
 				if (player.getRole()->getName() == "Traitor") {
 					isTraitor = true;
@@ -200,7 +217,10 @@ namespace TheTraitor {
 					isTraitor = false;
 					cachedIsTraitor = false;
 				}
-				break;
+				
+				if (player.getCountry()->isDestroyed()) {
+					isLocalPlayerDestroyed = true;
+				}
 			}
 		}
 
@@ -456,11 +476,20 @@ namespace TheTraitor {
 		}
 
 
+		int countryIndex = 0;
 		for (const auto& countryPair : allCountries) {
+			CountryType type = static_cast<CountryType>(countryIndex);
+			bool isDestroyed = destroyedCountries[type];
+			bool canInteract = !isLocalPlayerDestroyed;
+
 			if (isPointInPolygon(*countryPair.first, position - countriesOffset)) {
-				sf::Color fillColor = (inputData.isMouseClicked) ? countrySelectedColor : countryHoverColor;
+				sf::Color fillColor = (inputData.isMouseClicked && canInteract) ? countrySelectedColor : countryHoverColor;
 				if ((*countryPair.second)[0].color == countrySelectedColor) fillColor = countryHoverColor;
-				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
+				
+				// Destroyed Override
+				if (isDestroyed) fillColor = countryDestroyedColor;
+
+				if ((*countryPair.second)[0].color != countrySelectedColor || (inputData.isMouseClicked && canInteract) || isDestroyed) {
 					for (long unsigned int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
 						(*countryPair.second)[i].color = fillColor;
 					}
@@ -468,12 +497,18 @@ namespace TheTraitor {
 				}
 			}
 			else {
-				if ((*countryPair.second)[0].color != countrySelectedColor || inputData.isMouseClicked) {
+				// Normal state update (reset to normal color if not selected)
+				// Or reset to destroyed color if destroyed
+				sf::Color targetColor = countryNormalColor;
+				if (isDestroyed) targetColor = countryDestroyedColor;
+
+				if ((*countryPair.second)[0].color != countrySelectedColor || (inputData.isMouseClicked && canInteract) || isDestroyed) {
 					for (long unsigned int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
-						(*countryPair.second)[i].color = countryNormalColor;
+						(*countryPair.second)[i].color = targetColor;
 					}
 				}
 			}
+			countryIndex++;
 		}
 
 		return viewData;
@@ -491,6 +526,8 @@ namespace TheTraitor {
 	}
 
 	bool ActionPhase::isActionAllowed(ActionType type) const {
+		if (isLocalPlayerDestroyed) return false;
+
 		bool isSecret = (type == ActionType::SabotageFactory ||
 			type == ActionType::DestroySchool ||
 			type == ActionType::SpreadPlague);

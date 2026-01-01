@@ -6,6 +6,7 @@
 #include <array>
 #include <string>
 #include <tuple>
+#include <map>
 
 namespace TheTraitor {
 
@@ -57,6 +58,7 @@ namespace TheTraitor {
 		sf::Color countryNormalColor;
 		sf::Color countryHoverColor;
 		sf::Color countrySelectedColor;
+		sf::Color countryDestroyedColor;
 		sf::Vector2f countriesOffset;
 		
 		
@@ -69,6 +71,9 @@ namespace TheTraitor {
 		int cachedLocalPlayerID = -1;
 		bool cachedIsTraitor = false; 
 		CountryType cachedLocalPlayerCountryType = CountryType::NONE;
+		
+		std::map<CountryType, bool> destroyedCountries;
+		bool isLocalPlayerDestroyed = false;
 
 		void markActionUsed(ActionType type);
 		bool isActionAllowed(ActionType type) const;

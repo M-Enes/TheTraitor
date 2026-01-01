@@ -86,33 +86,72 @@ namespace TheTraitor {
 				ActionPacket secretAction;
 				std::vector<int> handledPlayerIDs;
 				bool secretyActionsReceived = false;
-				while (actionPackets.size() < state.players.size()) {
-					for (auto& player : state.players) {
-						sf::TcpSocket* socket = player.getSocket();
-						sf::Packet packet;
-						if (socket->receive(packet) == sf::Socket::Status::Done) {
-							PacketType packetType;
-							packet >> packetType;
-							if (packetType == PacketType::ACTION_PACKET) {
-								ActionPacket actionPacket;
-								packet >> actionPacket;
 
-								if (actionPacket.actionType == ActionType::SpreadPlague || actionPacket.actionType == ActionType::DestroySchool || actionPacket.actionType == ActionType::SabotageFactory) {
-									if (!secretyActionsReceived && actionPacket.sourceID == traitorIndex) {
-										secretAction = actionPacket;
-										secretyActionsReceived = true;
+				int alivePlayersCount = 0;
+				for (const auto& player : state.players) {
+					if (!player.getCountry()->isDestroyed()) {
+						alivePlayersCount++;
+					}
+				}
+
+				std::cout << "Alive players count: " << alivePlayersCount << std::endl;
+
+				while (actionPackets.size() < alivePlayersCount) {
+					if (selector.wait(sf::milliseconds(100))) {
+						for (auto& player : state.players) {
+							sf::TcpSocket* socket = player.getSocket();
+							if (selector.isReady(*socket)) {
+								sf::Packet packet;
+								if (socket->receive(packet) == sf::Socket::Status::Done) {
+									// std::cout << "Received packet from player socket " << player.getPlayerID() << std::endl;
+									PacketType packetType;
+									packet >> packetType;
+									if (packetType == PacketType::ACTION_PACKET) {
+										ActionPacket actionPacket;
+										packet >> actionPacket;
+										std::cout << "Received ACTION_PACKET from SourceID: " << actionPacket.sourceID << " (ActionType: " << (int)actionPacket.actionType << ")" << std::endl;
+
+										// Check if the source player is actually alive (server-side validation)
+										bool isSourceAlive = false;
+										for (const auto& p : state.players) {
+											if (p.getPlayerID() == actionPacket.sourceID && !p.getCountry()->isDestroyed()) {
+												isSourceAlive = true;
+												break;
+											}
+										}
+										// If source is dead, ignore this packet (unless we want to log it)
+										if (!isSourceAlive) {
+											std::cout << "Ignored action from DEAD player " << actionPacket.sourceID << std::endl;
+											continue;
+										}
+
+										if (actionPacket.actionType == ActionType::SpreadPlague || actionPacket.actionType == ActionType::DestroySchool || actionPacket.actionType == ActionType::SabotageFactory) {
+											int traitorID = state.players[traitorIndex].getPlayerID();
+											if (!secretyActionsReceived && actionPacket.sourceID == traitorID) {
+												secretAction = actionPacket;
+												secretyActionsReceived = true;
+												std::cout << "Secret action received from traitor." << std::endl;
+											}
+											continue;
+										}
+
+										if (std::find(handledPlayerIDs.begin(), handledPlayerIDs.end(), actionPacket.sourceID) == handledPlayerIDs.end()) {
+											handledPlayerIDs.push_back(actionPacket.sourceID);
+											actionPackets.push_back(actionPacket);
+											std::cout << "Action accepted. Progress: " << actionPackets.size() << "/" << alivePlayersCount << std::endl;
+										} else {
+											std::cout << "Ignored duplicate action from player " << actionPacket.sourceID << std::endl;
+										}
+									} else {
+										std::cout << "Received non-action packet: " << (int)packetType << std::endl;
 									}
-									continue;
-								}
-
-								if (std::find(handledPlayerIDs.begin(), handledPlayerIDs.end(), actionPacket.sourceID) == handledPlayerIDs.end()) {
-									handledPlayerIDs.push_back(actionPacket.sourceID);
-									actionPackets.push_back(actionPacket);
 								}
 							}
 						}
 					}
+					
 					if (currentPhaseTimer.getElapsedTime().asSeconds() >= 90) {
+						std::cout << "Action Phase Timeout (90s) reached." << std::endl;
 						break;
 					}
 				}
@@ -249,6 +288,9 @@ namespace TheTraitor {
 	void GameManager::run() {
 		GameHost host;
 		host.establishConnectionWithClients(state);
+		for (auto& player : state.players) {
+			selector.add(*player.getSocket());
+		}
 		while (true) {
 			update();
 		}
