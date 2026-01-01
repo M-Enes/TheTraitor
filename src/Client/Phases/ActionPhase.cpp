@@ -165,18 +165,24 @@ namespace TheTraitor {
 	}
 
 	ActionPhase::ActionEffect ActionPhase::getPreviewEffects(ActionType type) {
+		Action* action;
 		switch (type) {
-		case ActionType::TradePact: return { 10, 10, CountryStatType::Economy };
-		case ActionType::TradeEmbargo: return { -5, -20, CountryStatType::Economy };
-		case ActionType::JointResearch: return { 10, 10, CountryStatType::Education };
-		case ActionType::SpreadMisinfo: return { -5, -20, CountryStatType::Education };
-		case ActionType::HealthAid: return { 10, 10, CountryStatType::Health };
-		case ActionType::PoisonResources: return { -5, -20, CountryStatType::Health };
-		case ActionType::SabotageFactory: return { 0, -50, CountryStatType::Economy };
-		case ActionType::DestroySchool: return { 0, -50, CountryStatType::Education };
-		case ActionType::SpreadPlague: return { 0, -50, CountryStatType::Health };
+		case ActionType::TradePact: action = new TradePact(); break;
+		case ActionType::TradeEmbargo: action = new TradeEmbargo(); break;
+		case ActionType::JointResearch: action = new JointResearch(); break;
+		case ActionType::SpreadMisinfo: action = new SpreadMisinfo(); break;
+		case ActionType::HealthAid: action = new HealthAid(); break;
+		case ActionType::PoisonResources: action = new PoisonResources(); break;
+		case ActionType::SabotageFactory: action = new SabotageFactory(); break;
+		case ActionType::DestroySchool: action = new DestroySchool(); break;
+		case ActionType::SpreadPlague: action = new SpreadPlague(); break;
 		default: return { 0, 0, CountryStatType::Economy };
 		}
+		int playerEffect = action->getEffectToPlayer();
+		int targetEffect = action->getEffectToTarget();
+		CountryStatType statType = action->getEffectedStatType();
+		delete action;
+		return { playerEffect, targetEffect, statType };
 	}
 
 	void ActionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTimeSeconds, int roundCounter)
