@@ -22,6 +22,7 @@ namespace TheTraitor {
 		sf::Text title;
 		sf::Text totalRoundsLabel;
 		sf::Text totalTimeLabel;
+		sf::Text traitorInfoLabel;
 		Button quitGameButton;
 
 		void resetViewData();
