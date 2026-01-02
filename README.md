@@ -3,6 +3,9 @@ This repository contains code and documents for our 2025-2026 Fall semester proj
 Note: To triangulate map parts, we used earcut.hpp from https://github.com/mapbox/earcut.hpp. \
 Icons by https://icons8.com/.
 
+## Demo
+[Demo video](https://drive.google.com/file/d/1Piz4BOJ4feev8fasVOnV_dCd1wxWFh19/view?usp=drive_link)
+
 ## Group Members
 Muhammed Enes Karaca, 23050111049 \
 Enes Can Bozkurt, 23050111060 \
