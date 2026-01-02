@@ -94,6 +94,11 @@ namespace TheTraitor {
 		void resetViewData();
 		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
 		void calculateCountries();
+		
+		std::vector<ActionPacket> lastRoundActions;
+		bool updateLogString = false;
+	public:
+		void setEventLog(const std::vector<ActionPacket>& actions);
 	};
 
 }

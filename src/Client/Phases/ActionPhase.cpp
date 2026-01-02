@@ -29,8 +29,7 @@ namespace TheTraitor {
 		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0},
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
 		eventLogMenu({ (float)window.getSize().x - 870, 300 }),
-		eventLogString("MuhammedEnesKrc made Trade Pact with MuhammedEnesKrc\n"
-			"MuhammedEnesKrc applied Trade Embargo to MuhammedEnesKrc"),
+		eventLogString(""),
 		eventLogMenuLabel(font, "Event Log"),
 		eventLogLabel(font, eventLogString, 20),
 		infoMenu({ 480, (float)window.getSize().y - 40 }),
@@ -229,6 +228,43 @@ namespace TheTraitor {
 			currentRound = roundCounter;
 			publicActionUsed = false;
 			secretActionUsed = false;
+		}
+
+		if (updateLogString) {
+			std::string newLog = "";
+			int count = 0;
+			for (const auto& action : lastRoundActions) {
+				if (count >= 6) { // limit 
+					newLog += "...";
+					break;
+				}
+				std::string sourceName = "Unknown";
+				std::string targetName = "Unknown";
+
+				for (const auto& player : gameState.players) {
+					if (player.getPlayerID() == action.sourceID) sourceName = player.getName();
+					if (player.getPlayerID() == action.targetID) targetName = player.getName();
+				}
+
+				std::string actionName = "Action";
+				switch (action.actionType) {
+				case ActionType::TradePact: actionName = "Trade Pact"; break;
+				case ActionType::TradeEmbargo: actionName = "Trade Embargo"; break;
+				case ActionType::JointResearch: actionName = "Joint Research"; break;
+				case ActionType::SpreadMisinfo: actionName = "Spread Misinfo"; break;
+				case ActionType::HealthAid: actionName = "Health Aid"; break;
+				case ActionType::PoisonResources: actionName = "Poison Resources"; break;
+				case ActionType::SabotageFactory: actionName = "Sabotage Factory"; break;
+				case ActionType::DestroySchool: actionName = "Destroy School"; break;
+				case ActionType::SpreadPlague: actionName = "Spread Plague"; break;
+				}
+
+				newLog += sourceName + " used " + actionName + " on " + targetName + "\n";
+				count++;
+			}
+			eventLogString = newLog;
+			eventLogLabel.setString(eventLogString);
+			updateLogString = false;
 		}
 
 		window.draw(actionMenu);
@@ -563,6 +599,11 @@ namespace TheTraitor {
 	void ActionPhase::resetViewData() {
 		viewData.isActionRequested = false;
 		viewData.gotoState = NONE;
+	}
+
+	void ActionPhase::setEventLog(const std::vector<ActionPacket>& actions) {
+		lastRoundActions = actions;
+		updateLogString = true;
 	}
 
 }

@@ -77,6 +77,7 @@ namespace TheTraitor {
 	
 	void GameView::setResolutionActions(const std::vector<ActionPacket>& actions) {
 		resolutionPhase.setActions(actions);
+		actionPhase.setEventLog(actions);
 	}
 
 	void GameView::renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter) {
