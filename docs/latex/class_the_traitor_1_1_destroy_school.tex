@@ -1,0 +1,132 @@
+\doxysection{The\+Traitor\+::Destroy\+School Class Reference}
+\hypertarget{class_the_traitor_1_1_destroy_school}{}\label{class_the_traitor_1_1_destroy_school}\index{TheTraitor::DestroySchool@{TheTraitor::DestroySchool}}
+
+
+Represents a Destroy School action (Secret).  
+
+
+
+
+{\ttfamily \#include $<$Actions.\+h$>$}
+
+
+
+Inheritance diagram for The\+Traitor\+::Destroy\+School\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_the_traitor_1_1_destroy_school__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for The\+Traitor\+::Destroy\+School\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_the_traitor_1_1_destroy_school__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_destroy_school_aae667a20bc7bb3ceaa6d9780dfe86d90}{Destroy\+School}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_the_traitor_1_1_destroy_school_a7fb9506a580c6581239761904485c3b0}{get\+Log\+Message}} (const \mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&player, const \mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&target) const override
+\begin{DoxyCompactList}\small\item\em Gets the log message describing the action result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_secret_action}{The\+Traitor\+::\+Secret\+Action}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_the_traitor_1_1_secret_action_a9e3118dca9d3e3b1bb2d3d525422cc63}{\texorpdfstring{$\sim$}{\string~}\+Secret\+Action}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_action}{The\+Traitor\+::\+Action}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_the_traitor_1_1_action_aaf7442844f761766459be76a584b4e34}{\texorpdfstring{$\sim$}{\string~}\+Action}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_action_ad3388e2a8e8983db403e144d131adccd}{execute}} (\mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&player, \mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&target) const
+\begin{DoxyCompactList}\small\item\em Executes the action, modifying the player\textquotesingle{}s and target\textquotesingle{}s stats. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_the_traitor_1_1_action_a53f558392d016ebc7939f065f39ba789}{get\+Effect\+To\+Player}} () const
+\begin{DoxyCompactList}\small\item\em Gets the effect of the action on the initiating player. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_the_traitor_1_1_action_a8faab51276f53443c334968786930759}{get\+Effect\+To\+Target}} () const
+\begin{DoxyCompactList}\small\item\em Gets the effect of the action on the target player. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_the_traitor_a636a4b2aec46acab4718345396c44c55}{Country\+Stat\+Type}} \mbox{\hyperlink{class_the_traitor_1_1_action_a9a4a4074305b8c5eefe13b95a46d8b93}{get\+Effected\+Stat\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Gets the type of statistic affected by this action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_secret_action}{The\+Traitor\+::\+Secret\+Action}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_secret_action_a46fdc3fdac1642a5586a2df8a1589a5b}{Secret\+Action}} (int effect\+Player, int effect\+Target, \mbox{\hyperlink{namespace_the_traitor_a636a4b2aec46acab4718345396c44c55}{Country\+Stat\+Type}} type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_action}{The\+Traitor\+::\+Action}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_action_a4d8ddc6de04664164c0a7d0c7a8c0f57}{Action}} (int effect\+Player, int effect\+Target, \mbox{\hyperlink{namespace_the_traitor_a636a4b2aec46acab4718345396c44c55}{Country\+Stat\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_the_traitor_1_1_action}{Action} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a Destroy School action (Secret). 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_destroy_school_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_destroy_school_aae667a20bc7bb3ceaa6d9780dfe86d90}\index{TheTraitor::DestroySchool@{TheTraitor::DestroySchool}!DestroySchool@{DestroySchool}}
+\index{DestroySchool@{DestroySchool}!TheTraitor::DestroySchool@{TheTraitor::DestroySchool}}
+\doxysubsubsection{\texorpdfstring{DestroySchool()}{DestroySchool()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_destroy_school_aae667a20bc7bb3ceaa6d9780dfe86d90} 
+The\+Traitor\+::\+Destroy\+School\+::\+Destroy\+School (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_destroy_school_aae667a20bc7bb3ceaa6d9780dfe86d90_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_destroy_school_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_destroy_school_a7fb9506a580c6581239761904485c3b0}\index{TheTraitor::DestroySchool@{TheTraitor::DestroySchool}!getLogMessage@{getLogMessage}}
+\index{getLogMessage@{getLogMessage}!TheTraitor::DestroySchool@{TheTraitor::DestroySchool}}
+\doxysubsubsection{\texorpdfstring{getLogMessage()}{getLogMessage()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_destroy_school_a7fb9506a580c6581239761904485c3b0} 
+std\+::string The\+Traitor\+::\+Destroy\+School\+::get\+Log\+Message (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&}]{player}{, }\item[{const \mbox{\hyperlink{class_the_traitor_1_1_player}{Player}} \&}]{target}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Gets the log message describing the action result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & The player who performed the action. \\
+\hline
+{\em target} & The target of the action. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the log message. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_the_traitor_1_1_action_a5946da18ce39b350f9b48fa33a3958d8}{The\+Traitor\+::\+Action}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{class_the_traitor_1_1_destroy_school_a7fb9506a580c6581239761904485c3b0_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Common/\mbox{\hyperlink{_actions_8h}{Actions.\+h}}\item 
+src/\+Common/\mbox{\hyperlink{_actions_8cpp}{Actions.\+cpp}}\end{DoxyCompactItemize}

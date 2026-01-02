@@ -1,0 +1,143 @@
+\doxysection{The\+Traitor\+::Game\+Host Class Reference}
+\hypertarget{class_the_traitor_1_1_game_host}{}\label{class_the_traitor_1_1_game_host}\index{TheTraitor::GameHost@{TheTraitor::GameHost}}
+
+
+Handles low-\/level network communication for the server.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Host.\+h$>$}
+
+
+
+Collaboration diagram for The\+Traitor\+::Game\+Host\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{class_the_traitor_1_1_game_host__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_game_host_a5994123e1f97871825f0fd87edcb4ec5}{Game\+Host}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_game_host}{Game\+Host}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee}{establish\+Connection\+With\+Clients}} (\mbox{\hyperlink{struct_the_traitor_1_1_global_game_state}{Global\+Game\+State}} \&state)
+\begin{DoxyCompactList}\small\item\em Establishes connections with waiting clients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_host_a4a5c7da14893e3829751364046f550fa}{receive\+Packet}} (sf\+::\+Tcp\+Socket \texorpdfstring{$\ast$}{*}socket)
+\begin{DoxyCompactList}\small\item\em Receives a packet from a client. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_host_a8589f08850b1002ec1292514f9238c8a}{send\+Packet}} (sf\+::\+Tcp\+Socket \texorpdfstring{$\ast$}{*}socket, sf\+::\+Packet \&packet)
+\begin{DoxyCompactList}\small\item\em Sends a packet to a client. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_host_ab9f5c6f3be35a2b6a830cfbc6a49b5a6}{set\+Ip\+And\+Port}} (sf\+::\+Ip\+Address ip, unsigned short port)
+\begin{DoxyCompactList}\small\item\em Sets the server\textquotesingle{}s IP and port. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles low-\/level network communication for the server. 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_game_host_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_game_host_a5994123e1f97871825f0fd87edcb4ec5}\index{TheTraitor::GameHost@{TheTraitor::GameHost}!GameHost@{GameHost}}
+\index{GameHost@{GameHost}!TheTraitor::GameHost@{TheTraitor::GameHost}}
+\doxysubsubsection{\texorpdfstring{GameHost()}{GameHost()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_host_a5994123e1f97871825f0fd87edcb4ec5} 
+The\+Traitor\+::\+Game\+Host\+::\+Game\+Host (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_game_host}{Game\+Host}. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_game_host_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee}\index{TheTraitor::GameHost@{TheTraitor::GameHost}!establishConnectionWithClients@{establishConnectionWithClients}}
+\index{establishConnectionWithClients@{establishConnectionWithClients}!TheTraitor::GameHost@{TheTraitor::GameHost}}
+\doxysubsubsection{\texorpdfstring{establishConnectionWithClients()}{establishConnectionWithClients()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee} 
+void The\+Traitor\+::\+Game\+Host\+::establish\+Connection\+With\+Clients (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_the_traitor_1_1_global_game_state}{Global\+Game\+State}} \&}]{state}{}\end{DoxyParamCaption})}
+
+
+
+Establishes connections with waiting clients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The global game state to populate with connected players. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_game_host_a4a5c7da14893e3829751364046f550fa}\index{TheTraitor::GameHost@{TheTraitor::GameHost}!receivePacket@{receivePacket}}
+\index{receivePacket@{receivePacket}!TheTraitor::GameHost@{TheTraitor::GameHost}}
+\doxysubsubsection{\texorpdfstring{receivePacket()}{receivePacket()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_host_a4a5c7da14893e3829751364046f550fa} 
+void The\+Traitor\+::\+Game\+Host\+::receive\+Packet (\begin{DoxyParamCaption}\item[{sf\+::\+Tcp\+Socket \texorpdfstring{$\ast$}{*}}]{socket}{}\end{DoxyParamCaption})}
+
+
+
+Receives a packet from a client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em socket} & The socket to receive from. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_game_host_a8589f08850b1002ec1292514f9238c8a}\index{TheTraitor::GameHost@{TheTraitor::GameHost}!sendPacket@{sendPacket}}
+\index{sendPacket@{sendPacket}!TheTraitor::GameHost@{TheTraitor::GameHost}}
+\doxysubsubsection{\texorpdfstring{sendPacket()}{sendPacket()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_host_a8589f08850b1002ec1292514f9238c8a} 
+void The\+Traitor\+::\+Game\+Host\+::send\+Packet (\begin{DoxyParamCaption}\item[{sf\+::\+Tcp\+Socket \texorpdfstring{$\ast$}{*}}]{socket}{, }\item[{sf\+::\+Packet \&}]{packet}{}\end{DoxyParamCaption})}
+
+
+
+Sends a packet to a client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em socket} & The socket to send to. \\
+\hline
+{\em packet} & The packet to send. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_game_host_ab9f5c6f3be35a2b6a830cfbc6a49b5a6}\index{TheTraitor::GameHost@{TheTraitor::GameHost}!setIpAndPort@{setIpAndPort}}
+\index{setIpAndPort@{setIpAndPort}!TheTraitor::GameHost@{TheTraitor::GameHost}}
+\doxysubsubsection{\texorpdfstring{setIpAndPort()}{setIpAndPort()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_host_ab9f5c6f3be35a2b6a830cfbc6a49b5a6} 
+void The\+Traitor\+::\+Game\+Host\+::set\+Ip\+And\+Port (\begin{DoxyParamCaption}\item[{sf\+::\+Ip\+Address}]{ip}{, }\item[{unsigned short}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Sets the server\textquotesingle{}s IP and port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ip} & The IP address. \\
+\hline
+{\em port} & The port number. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Server/\mbox{\hyperlink{_game_host_8h}{Game\+Host.\+h}}\item 
+src/\+Server/\mbox{\hyperlink{_game_host_8cpp}{Game\+Host.\+cpp}}\end{DoxyCompactItemize}

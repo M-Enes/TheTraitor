@@ -1,0 +1,55 @@
+\doxysection{src/\+Common/\+Packet\+Type.h File Reference}
+\hypertarget{_packet_type_8h}{}\label{_packet_type_8h}\index{src/Common/PacketType.h@{src/Common/PacketType.h}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$SFML/\+Network.\+hpp$>$}\newline
+{\ttfamily \#include "{}Action\+Packet.\+h"{}}\newline
+{\ttfamily \#include "{}Game\+State.\+h"{}}\newline
+Include dependency graph for Packet\+Type.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_packet_type_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_packet_type_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_the_traitor}{The\+Traitor}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8c}{The\+Traitor\+::\+Packet\+Type}} \{ \newline
+\mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8ca696b031073e74bf2cb98e5ef201d4aa3}{The\+Traitor\+::\+UNKNOWN}}
+, \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8ca1ccfed0885be4170ec276a4b9c9e618a}{The\+Traitor\+::\+ACTION\+\_\+\+PACKET}}
+, \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8ca2baa69eafc7204f3bd8648eba580c489}{The\+Traitor\+::\+READY}}
+, \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8cab1633bd825135d4f773f8437c37d9367}{The\+Traitor\+::\+GAMESTATE}}
+, \newline
+\mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8ca63b588d5559f64f89a416e656880b949}{The\+Traitor\+::\+STRING}}
+, \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8ca53f93baa3057821107c750323892fa92}{The\+Traitor\+::\+INT}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration of packet types used for network communication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a307de8e519d983c18d06ce91b2c879f4}{The\+Traitor\+::operator$<$$<$}} (sf\+::\+Packet \&packet, const \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8c}{Packet\+Type}} \&type)
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a23391fad509662e30f1ce1078b9e1453}{The\+Traitor\+::operator$>$$>$}} (sf\+::\+Packet \&packet, \mbox{\hyperlink{namespace_the_traitor_ad0bda0328fdce5eb7679534d6bcdaa8c}{Packet\+Type}} \&type)
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a35a1940894b0d75adbd59d429deb7952}{The\+Traitor\+::operator$<$$<$}} (sf\+::\+Packet \&packet, \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} \&action\+Packet)
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a409acc759c06d425df5251117d5eb7a1}{The\+Traitor\+::operator$>$$>$}} (sf\+::\+Packet \&packet, \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} \&action\+Packet)
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a69133c9a598b3f6730cbc61e78d00629}{The\+Traitor\+::operator$<$$<$}} (sf\+::\+Packet \&packet, \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&game\+State)
+\item 
+sf\+::\+Packet \& \mbox{\hyperlink{namespace_the_traitor_a1d5294f9a79ce299bad4386c328cf316}{The\+Traitor\+::operator$>$$>$}} (sf\+::\+Packet \&packet, \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&game\+State)
+\end{DoxyCompactItemize}

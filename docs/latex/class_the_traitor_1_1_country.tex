@@ -1,0 +1,274 @@
+\doxysection{The\+Traitor\+::Country Class Reference}
+\hypertarget{class_the_traitor_1_1_country}{}\label{class_the_traitor_1_1_country}\index{TheTraitor::Country@{TheTraitor::Country}}
+
+
+Class representing a country with its statistics.  
+
+
+
+
+{\ttfamily \#include $<$Country.\+h$>$}
+
+
+
+Collaboration diagram for The\+Traitor\+::Country\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{class_the_traitor_1_1_country__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_country_a2cba3b40bd56431f45e58dad9706bc0f}{Country}} (int economy, int health, int education, \mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}} type=\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdbab50339a10e1de285ac99d4c3990b8693}{Country\+Type\+::\+NONE}})
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_country}{Country}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_the_traitor_1_1_country_aa86d1d04d8a114394c6193254d70a647}{Country}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_the_traitor_1_1_country_acd5b9746ab74d90c8425ca12cf3948d0}{get\+Economy}} () const
+\begin{DoxyCompactList}\small\item\em Gets the economy stat. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_the_traitor_1_1_country_acdb76f8743c552f289eb839ad472ae4a}{get\+Health}} () const
+\begin{DoxyCompactList}\small\item\em Gets the health stat. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_the_traitor_1_1_country_afa0bc79e1cec3a397da0c9f9e3fa2eeb}{get\+Education}} () const
+\begin{DoxyCompactList}\small\item\em Gets the education stat. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}} \mbox{\hyperlink{class_the_traitor_1_1_country_aaf269da73c33b8ed749e8cab2ab87019}{get\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Gets the type of the country. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_the_traitor_1_1_country_a6e17c9ef43030c6035bbf81e16461612}{is\+Destroyed}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the country is destroyed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_a354f5c37bc18a37a7b78295e56a906e7}{check\+Destroyed}} ()
+\begin{DoxyCompactList}\small\item\em Checks and updates the destroyed status based on stats. Usually called when stats change to see if any reached 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_a225a09e98ecb45186c79fad538effd77}{set\+Destroyed}} (bool destroyed)
+\begin{DoxyCompactList}\small\item\em Sets the destroyed status of the country. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_adc499d7d0aa88e8b56f16512fd027e73}{set\+Economy}} (int economy)
+\begin{DoxyCompactList}\small\item\em Sets the economy stat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_ad4bf58f6637cf6b58a5d18c9b2fe5162}{set\+Health}} (int health)
+\begin{DoxyCompactList}\small\item\em Sets the health stat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_a3528b9e2e24836624a67c6c01c4db988}{set\+Education}} (int education)
+\begin{DoxyCompactList}\small\item\em Sets the education stat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_country_a3e69cac0c17deccdb4816ed0b2e6bdcb}{set\+Type}} (\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Sets the type of the country. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing a country with its statistics. 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_country_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_country_a2cba3b40bd56431f45e58dad9706bc0f}\index{TheTraitor::Country@{TheTraitor::Country}!Country@{Country}}
+\index{Country@{Country}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{Country()}{Country()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a2cba3b40bd56431f45e58dad9706bc0f} 
+The\+Traitor\+::\+Country\+::\+Country (\begin{DoxyParamCaption}\item[{int}]{economy}{, }\item[{int}]{health}{, }\item[{int}]{education}{, }\item[{\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}}}]{type}{ = {\ttfamily \mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdbab50339a10e1de285ac99d4c3990b8693}{Country\+Type\+::\+NONE}}}}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_country}{Country}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em economy} & Initial economy stat. \\
+\hline
+{\em health} & Initial health stat. \\
+\hline
+{\em education} & Initial education stat. \\
+\hline
+{\em type} & The type (continent) of the country. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_country_aa86d1d04d8a114394c6193254d70a647}\index{TheTraitor::Country@{TheTraitor::Country}!Country@{Country}}
+\index{Country@{Country}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{Country()}{Country()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_aa86d1d04d8a114394c6193254d70a647} 
+The\+Traitor\+::\+Country\+::\+Country (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_country_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_country_a354f5c37bc18a37a7b78295e56a906e7}\index{TheTraitor::Country@{TheTraitor::Country}!checkDestroyed@{checkDestroyed}}
+\index{checkDestroyed@{checkDestroyed}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{checkDestroyed()}{checkDestroyed()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a354f5c37bc18a37a7b78295e56a906e7} 
+void The\+Traitor\+::\+Country\+::check\+Destroyed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Checks and updates the destroyed status based on stats. Usually called when stats change to see if any reached 0. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_country_a354f5c37bc18a37a7b78295e56a906e7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_country_acd5b9746ab74d90c8425ca12cf3948d0}\index{TheTraitor::Country@{TheTraitor::Country}!getEconomy@{getEconomy}}
+\index{getEconomy@{getEconomy}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{getEconomy()}{getEconomy()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_acd5b9746ab74d90c8425ca12cf3948d0} 
+int The\+Traitor\+::\+Country\+::get\+Economy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the economy stat. 
+
+\begin{DoxyReturn}{Returns}
+The economy value. 
+\end{DoxyReturn}
+\Hypertarget{class_the_traitor_1_1_country_afa0bc79e1cec3a397da0c9f9e3fa2eeb}\index{TheTraitor::Country@{TheTraitor::Country}!getEducation@{getEducation}}
+\index{getEducation@{getEducation}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{getEducation()}{getEducation()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_afa0bc79e1cec3a397da0c9f9e3fa2eeb} 
+int The\+Traitor\+::\+Country\+::get\+Education (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the education stat. 
+
+\begin{DoxyReturn}{Returns}
+The education value. 
+\end{DoxyReturn}
+\Hypertarget{class_the_traitor_1_1_country_acdb76f8743c552f289eb839ad472ae4a}\index{TheTraitor::Country@{TheTraitor::Country}!getHealth@{getHealth}}
+\index{getHealth@{getHealth}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{getHealth()}{getHealth()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_acdb76f8743c552f289eb839ad472ae4a} 
+int The\+Traitor\+::\+Country\+::get\+Health (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the health stat. 
+
+\begin{DoxyReturn}{Returns}
+The health value. 
+\end{DoxyReturn}
+\Hypertarget{class_the_traitor_1_1_country_aaf269da73c33b8ed749e8cab2ab87019}\index{TheTraitor::Country@{TheTraitor::Country}!getType@{getType}}
+\index{getType@{getType}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_aaf269da73c33b8ed749e8cab2ab87019} 
+\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}} The\+Traitor\+::\+Country\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the type of the country. 
+
+\begin{DoxyReturn}{Returns}
+The \doxylink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type} enum value. 
+\end{DoxyReturn}
+\Hypertarget{class_the_traitor_1_1_country_a6e17c9ef43030c6035bbf81e16461612}\index{TheTraitor::Country@{TheTraitor::Country}!isDestroyed@{isDestroyed}}
+\index{isDestroyed@{isDestroyed}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{isDestroyed()}{isDestroyed()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a6e17c9ef43030c6035bbf81e16461612} 
+bool The\+Traitor\+::\+Country\+::is\+Destroyed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the country is destroyed. 
+
+\begin{DoxyReturn}{Returns}
+True if destroyed, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_the_traitor_1_1_country_a225a09e98ecb45186c79fad538effd77}\index{TheTraitor::Country@{TheTraitor::Country}!setDestroyed@{setDestroyed}}
+\index{setDestroyed@{setDestroyed}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{setDestroyed()}{setDestroyed()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a225a09e98ecb45186c79fad538effd77} 
+void The\+Traitor\+::\+Country\+::set\+Destroyed (\begin{DoxyParamCaption}\item[{bool}]{destroyed}{}\end{DoxyParamCaption})}
+
+
+
+Sets the destroyed status of the country. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em destroyed} & Boolean value indicating destroyed status. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_the_traitor_1_1_country_a225a09e98ecb45186c79fad538effd77_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_country_adc499d7d0aa88e8b56f16512fd027e73}\index{TheTraitor::Country@{TheTraitor::Country}!setEconomy@{setEconomy}}
+\index{setEconomy@{setEconomy}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{setEconomy()}{setEconomy()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_adc499d7d0aa88e8b56f16512fd027e73} 
+void The\+Traitor\+::\+Country\+::set\+Economy (\begin{DoxyParamCaption}\item[{int}]{economy}{}\end{DoxyParamCaption})}
+
+
+
+Sets the economy stat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em economy} & The new economy value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_country_a3528b9e2e24836624a67c6c01c4db988}\index{TheTraitor::Country@{TheTraitor::Country}!setEducation@{setEducation}}
+\index{setEducation@{setEducation}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{setEducation()}{setEducation()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a3528b9e2e24836624a67c6c01c4db988} 
+void The\+Traitor\+::\+Country\+::set\+Education (\begin{DoxyParamCaption}\item[{int}]{education}{}\end{DoxyParamCaption})}
+
+
+
+Sets the education stat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em education} & The new education value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_country_ad4bf58f6637cf6b58a5d18c9b2fe5162}\index{TheTraitor::Country@{TheTraitor::Country}!setHealth@{setHealth}}
+\index{setHealth@{setHealth}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{setHealth()}{setHealth()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_ad4bf58f6637cf6b58a5d18c9b2fe5162} 
+void The\+Traitor\+::\+Country\+::set\+Health (\begin{DoxyParamCaption}\item[{int}]{health}{}\end{DoxyParamCaption})}
+
+
+
+Sets the health stat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em health} & The new health value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_the_traitor_1_1_country_a3e69cac0c17deccdb4816ed0b2e6bdcb}\index{TheTraitor::Country@{TheTraitor::Country}!setType@{setType}}
+\index{setType@{setType}!TheTraitor::Country@{TheTraitor::Country}}
+\doxysubsubsection{\texorpdfstring{setType()}{setType()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_country_a3e69cac0c17deccdb4816ed0b2e6bdcb} 
+void The\+Traitor\+::\+Country\+::set\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Sets the type of the country. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The new \doxylink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{Country\+Type}. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_country_a3e69cac0c17deccdb4816ed0b2e6bdcb_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Common/\mbox{\hyperlink{_country_8h}{Country.\+h}}\item 
+src/\+Common/\mbox{\hyperlink{_country_8cpp}{Country.\+cpp}}\end{DoxyCompactItemize}

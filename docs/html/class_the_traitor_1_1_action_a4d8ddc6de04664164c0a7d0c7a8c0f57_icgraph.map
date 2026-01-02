@@ -1,0 +1,23 @@
+<map id="TheTraitor::Action::Action" name="TheTraitor::Action::Action">
+<area shape="rect" id="Node000001" title="Constructor for the Action class." alt="" coords="480,205,605,248"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_health_aid.html#a44004b377865ac51e8bb16cf2e1ad710" title=" " alt="" coords="264,5,409,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="524,191,487,126,461,92,430,62,410,49,409,44,434,58,465,88,492,123,529,192"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_joint_research.html#a8ad73ea12ed1020bb78314e61ef369e6" title=" " alt="" coords="250,72,422,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="510,194,474,161,431,129,410,118,409,113,433,124,478,157,515,194"/>
+<area shape="rect" id="Node000004" href="$class_the_traitor_1_1_poison_resources.html#aa9e15a0cdd13965b15a46c63aa3c1809" title=" " alt="" coords="241,139,432,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="463,202,405,185,405,179,468,201"/>
+<area shape="rect" id="Node000005" href="$class_the_traitor_1_1_secret_action.html#a46fdc3fdac1642a5586a2df8a1589a5b" title=" " alt="" coords="255,205,418,248"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="462,227,419,229,418,224,467,226"/>
+<area shape="rect" id="Node000009" href="$class_the_traitor_1_1_spread_misinfo.html#a30a55e4d9008a3c8ea84c5c98aac5e61" title=" " alt="" coords="251,272,422,315"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="463,252,406,274,404,269,468,251"/>
+<area shape="rect" id="Node000010" href="$class_the_traitor_1_1_trade_embargo.html#a51f6b1b389b9cee3f1a6393989883c72" title=" " alt="" coords="250,339,423,381"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="515,258,478,296,433,329,411,340,409,336,431,324,474,292,510,261"/>
+<area shape="rect" id="Node000011" href="$class_the_traitor_1_1_trade_pact.html#aa709e258e3923eea27f38aaf74d10e13" title=" " alt="" coords="262,405,410,448"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="529,261,492,330,465,365,434,395,412,409,410,404,430,391,461,362,487,327,524,264"/>
+<area shape="rect" id="Node000006" href="$class_the_traitor_1_1_destroy_school.html#aae667a20bc7bb3ceaa6d9780dfe86d90" title=" " alt="" coords="12,139,186,181"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="242,202,178,185,177,179,246,200"/>
+<area shape="rect" id="Node000007" href="$class_the_traitor_1_1_sabotage_factory.html#aa34d89e2593e3676b21f39db8f0f30f0" title=" " alt="" coords="5,205,193,248"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="237,228,194,229,192,224,242,225"/>
+<area shape="rect" id="Node000008" href="$class_the_traitor_1_1_spread_plague.html#af89a309181d617d1abec17a323a018b3" title=" " alt="" coords="14,272,184,315"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="242,254,179,274,177,269,246,251"/>
+</map>

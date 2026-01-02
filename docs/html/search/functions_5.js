@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['gamehost_0',['GameHost',['../class_the_traitor_1_1_game_host.html#a5994123e1f97871825f0fd87edcb4ec5',1,'TheTraitor::GameHost']]],
+  ['gamemanager_1',['GameManager',['../class_the_traitor_1_1_game_manager.html#aa716095bbe842a161af9dbf4668a39b4',1,'TheTraitor::GameManager']]],
+  ['gameoverphase_2',['GameoverPhase',['../class_the_traitor_1_1_gameover_phase.html#ada5d65c7adb39353b2663db65bfba8d7',1,'TheTraitor::GameoverPhase']]],
+  ['gameview_3',['GameView',['../class_the_traitor_1_1_game_view.html#af00dbf2104aefca7d1490054e9c35b46',1,'TheTraitor::GameView']]],
+  ['get_4',['get',['../structmapbox_1_1util_1_1nth_3_010_00_01sf_1_1_vector2f_01_4.html#a4b6e237b177a3355c9d2923fdb238130',1,'mapbox::util::nth&lt; 0, sf::Vector2f &gt;::get()'],['../structmapbox_1_1util_1_1nth_3_011_00_01sf_1_1_vector2f_01_4.html#aebb506273969a23f58cb7f8ec9e3c198',1,'mapbox::util::nth&lt; 1, sf::Vector2f &gt;::get()'],['../structmapbox_1_1util_1_1nth.html#a865d92b605b711c9427dfa5c3b4897f3',1,'mapbox::util::nth::get()']]],
+  ['getavatarid_5',['getAvatarID',['../class_the_traitor_1_1_player.html#ab3a56e3e106897fb9f461db7efad0aee',1,'TheTraitor::Player']]],
+  ['getcountry_6',['getCountry',['../class_the_traitor_1_1_player.html#a4849e646a184b59e9ea7060dca8b1706',1,'TheTraitor::Player']]],
+  ['geteconomy_7',['getEconomy',['../class_the_traitor_1_1_country.html#acd5b9746ab74d90c8425ca12cf3948d0',1,'TheTraitor::Country']]],
+  ['geteducation_8',['getEducation',['../class_the_traitor_1_1_country.html#afa0bc79e1cec3a397da0c9f9e3fa2eeb',1,'TheTraitor::Country']]],
+  ['geteffectedstattype_9',['getEffectedStatType',['../class_the_traitor_1_1_action.html#a9a4a4074305b8c5eefe13b95a46d8b93',1,'TheTraitor::Action']]],
+  ['geteffecttoplayer_10',['getEffectToPlayer',['../class_the_traitor_1_1_action.html#a53f558392d016ebc7939f065f39ba789',1,'TheTraitor::Action']]],
+  ['geteffecttotarget_11',['getEffectToTarget',['../class_the_traitor_1_1_action.html#a8faab51276f53443c334968786930759',1,'TheTraitor::Action']]],
+  ['gethealth_12',['getHealth',['../class_the_traitor_1_1_country.html#acdb76f8743c552f289eb839ad472ae4a',1,'TheTraitor::Country']]],
+  ['getinputdata_13',['getInputData',['../class_the_traitor_1_1_input_handler.html#a5964dc718a3351329406806473e1ec84',1,'TheTraitor::InputHandler']]],
+  ['getlogmessage_14',['getLogMessage',['../class_the_traitor_1_1_action.html#a5946da18ce39b350f9b48fa33a3958d8',1,'TheTraitor::Action::getLogMessage()'],['../class_the_traitor_1_1_trade_pact.html#ab4cbb376b9557aa9937e0663a361e3fe',1,'TheTraitor::TradePact::getLogMessage()'],['../class_the_traitor_1_1_trade_embargo.html#a37d24a924ab7441e49639cf55504f1fe',1,'TheTraitor::TradeEmbargo::getLogMessage()'],['../class_the_traitor_1_1_joint_research.html#ac06fced771b90aa61d1d800591692004',1,'TheTraitor::JointResearch::getLogMessage()'],['../class_the_traitor_1_1_spread_misinfo.html#a10c1437da0dab58e9fbacd83562d0b8e',1,'TheTraitor::SpreadMisinfo::getLogMessage()'],['../class_the_traitor_1_1_health_aid.html#ae24478ad8aad8c05406230940ee8c3c9',1,'TheTraitor::HealthAid::getLogMessage()'],['../class_the_traitor_1_1_poison_resources.html#a429af04e96c0e814a60b0f6c607a455b',1,'TheTraitor::PoisonResources::getLogMessage()'],['../class_the_traitor_1_1_sabotage_factory.html#a17ee42cce23391448a8f03694597242d',1,'TheTraitor::SabotageFactory::getLogMessage()'],['../class_the_traitor_1_1_destroy_school.html#a7fb9506a580c6581239761904485c3b0',1,'TheTraitor::DestroySchool::getLogMessage()'],['../class_the_traitor_1_1_spread_plague.html#a2c2d21070dbd2c5b820d52bf3ee8d6fa',1,'TheTraitor::SpreadPlague::getLogMessage()']]],
+  ['getname_15',['getName',['../class_the_traitor_1_1_player.html#a3af74015bc37dd404005821bec30a036',1,'TheTraitor::Player::getName()'],['../class_the_traitor_1_1_role.html#ab879791df3d1520e46e0e5913457b107',1,'TheTraitor::Role::getName()']]],
+  ['getplayerid_16',['getPlayerID',['../class_the_traitor_1_1_player.html#a527479f55cd5665c4822b3f941155948',1,'TheTraitor::Player']]],
+  ['getpublicactions_17',['getPublicActions',['../class_the_traitor_1_1_role.html#a66e6b98764475311b624e1d967123626',1,'TheTraitor::Role']]],
+  ['getrole_18',['getRole',['../class_the_traitor_1_1_player.html#a94da92abc3b6285b2f6b5daf286652e5',1,'TheTraitor::Player']]],
+  ['getsecretactions_19',['getSecretActions',['../class_the_traitor_1_1_role.html#a121981c27ed0d72a232e3d09188971ab',1,'TheTraitor::Role::getSecretActions()'],['../class_the_traitor_1_1_traitor.html#ab5032f12c8f0359fe3daa23e67a07ddb',1,'TheTraitor::Traitor::getSecretActions()'],['../class_the_traitor_1_1_innocent.html#a2321ae0b6fb10c2859621c345f81b585',1,'TheTraitor::Innocent::getSecretActions()']]],
+  ['getsocket_20',['getSocket',['../class_the_traitor_1_1_player.html#a2170aeef8d9ff17ba311d6e1dd6a0bcb',1,'TheTraitor::Player']]],
+  ['gettype_21',['getType',['../class_the_traitor_1_1_country.html#aaf269da73c33b8ed749e8cab2ab87019',1,'TheTraitor::Country']]],
+  ['getviewdata_22',['getViewData',['../class_the_traitor_1_1_game_view.html#a06f8572b73240d9c178a010be9dc6899',1,'TheTraitor::GameView']]]
+];

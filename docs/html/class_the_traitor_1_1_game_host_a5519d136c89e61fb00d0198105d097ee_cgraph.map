@@ -1,0 +1,13 @@
+<map id="TheTraitor::GameHost::establishConnectionWithClients" name="TheTraitor::GameHost::establishConnectionWithClients">
+<area shape="rect" id="Node000001" title="Establishes connections with waiting clients." alt="" coords="5,139,221,181"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_player.html#a527479f55cd5665c4822b3f941155948" title="Gets the unique player ID." alt="" coords="273,5,398,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,136,267,58,278,54,274,57,270,62,147,140"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_player.html#a2170aeef8d9ff17ba311d6e1dd6a0bcb" title="Gets the network socket for the player (Server only)." alt="" coords="273,72,398,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,136,261,115,256,118,188,141"/>
+<area shape="rect" id="Node000004" href="$class_the_traitor_1_1_player.html#a2b4c785126386e2eeaba2ab7bed47be8" title="Sets the player&#39;s role (Innocent or Traitor)." alt="" coords="273,139,398,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="221,157,260,159,255,161,222,163"/>
+<area shape="rect" id="Node000005" href="$class_the_traitor_1_1_player.html#a231e6014c99853cd16938021b49d19f2" title="Sets the network socket for the player (Server only)." alt="" coords="273,205,398,248"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,179,261,203,256,204,186,184"/>
+<area shape="rect" id="Node000006" href="$class_the_traitor_1_1_country.html#a3e69cac0c17deccdb4816ed0b2e6bdcb" title="Sets the type of the country." alt="" coords="269,272,403,315"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="146,179,270,258,279,265,274,264,267,262,145,184"/>
+</map>

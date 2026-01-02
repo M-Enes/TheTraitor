@@ -1,0 +1,77 @@
+\doxysection{Game\+View.\+h}
+\hypertarget{_game_view_8h_source}{}\label{_game_view_8h_source}\index{src/Client/GameView.h@{src/Client/GameView.h}}
+\mbox{\hyperlink{_game_view_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_action_packet_8h}{Common/ActionPacket.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_bridge_types_8h}{BridgeTypes.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_player_8h}{Common/Player.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_menu_phase_8h}{Client/Phases/MenuPhase.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_lobby_phase_8h}{Client/Phases/LobbyPhase.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_discussion_phase_8h}{Client/Phases/DiscussionPhase.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_action_phase_8h}{Client/Phases/ActionPhase.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_resolution_phase_8h}{Client/Phases/ResolutionPhase.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_gameover_phase_8h}{Client/Phases/GameoverPhase.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_win_phase_8h}{Client/Phases/WinPhase.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_game_view_af00dbf2104aefca7d1490054e9c35b46}{GameView}}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_game_view_af00dbf2104aefca7d1490054e9c35b46}{GameView}}(sf::RenderWindow\&\ window,\ std::string\ executableFolderPath);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a907c80ce260ebb03db7ba30448d0f7ab}{handleMenuInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a96ba173047c2d345732b3e4ca62c9b17}{handleLobbyInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a71ffdbe5e4d28d148dc2931f1264104c}{handleDiscussionPhaseInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a4404c862af3b1a086a1bfdb3b49f4ccb}{handleActionPhaseInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_aa84235ce440c502298b7c16b0eea5aa0}{handleResolutionPhaseInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a59bb8584a198fa826f20c421fc62f122}{handleGameoverInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a44964101e2b14cafe2b8cd45163fd192}{handleWinInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a01471983823399042eeb0b7236f82f43}{renderMenu}}();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_ab6483033509590d4c00cd7217b7c6163}{renderLobby}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_aa14172ed4ad8d0335b764dc74acb1b53}{renderDiscussionPhase}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{int}\ elapsedTimeSeconds,\ \textcolor{keywordtype}{int}\ roundCounter);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_aaf0fb40f843aee6faeeaac37a7873464}{renderActionPhase}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{int}\ elapsedTimeSeconds,\ \textcolor{keywordtype}{int}\ roundCounter);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a2c9a18dc0992c57f807a1787a594dea4}{renderResolutionPhase}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_ad9119a55664f0a5e00dad037e8c8431f}{setResolutionActions}}(\textcolor{keyword}{const}\ std::vector<ActionPacket>\&\ actions);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a90d42f78f07b0e72611e444768816ca5}{renderGameover}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{int}\ totalTimeSeconds,\ \textcolor{keywordtype}{int}\ roundCounter);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a0abccfd0ec5e3c0f9197f9a4b4f2f63a}{renderWin}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{int}\ totalTimeSeconds,\ \textcolor{keywordtype}{int}\ roundCounter);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_game_view_a06f8572b73240d9c178a010be9dc6899}{getViewData}}();\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ sf::RenderWindow\&\ window;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ sf::Font\ font;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Resources\ shared\ with\ phases}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ std::vector<sf::Texture>\ avatarTextures;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Phases}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_menu_phase}{MenuPhase}}\ menuPhase;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_lobby_phase}{LobbyPhase}}\ lobbyPhase;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_discussion_phase}{DiscussionPhase}}\ discussionPhase;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_action_phase}{ActionPhase}}\ actionPhase;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_resolution_phase}{ResolutionPhase}}\ resolutionPhase;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_gameover_phase}{GameoverPhase}}\ gameoverPhase;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_win_phase}{WinPhase}}\ winPhase;}
+\DoxyCodeLine{00162\ \ \ \ \ \};}
+\DoxyCodeLine{00163\ \}}
+
+\end{DoxyCode}

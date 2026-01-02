@@ -1,0 +1,7 @@
+<map id="TheTraitor::Role::Role" name="TheTraitor::Role::Role">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,47,342,73"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_innocent.html#a96fd5daf4a831cfa63d4bab0ecdfee60" title="Constructor for Innocent role." alt="" coords="5,5,144,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,45,144,41,144,36,179,44"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_traitor.html#a85eb01057bd92fa804c320511404693d" title="Constructor for Traitor role." alt="" coords="12,72,137,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,76,138,85,137,80,179,75"/>
+</map>

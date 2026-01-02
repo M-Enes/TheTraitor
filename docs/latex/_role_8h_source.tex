@@ -1,0 +1,46 @@
+\doxysection{Role.\+h}
+\hypertarget{_role_8h_source}{}\label{_role_8h_source}\index{src/Common/Role.h@{src/Common/Role.h}}
+\mbox{\hyperlink{_role_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_action}{Action}};}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_secret_action}{SecretAction}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_role_a5039bc2867a63c5bbc97f86568d0fa7f}{Role}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_role_a5039bc2867a63c5bbc97f86568d0fa7f}{Role}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_the_traitor_1_1_role_aff41b0d6c032ddf896a9685a5e8799b7}{\string~Role}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{class_the_traitor_1_1_role_ab879791df3d1520e46e0e5913457b107}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::vector<Action*>\ \mbox{\hyperlink{class_the_traitor_1_1_role_a66e6b98764475311b624e1d967123626}{getPublicActions}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<SecretAction*>\ \mbox{\hyperlink{class_the_traitor_1_1_role_a121981c27ed0d72a232e3d09188971ab}{getSecretActions}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_role_a5039bc2867a63c5bbc97f86568d0fa7f}{Role}}(std::string\ name);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_traitor_a85eb01057bd92fa804c320511404693d}{Traitor}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_the_traitor_1_1_role_a5039bc2867a63c5bbc97f86568d0fa7f}{Role}}\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_traitor_a85eb01057bd92fa804c320511404693d}{Traitor}}();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::vector<SecretAction*>\ \mbox{\hyperlink{class_the_traitor_1_1_traitor_ab5032f12c8f0359fe3daa23e67a07ddb}{getSecretActions}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00064\ \ \ \ \ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_innocent_a96fd5daf4a831cfa63d4bab0ecdfee60}{Innocent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_the_traitor_1_1_role_a5039bc2867a63c5bbc97f86568d0fa7f}{Role}}\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_innocent_a96fd5daf4a831cfa63d4bab0ecdfee60}{Innocent}}();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::vector<SecretAction*>\ \mbox{\hyperlink{class_the_traitor_1_1_innocent_a2321ae0b6fb10c2859621c345f81b585}{getSecretActions}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00081\ \ \ \ \ \};}
+\DoxyCodeLine{00082\ \}}
+
+\end{DoxyCode}

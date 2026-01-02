@@ -1,0 +1,36 @@
+<map id="src/Client/Phases/WinPhase.h" name="src/Client/Phases/WinPhase.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,206,32"/>
+<area shape="rect" id="Node000002" href="$_i_game_phase_8h.html" title=" " alt="" coords="231,80,425,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,30,277,73,273,76,145,35"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="152,453,206,480"/>
+<area shape="poly" id="edge20_Node000001_Node000006" title=" " alt="" coords="88,35,66,57,40,88,18,125,12,146,9,167,9,318,13,342,22,364,37,383,55,401,97,429,140,450,135,452,94,434,51,405,33,387,18,367,8,344,4,319,4,167,7,145,13,123,35,85,63,53,90,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="45,304,102,331"/>
+<area shape="poly" id="edge19_Node000001_Node000007" title=" " alt="" coords="100,35,88,81,80,138,76,196,75,289,70,288,71,195,75,137,83,79,101,30"/>
+<area shape="rect" id="Node000014" href="$_button_8h.html" title=" " alt="" coords="98,80,206,107"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="113,30,139,67,133,68,114,35"/>
+<area shape="rect" id="Node000003" href="$_bridge_types_8h.html" title=" " alt="" coords="330,155,473,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="341,105,381,143,375,144,341,110"/>
+<area shape="rect" id="Node000005" href="$_game_state_8h.html" title=" " alt="" coords="138,229,294,256"/>
+<area shape="poly" id="edge15_Node000002_Node000005" title=" " alt="" coords="320,105,237,218,233,215,317,109"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="100,155,237,181"/>
+<area shape="poly" id="edge16_Node000002_Node000013" title=" " alt="" coords="298,109,211,150,208,146,302,105"/>
+<area shape="rect" id="Node000004" href="$_action_packet_8h.html" title=" " alt="" coords="318,229,485,256"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,180,404,215,399,213,400,184"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="367,184,264,226,261,221,371,180"/>
+<area shape="rect" id="Node000010" href="$_country_8h.html" title=" " alt="" coords="487,379,564,405"/>
+<area shape="poly" id="edge14_Node000003_Node000010" title=" " alt="" coords="435,179,470,199,500,228,516,262,526,298,530,364,525,362,520,299,511,263,495,231,467,203,435,185"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="211,254,189,310,168,379,167,409,173,440,168,437,162,410,163,378,184,308,208,259"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="190,259,114,299,111,294,193,254"/>
+<area shape="rect" id="Node000008" href="$_player_8h.html" title=" " alt="" coords="311,304,380,331"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="239,254,312,295,307,297,239,259"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="372,328,397,344,419,362,432,384,432,395,426,407,412,419,392,429,338,445,221,464,220,459,336,440,390,424,409,414,422,404,427,394,427,385,415,366,394,348,371,334"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="278,379,413,405"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="347,329,348,364,343,362,344,333"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="377,329,483,372,477,373,376,334"/>
+<area shape="rect" id="Node000012" href="$_actions_8h.html" title=" " alt="" coords="178,379,254,405"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="325,330,253,373,251,368,321,332"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="490,453,561,480"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="527,404,528,439,523,436,524,408"/>
+<area shape="poly" id="edge13_Node000012_Node000006" title=" " alt="" coords="212,404,194,442,190,438,207,407"/>
+<area shape="poly" id="edge18_Node000014_Node000013" title=" " alt="" coords="155,105,165,140,159,139,155,110"/>
+</map>

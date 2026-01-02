@@ -1,0 +1,15 @@
+<map id="TheTraitor::ViewData" name="TheTraitor::ViewData">
+<area shape="rect" id="Node000001" title="Struct holding data for the View layer to render or process." alt="" coords="318,168,453,237"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,40,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="22,72,30,110,38,127,49,142,66,153,91,163,155,179,230,189,304,197,299,198,229,194,154,184,89,168,64,158,46,146,33,130,25,112,22,77"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="142,5,218,75"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,72,182,110,188,127,198,142,220,162,245,176,304,196,299,196,243,181,216,166,194,146,183,129,177,111,175,77"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="247,5,332,75"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="284,72,284,109,287,127,293,143,308,163,303,161,289,145,282,128,278,110,280,77"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="440,5,523,75"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="479,72,471,110,454,145,445,158,442,154,450,143,466,108,475,76"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="563,5,605,75"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="582,73,572,112,562,130,550,146,512,173,470,190,468,185,510,168,546,142,558,127,567,110,578,76"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="733,5,758,75"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="744,73,734,112,725,131,711,146,694,157,670,166,608,181,538,192,470,199,469,193,537,186,607,176,668,161,691,152,708,142,720,128,730,110,740,76"/>
+</map>

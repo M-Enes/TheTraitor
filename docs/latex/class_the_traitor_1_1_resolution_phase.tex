@@ -1,0 +1,155 @@
+\doxysection{The\+Traitor\+::Resolution\+Phase Class Reference}
+\hypertarget{class_the_traitor_1_1_resolution_phase}{}\label{class_the_traitor_1_1_resolution_phase}\index{TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}}
+
+
+Phase where the results of the \doxylink{class_the_traitor_1_1_action}{Action} Phase are displayed.  
+
+
+
+
+{\ttfamily \#include $<$Resolution\+Phase.\+h$>$}
+
+
+
+Inheritance diagram for The\+Traitor\+::Resolution\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{class_the_traitor_1_1_resolution_phase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for The\+Traitor\+::Resolution\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{class_the_traitor_1_1_resolution_phase__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_resolution_phase_a771acde85fe97e599726e6e763bbe9e6}{Resolution\+Phase}} (sf\+::\+Render\+Window \&window, sf\+::\+Font \&font, const std\+::vector$<$ sf\+::\+Texture $>$ \&avatar\+Textures)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_resolution_phase}{Resolution\+Phase}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_resolution_phase_acd38b74030b18437c24444b1ab975ea3}{render}} (const \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&game\+State, int local\+Player\+ID, float elapsed\+Time=0, int round\+Counter=0) override
+\begin{DoxyCompactList}\small\item\em Renders the Resolution Phase UI (\doxylink{class_the_traitor_1_1_action}{Action} results). \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{View\+Data}} \& \mbox{\hyperlink{class_the_traitor_1_1_resolution_phase_af8b63d273f56341da9ab0f4812274e85}{handle\+Input}} (const \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{Input\+Data}} \&input\+Data) override
+\begin{DoxyCompactList}\small\item\em Handles input for the Resolution Phase. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_resolution_phase_a03e9241eea51a02664a57c59b30e12a3}{set\+Actions}} (const std\+::vector$<$ \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} $>$ \&actions)
+\begin{DoxyCompactList}\small\item\em Sets the actions to process/display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase}{The\+Traitor\+::\+IGame\+Phase}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_a06aa51cd10fce3ef40805f60b4611fdc}{\texorpdfstring{$\sim$}{\string~}\+IGame\+Phase}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Phase where the results of the \doxylink{class_the_traitor_1_1_action}{Action} Phase are displayed. 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_resolution_phase_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_resolution_phase_a771acde85fe97e599726e6e763bbe9e6}\index{TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}!ResolutionPhase@{ResolutionPhase}}
+\index{ResolutionPhase@{ResolutionPhase}!TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}}
+\doxysubsubsection{\texorpdfstring{ResolutionPhase()}{ResolutionPhase()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_resolution_phase_a771acde85fe97e599726e6e763bbe9e6} 
+The\+Traitor\+::\+Resolution\+Phase\+::\+Resolution\+Phase (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window}{, }\item[{sf\+::\+Font \&}]{font}{, }\item[{const std\+::vector$<$ sf\+::\+Texture $>$ \&}]{avatar\+Textures}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_resolution_phase}{Resolution\+Phase}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The render window. \\
+\hline
+{\em font} & The font resource. \\
+\hline
+{\em avatar\+Textures} & The avatar textures resource. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_resolution_phase_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_resolution_phase_af8b63d273f56341da9ab0f4812274e85}\index{TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}!handleInput@{handleInput}}
+\index{handleInput@{handleInput}!TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}}
+\doxysubsubsection{\texorpdfstring{handleInput()}{handleInput()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_resolution_phase_af8b63d273f56341da9ab0f4812274e85} 
+const \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{View\+Data}} \& The\+Traitor\+::\+Resolution\+Phase\+::handle\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{Input\+Data}} \&}]{input\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Handles input for the Resolution Phase. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Data} & The raw input data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting view data. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_ad43a1fbe724962e95448e9eb3d3329a4}{The\+Traitor\+::\+IGame\+Phase}}.
+
+\Hypertarget{class_the_traitor_1_1_resolution_phase_acd38b74030b18437c24444b1ab975ea3}\index{TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}!render@{render}}
+\index{render@{render}!TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_resolution_phase_acd38b74030b18437c24444b1ab975ea3} 
+void The\+Traitor\+::\+Resolution\+Phase\+::render (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&}]{game\+State}{, }\item[{int}]{local\+Player\+ID}{, }\item[{float}]{elapsed\+Time}{ = {\ttfamily 0}, }\item[{int}]{round\+Counter}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders the Resolution Phase UI (\doxylink{class_the_traitor_1_1_action}{Action} results). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game\+State} & The current game state. \\
+\hline
+{\em local\+Player\+ID} & The local player\textquotesingle{}s ID. \\
+\hline
+{\em elapsed\+Time} & Time elapsed in the phase. \\
+\hline
+{\em round\+Counter} & Current round number. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_ac0a9fe9e3bc196f3ad29356d94430db2}{The\+Traitor\+::\+IGame\+Phase}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_resolution_phase_acd38b74030b18437c24444b1ab975ea3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_resolution_phase_a03e9241eea51a02664a57c59b30e12a3}\index{TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}!setActions@{setActions}}
+\index{setActions@{setActions}!TheTraitor::ResolutionPhase@{TheTraitor::ResolutionPhase}}
+\doxysubsubsection{\texorpdfstring{setActions()}{setActions()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_resolution_phase_a03e9241eea51a02664a57c59b30e12a3} 
+void The\+Traitor\+::\+Resolution\+Phase\+::set\+Actions (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} $>$ \&}]{actions}{}\end{DoxyParamCaption})}
+
+
+
+Sets the actions to process/display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em actions} & The list of actions from the server. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Client/\+Phases/\mbox{\hyperlink{_resolution_phase_8h}{Resolution\+Phase.\+h}}\item 
+src/\+Client/\+Phases/\mbox{\hyperlink{_resolution_phase_8cpp}{Resolution\+Phase.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,139 @@
+\doxysection{The\+Traitor\+::Client\+App Class Reference}
+\hypertarget{class_the_traitor_1_1_client_app}{}\label{class_the_traitor_1_1_client_app}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+
+
+The main application class for the Client.  
+
+
+
+
+{\ttfamily \#include $<$Client\+App.\+h$>$}
+
+
+
+Collaboration diagram for The\+Traitor\+::Client\+App\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_the_traitor_1_1_client_app__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}{Client\+App}} (std\+::string executable\+Folder\+Path)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_client_app}{Client\+App}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_the_traitor_1_1_client_app_ac0cfefb9be281b87ea0401ec74d6369c}{Client\+App}} (const Client\+App \&)=delete
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}{Client\+App}} \& \mbox{\hyperlink{class_the_traitor_1_1_client_app_ad6e75ed1ca9c5b91153814b673bb69e9}{operator=}} (const \mbox{\hyperlink{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}{Client\+App}} \&)=delete
+\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_client_app_ab41e6f44c1ce57a482445e39cac1e4e2}{run}} ()
+\begin{DoxyCompactList}\small\item\em Runs the main application loop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_client_app_a79dff0a94163f42ef2f6b6f2e568115b}{send\+Action\+To\+Server}} (\mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} action\+Packet)
+\begin{DoxyCompactList}\small\item\em Sends an action packet to the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main application class for the Client. 
+
+Handles the game loop, network communication, input, and rendering. 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_client_app_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}!ClientApp@{ClientApp}}
+\index{ClientApp@{ClientApp}!TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+\doxysubsubsection{\texorpdfstring{ClientApp()}{ClientApp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698} 
+The\+Traitor\+::\+Client\+App\+::\+Client\+App (\begin{DoxyParamCaption}\item[{std\+::string}]{executable\+Folder\+Path}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_client_app}{Client\+App}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em executable\+Folder\+Path} & The path to the executable folder, used for loading assets. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_client_app_ac0cfefb9be281b87ea0401ec74d6369c}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}!ClientApp@{ClientApp}}
+\index{ClientApp@{ClientApp}!TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+\doxysubsubsection{\texorpdfstring{ClientApp()}{ClientApp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_client_app_ac0cfefb9be281b87ea0401ec74d6369c} 
+The\+Traitor\+::\+Client\+App\+::\+Client\+App (\begin{DoxyParamCaption}\item[{const Client\+App \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{class_the_traitor_1_1_client_app_ac0cfefb9be281b87ea0401ec74d6369c_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_client_app_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_client_app_ad6e75ed1ca9c5b91153814b673bb69e9}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}!operator=@{operator=}}
+\index{operator=@{operator=}!TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_client_app_ad6e75ed1ca9c5b91153814b673bb69e9} 
+\mbox{\hyperlink{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}{Client\+App}} \& The\+Traitor\+::\+Client\+App\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_the_traitor_1_1_client_app_a35f6b462e3ea326e87330bb754a57698}{Client\+App}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{class_the_traitor_1_1_client_app_ad6e75ed1ca9c5b91153814b673bb69e9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_client_app_ab41e6f44c1ce57a482445e39cac1e4e2}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}!run@{run}}
+\index{run@{run}!TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_client_app_ab41e6f44c1ce57a482445e39cac1e4e2} 
+void The\+Traitor\+::\+Client\+App\+::run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Runs the main application loop. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{class_the_traitor_1_1_client_app_ab41e6f44c1ce57a482445e39cac1e4e2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_client_app_a79dff0a94163f42ef2f6b6f2e568115b}\index{TheTraitor::ClientApp@{TheTraitor::ClientApp}!sendActionToServer@{sendActionToServer}}
+\index{sendActionToServer@{sendActionToServer}!TheTraitor::ClientApp@{TheTraitor::ClientApp}}
+\doxysubsubsection{\texorpdfstring{sendActionToServer()}{sendActionToServer()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_client_app_a79dff0a94163f42ef2f6b6f2e568115b} 
+void The\+Traitor\+::\+Client\+App\+::send\+Action\+To\+Server (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}}}]{action\+Packet}{}\end{DoxyParamCaption})}
+
+
+
+Sends an action packet to the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Packet} & The action packet to send. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Client/\mbox{\hyperlink{_client_app_8h}{Client\+App.\+h}}\item 
+src/\+Client/\mbox{\hyperlink{_client_app_8cpp}{Client\+App.\+cpp}}\end{DoxyCompactItemize}

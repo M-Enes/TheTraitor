@@ -1,0 +1,5 @@
+<map id="TheTraitor::Button::setLabelFillColor" name="TheTraitor::Button::setLabelFillColor">
+<area shape="rect" id="Node000001" title="Sets the fill color of the label text." alt="" coords="216,5,342,48"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_action_phase.html#a07b34b548c140156cd90b643951b1b73" title="Renders the Action Phase UI (Map, Buttons, Stats)." alt="" coords="5,5,168,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,27,168,29,168,24,203,26"/>
+</map>

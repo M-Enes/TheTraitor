@@ -1,0 +1,35 @@
+\doxysection{Lobby\+Phase.\+h}
+\hypertarget{_lobby_phase_8h_source}{}\label{_lobby_phase_8h_source}\index{src/Client/Phases/LobbyPhase.h@{src/Client/Phases/LobbyPhase.h}}
+\mbox{\hyperlink{_lobby_phase_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_i_game_phase_8h}{Client/Phases/IGamePhase.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_lobby_phase_a1d9c5ab7fea819b35cd1e119f7c9d31f}{LobbyPhase}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase}{IGamePhase}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_lobby_phase_a1d9c5ab7fea819b35cd1e119f7c9d31f}{LobbyPhase}}(sf::RenderWindow\&\ window,\ sf::Font\&\ font,\ \textcolor{keyword}{const}\ std::vector<sf::Texture>\&\ avatarTextures);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_lobby_phase_aed3ce86574fc59553ca6412df1ff74c5}{render}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{float}\ elapsedTime\ =\ 0,\ \textcolor{keywordtype}{int}\ roundCounter\ =\ 0)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_lobby_phase_a175dcaf0114f4b73cc1fe5ee8f460548}{handleInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ sf::RenderWindow\&\ window;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ sf::Font\&\ font;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<sf::Texture>\&\ avatarTextures;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\ viewData;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::array<sf::Text,\ 5>\ playerLabels;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ resetViewData();}
+\DoxyCodeLine{00048\ \ \ \ \ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}

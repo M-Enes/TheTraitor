@@ -1,0 +1,144 @@
+\doxysection{The\+Traitor\+::Game\+Manager Class Reference}
+\hypertarget{class_the_traitor_1_1_game_manager}{}\label{class_the_traitor_1_1_game_manager}\index{TheTraitor::GameManager@{TheTraitor::GameManager}}
+
+
+Manages the main server loop and game logic.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Manager.\+h$>$}
+
+
+
+Collaboration diagram for The\+Traitor\+::Game\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_the_traitor_1_1_game_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_game_manager_aa716095bbe842a161af9dbf4668a39b4}{Game\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_game_manager}{Game\+Manager}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_manager_a85450ea508ac861afcb9a180c0a35b35}{update}} ()
+\begin{DoxyCompactList}\small\item\em Updates the game state (timer, phases). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_manager_acf18cf65f7536b71b4ae3a986580b953}{process\+Action}} (\mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} action\+Packet)
+\begin{DoxyCompactList}\small\item\em Processes an incoming action packet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_game_manager_a5004d1f10eecf30d1ae75c23103dcc0d}{run}} ()
+\begin{DoxyCompactList}\small\item\em Runs the main server loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the main server loop and game logic. 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_game_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_game_manager_aa716095bbe842a161af9dbf4668a39b4}\index{TheTraitor::GameManager@{TheTraitor::GameManager}!GameManager@{GameManager}}
+\index{GameManager@{GameManager}!TheTraitor::GameManager@{TheTraitor::GameManager}}
+\doxysubsubsection{\texorpdfstring{GameManager()}{GameManager()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_manager_aa716095bbe842a161af9dbf4668a39b4} 
+The\+Traitor\+::\+Game\+Manager\+::\+Game\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_game_manager}{Game\+Manager}. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_game_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_game_manager_acf18cf65f7536b71b4ae3a986580b953}\index{TheTraitor::GameManager@{TheTraitor::GameManager}!processAction@{processAction}}
+\index{processAction@{processAction}!TheTraitor::GameManager@{TheTraitor::GameManager}}
+\doxysubsubsection{\texorpdfstring{processAction()}{processAction()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_manager_acf18cf65f7536b71b4ae3a986580b953} 
+void The\+Traitor\+::\+Game\+Manager\+::process\+Action (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}}}]{action\+Packet}{}\end{DoxyParamCaption})}
+
+
+
+Processes an incoming action packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Packet} & The packet containing the action. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_manager_acf18cf65f7536b71b4ae3a986580b953_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_manager_acf18cf65f7536b71b4ae3a986580b953_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_game_manager_a5004d1f10eecf30d1ae75c23103dcc0d}\index{TheTraitor::GameManager@{TheTraitor::GameManager}!run@{run}}
+\index{run@{run}!TheTraitor::GameManager@{TheTraitor::GameManager}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_manager_a5004d1f10eecf30d1ae75c23103dcc0d} 
+void The\+Traitor\+::\+Game\+Manager\+::run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Runs the main server loop. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_manager_a5004d1f10eecf30d1ae75c23103dcc0d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{class_the_traitor_1_1_game_manager_a5004d1f10eecf30d1ae75c23103dcc0d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_game_manager_a85450ea508ac861afcb9a180c0a35b35}\index{TheTraitor::GameManager@{TheTraitor::GameManager}!update@{update}}
+\index{update@{update}!TheTraitor::GameManager@{TheTraitor::GameManager}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_game_manager_a85450ea508ac861afcb9a180c0a35b35} 
+void The\+Traitor\+::\+Game\+Manager\+::update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Updates the game state (timer, phases). 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_manager_a85450ea508ac861afcb9a180c0a35b35_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_game_manager_a85450ea508ac861afcb9a180c0a35b35_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Server/\mbox{\hyperlink{_game_manager_8h}{Game\+Manager.\+h}}\item 
+src/\+Server/\mbox{\hyperlink{_game_manager_8cpp}{Game\+Manager.\+cpp}}\end{DoxyCompactItemize}
