@@ -1,0 +1,38 @@
+\doxysection{Gameover\+Phase.\+h}
+\hypertarget{_gameover_phase_8h_source}{}\label{_gameover_phase_8h_source}\index{src/Client/Phases/GameoverPhase.h@{src/Client/Phases/GameoverPhase.h}}
+\mbox{\hyperlink{_gameover_phase_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_i_game_phase_8h}{Client/Phases/IGamePhase.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_button_8h}{Client/Button.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_gameover_phase_ada5d65c7adb39353b2663db65bfba8d7}{GameoverPhase}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase}{IGamePhase}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_gameover_phase_ada5d65c7adb39353b2663db65bfba8d7}{GameoverPhase}}(sf::RenderWindow\&\ window,\ sf::Font\&\ font);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_gameover_phase_a01411192dedf60761251594c7e3d5a0c}{render}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{float}\ elapsedTime\ =\ 0,\ \textcolor{keywordtype}{int}\ roundCounter\ =\ 0)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_gameover_phase_aefa432ab6df69bbfe1dcf7f4d1f25259}{handleInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ sf::RenderWindow\&\ window;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ sf::Font\&\ font;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\ viewData;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ sf::Text\ title;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ sf::Text\ totalRoundsLabel;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ sf::Text\ totalTimeLabel;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ sf::Text\ traitorInfoLabel;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_button}{Button}}\ quitGameButton;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ resetViewData();}
+\DoxyCodeLine{00050\ \ \ \ \ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}

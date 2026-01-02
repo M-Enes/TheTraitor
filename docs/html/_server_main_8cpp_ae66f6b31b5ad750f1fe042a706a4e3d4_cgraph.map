@@ -1,0 +1,31 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,247,55,273"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_game_manager.html#a5004d1f10eecf30d1ae75c23103dcc0d" title="Runs the main server loop." alt="" coords="103,247,302,273"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,258,89,258,85,262,56,262"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_game_host.html#a5519d136c89e61fb00d0198105d097ee" title="Establishes connections with waiting clients." alt="" coords="350,172,565,215"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,244,361,218,356,220,258,249"/>
+<area shape="rect" id="Node000009" href="$class_the_traitor_1_1_game_manager.html#a85450ea508ac861afcb9a180c0a35b35" title="Updates the game state (timer, phases)." alt="" coords="371,272,544,315"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="302,270,358,279,353,281,303,276"/>
+<area shape="rect" id="Node000004" href="$class_the_traitor_1_1_player.html#a527479f55cd5665c4822b3f941155948" title="Gets the unique player ID." alt="" coords="637,5,763,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="478,169,535,115,572,85,612,58,626,53,621,56,615,62,576,89,539,119,481,173"/>
+<area shape="rect" id="Node000005" href="$class_the_traitor_1_1_player.html#a2170aeef8d9ff17ba311d6e1dd6a0bcb" title="Gets the network socket for the player (Server only)." alt="" coords="637,72,763,115"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="507,169,612,124,630,120,625,122,614,129,510,174"/>
+<area shape="rect" id="Node000006" href="$class_the_traitor_1_1_player.html#a2b4c785126386e2eeaba2ab7bed47be8" title="Sets the player&#39;s role (Innocent or Traitor)." alt="" coords="637,139,763,181"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="565,176,625,170,620,171,567,181"/>
+<area shape="rect" id="Node000007" href="$class_the_traitor_1_1_player.html#a231e6014c99853cd16938021b49d19f2" title="Sets the network socket for the player (Server only)." alt="" coords="637,205,763,248"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="566,206,625,216,620,216,566,211"/>
+<area shape="rect" id="Node000008" href="$class_the_traitor_1_1_country.html#a3e69cac0c17deccdb4816ed0b2e6bdcb" title="Sets the type of the country." alt="" coords="633,272,767,315"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="509,213,614,258,630,266,625,266,612,262,508,218"/>
+<area shape="rect" id="Node000010" href="$class_the_traitor_1_1_game_manager.html#acf18cf65f7536b71b4ae3a986580b953" title="Processes an incoming action packet." alt="" coords="613,339,787,381"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="538,313,608,334,602,334,537,318"/>
+<area shape="rect" id="Node000011" href="$class_the_traitor_1_1_action.html#ad3388e2a8e8983db403e144d131adccd" title="Executes the action, modifying the player&#39;s and target&#39;s stats." alt="" coords="835,305,960,348"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="787,343,817,340,822,339,788,348"/>
+<area shape="rect" id="Node000015" href="$class_the_traitor_1_1_action.html#a5946da18ce39b350f9b48fa33a3958d8" title="Gets the log message describing the action result." alt="" coords="835,372,960,415"/>
+<area shape="poly" id="edge14_Node000010_Node000015" title=" " alt="" coords="787,372,822,380,817,380,787,377"/>
+<area shape="rect" id="Node000012" href="$class_the_traitor_1_1_country.html#a354f5c37bc18a37a7b78295e56a906e7" title="Checks and updates the destroyed status based on stats. Usually called when stats change to see if an..." alt="" coords="1010,239,1144,281"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="956,302,1001,288,1006,287,957,307"/>
+<area shape="rect" id="Node000013" href="$class_the_traitor_1_1_player.html#a4849e646a184b59e9ea7060dca8b1706" title="Gets the player&#39;s country." alt="" coords="1014,305,1140,348"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="961,324,1002,327,996,327,961,329"/>
+<area shape="rect" id="Node000014" href="$class_the_traitor_1_1_player.html#ade80c6da1ccef9c3dbad4013c67618fb" title="Updates a specific statistic of the player&#39;s country." alt="" coords="1008,372,1146,415"/>
+<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="957,346,1006,367,1001,366,956,351"/>
+</map>

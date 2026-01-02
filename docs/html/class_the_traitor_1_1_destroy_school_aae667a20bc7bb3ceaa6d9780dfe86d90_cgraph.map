@@ -1,0 +1,7 @@
+<map id="TheTraitor::DestroySchool::DestroySchool" name="TheTraitor::DestroySchool::DestroySchool">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,180,48"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_secret_action.html#a46fdc3fdac1642a5586a2df8a1589a5b" title=" " alt="" coords="228,5,391,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,24,215,26,209,27,180,29"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_action.html#a4d8ddc6de04664164c0a7d0c7a8c0f57" title="Constructor for the Action class." alt="" coords="439,5,564,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="392,24,426,27,421,27,392,29"/>
+</map>

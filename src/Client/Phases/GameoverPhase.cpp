@@ -1,5 +1,6 @@
 #include "Client/Phases/GameoverPhase.h"
 #include <cmath>
+#include "Common/Role.h"
 
 namespace TheTraitor {
 
@@ -9,6 +10,7 @@ namespace TheTraitor {
 		title(font, "GAME OVER", 80),
 		totalRoundsLabel(font),
 		totalTimeLabel(font),
+		traitorInfoLabel(font),
 		quitGameButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150),
 			sf::Vector2f(200, 60),
 			sf::Vector2f(45, 15),
@@ -55,6 +57,22 @@ namespace TheTraitor {
 			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
 			window.getSize().y / 2.0f + 20));
 		window.draw(totalTimeLabel);
+
+		std::string traitorName = "Unknown";
+		for (const auto& player : gameState.players) {
+			if (player.getRole() && player.getRole()->getName() == "Traitor") {
+				traitorName = player.getName();
+				break;
+			}
+		}
+
+		traitorInfoLabel.setString("The Traitor was: " + traitorName);
+		traitorInfoLabel.setCharacterSize(30);
+		traitorInfoLabel.setFillColor(sf::Color::Red);
+		traitorInfoLabel.setPosition(sf::Vector2f(
+			window.getSize().x / 2.0f - traitorInfoLabel.getGlobalBounds().size.x / 2.0f,
+			window.getSize().y / 2.0f + 80));
+		window.draw(traitorInfoLabel);
 
 		quitGameButton.render();
 	}

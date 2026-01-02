@@ -1,0 +1,62 @@
+\doxysection{Player.\+h}
+\hypertarget{_player_8h_source}{}\label{_player_8h_source}\index{src/Common/Player.h@{src/Common/Player.h}}
+\mbox{\hyperlink{_player_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SFML/Network.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_country_8h}{Country.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_actions_8h}{Actions.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_role}{Role}};}
+\DoxyCodeLine{00011\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_player_ae3eb723df7663f41936e7273f5a3b223}{Player}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_player_a25dbe85d864dca17e8234429a6046ea0}{Player}}(std::string\ name,\ \mbox{\hyperlink{class_the_traitor_1_1_country}{Country}}*\ country);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_player_a25dbe85d864dca17e8234429a6046ea0}{Player}}(std::string\ name,\ \mbox{\hyperlink{class_the_traitor_1_1_country}{Country}}*\ country,\ \textcolor{keywordtype}{int}\ avatarID);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_player_a25dbe85d864dca17e8234429a6046ea0}{Player}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_ae8cd10b899779c48fbd9e34e7bc672df}{setName}}(std::string\ name);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{class_the_traitor_1_1_player_a3af74015bc37dd404005821bec30a036}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a93a7b1440e858218a60678180d31dfb8}{setCountry}}(\mbox{\hyperlink{class_the_traitor_1_1_country}{Country}}*\ country);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_country}{Country}}*\ \mbox{\hyperlink{class_the_traitor_1_1_player_a4849e646a184b59e9ea7060dca8b1706}{getCountry}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a2b4c785126386e2eeaba2ab7bed47be8}{setRole}}(\mbox{\hyperlink{class_the_traitor_1_1_role}{Role}}*\ role);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_role}{Role}}*\ \mbox{\hyperlink{class_the_traitor_1_1_player_a94da92abc3b6285b2f6b5daf286652e5}{getRole}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a231e6014c99853cd16938021b49d19f2}{setSocket}}(sf::TcpSocket*\ socket);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ sf::TcpSocket*\ \mbox{\hyperlink{class_the_traitor_1_1_player_a2170aeef8d9ff17ba311d6e1dd6a0bcb}{getSocket}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a527479f55cd5665c4822b3f941155948}{getPlayerID}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a08a7b43a74a4a840b2b794c0ee641202}{updatePlayer}}();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_ade80c6da1ccef9c3dbad4013c67618fb}{updateCountryStat}}(\mbox{\hyperlink{namespace_the_traitor_a636a4b2aec46acab4718345396c44c55}{CountryStatType}}\ stat,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a26409c20c9a1e437eb949f426aefab4b}{setAvatarID}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_the_traitor_1_1_player_ab3a56e3e106897fb9f461db7efad0aee}{getAvatarID}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_player_a072439debdd1f108796765ddf1731b6c}{setPlayerID}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ playerID;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ avatarID;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_country}{Country}}*\ country;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_role}{Role}}*\ role;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ sf::TcpSocket*\ socket;}
+\DoxyCodeLine{00128\ \ \ \ \ \};}
+\DoxyCodeLine{00129\ \}}
+
+\end{DoxyCode}

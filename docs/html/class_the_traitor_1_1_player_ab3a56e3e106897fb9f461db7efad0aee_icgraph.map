@@ -1,0 +1,5 @@
+<map id="TheTraitor::Player::getAvatarID" name="TheTraitor::Player::getAvatarID">
+<area shape="rect" id="Node000001" title="Gets the avatar ID of the player." alt="" coords="241,5,366,48"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_resolution_phase.html#acd38b74030b18437c24444b1ab975ea3" title="Renders the Resolution Phase UI (Action results)." alt="" coords="5,5,193,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,27,193,29,193,24,228,26"/>
+</map>

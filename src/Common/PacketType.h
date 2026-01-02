@@ -6,13 +6,16 @@
 #include "GameState.h"
 namespace TheTraitor {
 
+/**
+ * @brief Enumeration of packet types used for network communication.
+ */
 enum class PacketType {
-    UNKNOWN,
-    ACTION_PACKET,
-    READY,
-    GAMESTATE,
-    STRING,
-    INT
+    UNKNOWN,       ///< Unknown packet type.
+    ACTION_PACKET, ///< Packet containing action details.
+    READY,         ///< Packet indicating a player is ready.
+    GAMESTATE,     ///< Packet containing the full game state.
+    STRING,        ///< Packet containing a raw string message.
+    INT            ///< Packet containing a raw integer.
 };
 
 sf::Packet& operator<<(sf::Packet& packet, const PacketType& type);

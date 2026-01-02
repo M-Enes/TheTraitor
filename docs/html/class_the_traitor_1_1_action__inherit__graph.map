@@ -1,0 +1,23 @@
+<map id="TheTraitor::Action" name="TheTraitor::Action">
+<area shape="rect" id="Node000001" title="Abstract base class for all actions in the game." alt="" coords="622,5,814,363"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_health_aid.html" title="Represents a Health Aid action." alt="" coords="5,411,192,549"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="606,229,418,310,310,360,205,413,194,419,190,415,203,408,308,355,416,305,610,226"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_joint_research.html" title="Represents a Joint Research action." alt="" coords="216,411,403,549"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="608,265,404,414,401,409,612,261"/>
+<area shape="rect" id="Node000004" href="$class_the_traitor_1_1_poison_resources.html" title="Represents a Poison Resources action (Secret)." alt="" coords="427,411,614,549"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="615,339,568,413,564,409,611,342"/>
+<area shape="rect" id="Node000005" href="$class_the_traitor_1_1_secret_action.html" title="Abstract base class for secret actions (actions performed by the Traitor)." alt="" coords="638,411,797,549"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="719,375,720,412,715,410,716,380"/>
+<area shape="rect" id="Node000009" href="$class_the_traitor_1_1_spread_misinfo.html" title="Represents a Spread Misinformation action." alt="" coords="821,411,1008,549"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="823,338,872,412,867,410,821,343"/>
+<area shape="rect" id="Node000010" href="$class_the_traitor_1_1_trade_embargo.html" title="Represents a Trade Embargo action." alt="" coords="1032,411,1219,549"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="826,260,1035,411,1030,412,825,265"/>
+<area shape="rect" id="Node000011" href="$class_the_traitor_1_1_trade_pact.html" title="Represents a Trade Pact action." alt="" coords="1243,411,1430,549"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="827,225,1019,305,1127,355,1232,408,1246,418,1240,417,1230,413,1125,360,1017,310,827,230"/>
+<area shape="rect" id="Node000006" href="$class_the_traitor_1_1_destroy_school.html" title="Represents a Destroy School action (Secret)." alt="" coords="413,597,600,736"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="630,558,586,600,583,595,626,561"/>
+<area shape="rect" id="Node000007" href="$class_the_traitor_1_1_sabotage_factory.html" title="Represents a Sabotage Factory action (Secret)." alt="" coords="624,597,811,736"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="719,562,720,599,715,596,716,566"/>
+<area shape="rect" id="Node000008" href="$class_the_traitor_1_1_spread_plague.html" title="Represents a Spread Plague action (Secret)." alt="" coords="835,597,1022,736"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="808,557,853,598,848,597,806,562"/>
+</map>

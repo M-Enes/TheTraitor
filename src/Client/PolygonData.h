@@ -1,6 +1,9 @@
 #pragma once
 
 namespace TheTraitor {
+	/**
+	 * @brief Contains static polygon point data for country rendering.
+	 */
 	// TODO: also keep vertices here, so we dont have to recompute it every time
 	static const std::vector <sf::Vector2f> americaPolygonPoints = {
 		{		38.865051903114185, 338.9896193771626},

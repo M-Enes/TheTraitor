@@ -1,0 +1,157 @@
+\doxysection{The\+Traitor\+::Action\+Phase Class Reference}
+\hypertarget{class_the_traitor_1_1_action_phase}{}\label{class_the_traitor_1_1_action_phase}\index{TheTraitor::ActionPhase@{TheTraitor::ActionPhase}}
+
+
+Phase where players perform actions (Attack, Trade, etc.).  
+
+
+
+
+{\ttfamily \#include $<$Action\+Phase.\+h$>$}
+
+
+
+Inheritance diagram for The\+Traitor\+::Action\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{class_the_traitor_1_1_action_phase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for The\+Traitor\+::Action\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{class_the_traitor_1_1_action_phase__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_the_traitor_1_1_action_phase_a25991fa512eeaa6e0be862640ddda465}{Action\+Phase}} (sf\+::\+Render\+Window \&window, sf\+::\+Font \&font, const std\+::vector$<$ sf\+::\+Texture $>$ \&avatar\+Textures, std\+::string executable\+Folder\+Path)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_the_traitor_1_1_action_phase}{Action\+Phase}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_action_phase_a07b34b548c140156cd90b643951b1b73}{render}} (const \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&game\+State, int local\+Player\+ID, float elapsed\+Time=0, int round\+Counter=0) override
+\begin{DoxyCompactList}\small\item\em Renders the \doxylink{class_the_traitor_1_1_action}{Action} Phase UI (Map, Buttons, Stats). \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{View\+Data}} \& \mbox{\hyperlink{class_the_traitor_1_1_action_phase_ac57fd2152a2d54d766fdb941313e9a98}{handle\+Input}} (const \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{Input\+Data}} \&input\+Data) override
+\begin{DoxyCompactList}\small\item\em Handles input for the \doxylink{class_the_traitor_1_1_action}{Action} Phase (Selecting actions, targets). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_the_traitor_1_1_action_phase_a60525884994f74b9278d886b7b9223ec}{set\+Event\+Log}} (const std\+::vector$<$ \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} $>$ \&actions)
+\begin{DoxyCompactList}\small\item\em Sets the event log actions from the previous round. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase}{The\+Traitor\+::\+IGame\+Phase}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_a06aa51cd10fce3ef40805f60b4611fdc}{\texorpdfstring{$\sim$}{\string~}\+IGame\+Phase}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Phase where players perform actions (Attack, Trade, etc.). 
+
+\label{doc-constructors}
+\Hypertarget{class_the_traitor_1_1_action_phase_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_the_traitor_1_1_action_phase_a25991fa512eeaa6e0be862640ddda465}\index{TheTraitor::ActionPhase@{TheTraitor::ActionPhase}!ActionPhase@{ActionPhase}}
+\index{ActionPhase@{ActionPhase}!TheTraitor::ActionPhase@{TheTraitor::ActionPhase}}
+\doxysubsubsection{\texorpdfstring{ActionPhase()}{ActionPhase()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_action_phase_a25991fa512eeaa6e0be862640ddda465} 
+The\+Traitor\+::\+Action\+Phase\+::\+Action\+Phase (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window}{, }\item[{sf\+::\+Font \&}]{font}{, }\item[{const std\+::vector$<$ sf\+::\+Texture $>$ \&}]{avatar\+Textures}{, }\item[{std\+::string}]{executable\+Folder\+Path}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_the_traitor_1_1_action_phase}{Action\+Phase}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The render window. \\
+\hline
+{\em font} & The font resource. \\
+\hline
+{\em avatar\+Textures} & The avatar textures resource. \\
+\hline
+{\em executable\+Folder\+Path} & Path to usage resources. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_the_traitor_1_1_action_phase_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_the_traitor_1_1_action_phase_ac57fd2152a2d54d766fdb941313e9a98}\index{TheTraitor::ActionPhase@{TheTraitor::ActionPhase}!handleInput@{handleInput}}
+\index{handleInput@{handleInput}!TheTraitor::ActionPhase@{TheTraitor::ActionPhase}}
+\doxysubsubsection{\texorpdfstring{handleInput()}{handleInput()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_action_phase_ac57fd2152a2d54d766fdb941313e9a98} 
+const \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{View\+Data}} \& The\+Traitor\+::\+Action\+Phase\+::handle\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{Input\+Data}} \&}]{input\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Handles input for the \doxylink{class_the_traitor_1_1_action}{Action} Phase (Selecting actions, targets). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Data} & The raw input data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting view data with requested action. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_ad43a1fbe724962e95448e9eb3d3329a4}{The\+Traitor\+::\+IGame\+Phase}}.
+
+\Hypertarget{class_the_traitor_1_1_action_phase_a07b34b548c140156cd90b643951b1b73}\index{TheTraitor::ActionPhase@{TheTraitor::ActionPhase}!render@{render}}
+\index{render@{render}!TheTraitor::ActionPhase@{TheTraitor::ActionPhase}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_action_phase_a07b34b548c140156cd90b643951b1b73} 
+void The\+Traitor\+::\+Action\+Phase\+::render (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{Game\+State}} \&}]{game\+State}{, }\item[{int}]{local\+Player\+ID}{, }\item[{float}]{elapsed\+Time}{ = {\ttfamily 0}, }\item[{int}]{round\+Counter}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders the \doxylink{class_the_traitor_1_1_action}{Action} Phase UI (Map, Buttons, Stats). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game\+State} & The current game state. \\
+\hline
+{\em local\+Player\+ID} & The ID of the local player. \\
+\hline
+{\em elapsed\+Time} & Time elapsed in the phase. \\
+\hline
+{\em round\+Counter} & Current round number. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase_ac0a9fe9e3bc196f3ad29356d94430db2}{The\+Traitor\+::\+IGame\+Phase}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_the_traitor_1_1_action_phase_a07b34b548c140156cd90b643951b1b73_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_the_traitor_1_1_action_phase_a60525884994f74b9278d886b7b9223ec}\index{TheTraitor::ActionPhase@{TheTraitor::ActionPhase}!setEventLog@{setEventLog}}
+\index{setEventLog@{setEventLog}!TheTraitor::ActionPhase@{TheTraitor::ActionPhase}}
+\doxysubsubsection{\texorpdfstring{setEventLog()}{setEventLog()}}
+{\footnotesize\ttfamily \label{class_the_traitor_1_1_action_phase_a60525884994f74b9278d886b7b9223ec} 
+void The\+Traitor\+::\+Action\+Phase\+::set\+Event\+Log (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_the_traitor_1_1_action_packet}{Action\+Packet}} $>$ \&}]{actions}{}\end{DoxyParamCaption})}
+
+
+
+Sets the event log actions from the previous round. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em actions} & The list of actions to display in the log. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Client/\+Phases/\mbox{\hyperlink{_action_phase_8h}{Action\+Phase.\+h}}\item 
+src/\+Client/\+Phases/\mbox{\hyperlink{_action_phase_8cpp}{Action\+Phase.\+cpp}}\end{DoxyCompactItemize}

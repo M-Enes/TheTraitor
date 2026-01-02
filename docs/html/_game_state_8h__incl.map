@@ -1,0 +1,19 @@
+<map id="src/Common/GameState.h" name="src/Common/GameState.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,183,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="51,229,105,256"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,35,68,55,55,81,50,116,52,152,60,186,69,215,64,215,55,188,47,153,44,116,50,79,63,52,83,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="65,80,123,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="95,30,97,65,91,64,93,35"/>
+<area shape="rect" id="Node000004" href="$_player_8h.html" title=" " alt="" coords="147,80,217,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="109,30,158,69,153,71,109,35"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="156,109,131,129,106,156,92,185,84,216,79,213,87,183,101,153,128,125,160,105"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="115,155,249,181"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="183,105,184,140,180,138,181,109"/>
+<area shape="rect" id="Node000006" href="$_country_8h.html" title=" " alt="" coords="374,155,451,181"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="217,103,362,149,357,151,217,108"/>
+<area shape="rect" id="Node000008" href="$_actions_8h.html" title=" " alt="" coords="273,155,350,181"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="205,105,278,146,273,147,204,110"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="378,229,448,256"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="415,180,415,215,411,212,411,184"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="274,184,120,231,119,226,272,179"/>
+</map>

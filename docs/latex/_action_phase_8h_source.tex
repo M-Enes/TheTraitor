@@ -1,0 +1,111 @@
+\doxysection{Action\+Phase.\+h}
+\hypertarget{_action_phase_8h_source}{}\label{_action_phase_8h_source}\index{src/Client/Phases/ActionPhase.h@{src/Client/Phases/ActionPhase.h}}
+\mbox{\hyperlink{_action_phase_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_i_game_phase_8h}{Client/Phases/IGamePhase.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_button_8h}{Client/Button.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_action_phase_a25991fa512eeaa6e0be862640ddda465}{ActionPhase}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_the_traitor_1_1_i_game_phase}{IGamePhase}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_action_phase_a25991fa512eeaa6e0be862640ddda465}{ActionPhase}}(sf::RenderWindow\&\ window,\ sf::Font\&\ font,\ \textcolor{keyword}{const}\ std::vector<sf::Texture>\&\ avatarTextures,\ std::string\ executableFolderPath);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_action_phase_a07b34b548c140156cd90b643951b1b73}{render}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}\&\ gameState,\ \textcolor{keywordtype}{int}\ localPlayerID,\ \textcolor{keywordtype}{float}\ elapsedTime\ =\ 0,\ \textcolor{keywordtype}{int}\ roundCounter\ =\ 0)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\&\ \mbox{\hyperlink{class_the_traitor_1_1_action_phase_ac57fd2152a2d54d766fdb941313e9a98}{handleInput}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_the_traitor_1_1_input_data}{InputData}}\&\ inputData)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ sf::RenderWindow\&\ window;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ sf::Font\&\ font;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<sf::Texture>\&\ avatarTextures;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_the_traitor_1_1_view_data}{ViewData}}\ viewData;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ sf::RectangleShape\ actionMenu;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::vector<std::tuple<std::string,\ Button,\ ActionType>>\ actionMenuButtons;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ sf::RectangleShape\ eventLogMenu;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::string\ eventLogString;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ sf::Text\ eventLogMenuLabel;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ sf::Text\ eventLogLabel;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ sf::RectangleShape\ infoMenu;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ sf::RectangleShape\ topBar;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ sf::Text\ roundLabel;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ sf::Text\ phaseLabel;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ sf::Text\ timerLabel;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ sf::VertexArray\ americaVertices;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ sf::VertexArray\ africaVertices;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ sf::VertexArray\ asiaVertices;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ sf::VertexArray\ australiaVertices;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ sf::VertexArray\ europeVertices;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::array<std::pair<const\ std::vector<sf::Vector2f>*,\ sf::VertexArray*>,\ 5>\ allCountries;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::array<sf::Text,\ 4>\ playerInfo;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ sf::Texture\ economyIconTexture;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ sf::Texture\ healthIconTexture;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ sf::Texture\ educationIconTexture;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ sf::Sprite\ economyIconSprite;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ sf::Sprite\ healthIconSprite;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ sf::Sprite\ educationIconSprite;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ sf::Color\ countryNormalColor;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ sf::Color\ countryHoverColor;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ sf::Color\ countrySelectedColor;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ sf::Color\ countryDestroyedColor;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ sf::Vector2f\ countriesOffset;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Game\ Rules\ Tracking}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ publicActionUsed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ secretActionUsed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentRound\ =\ 0;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cached\ State\ (Updated\ per\ render)}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cachedLocalPlayerID\ =\ -\/1;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ cachedIsTraitor\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdb}{CountryType}}\ cachedLocalPlayerCountryType\ =\ \mbox{\hyperlink{namespace_the_traitor_ac6096737d8c3caa54e4fd1a381ad9bdbab50339a10e1de285ac99d4c3990b8693}{CountryType::NONE}};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::map<CountryType,\ bool>\ destroyedCountries;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isLocalPlayerDestroyed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ markActionUsed(\mbox{\hyperlink{namespace_the_traitor_a1fdf6e9aa6c02829b7a42681e3ea631f}{ActionType}}\ type);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isActionAllowed(\mbox{\hyperlink{namespace_the_traitor_a1fdf6e9aa6c02829b7a42681e3ea631f}{ActionType}}\ type)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Existing\ members}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isTraitor;\ \textcolor{comment}{//\ Keeping\ for\ existing\ render\ logic\ compatibility\ (will\ sync\ with\ cachedIsTraitor)}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_the_traitor_a1fdf6e9aa6c02829b7a42681e3ea631f}{ActionType}}\ hoveredAction;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isActionHovered;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }ActionEffect\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ playerEffect;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ targetEffect;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_the_traitor_a636a4b2aec46acab4718345396c44c55}{CountryStatType}}\ statType;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ ActionEffect\ getPreviewEffects(\mbox{\hyperlink{namespace_the_traitor_a1fdf6e9aa6c02829b7a42681e3ea631f}{ActionType}}\ type);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ resetViewData();}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isPointInPolygon(\textcolor{keyword}{const}\ std::vector<sf::Vector2f>\&\ polygonPoints,\ sf::Vector2f\ point);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ calculateCountries();}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::vector<ActionPacket>\ lastRoundActions;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ updateLogString\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_action_phase_a60525884994f74b9278d886b7b9223ec}{setEventLog}}(\textcolor{keyword}{const}\ std::vector<ActionPacket>\&\ actions);}
+\DoxyCodeLine{00129\ \ \ \ \ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \}}
+
+\end{DoxyCode}

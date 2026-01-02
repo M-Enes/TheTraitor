@@ -1,0 +1,41 @@
+\doxysection{Game\+Host.\+h}
+\hypertarget{_game_host_8h_source}{}\label{_game_host_8h_source}\index{src/Server/GameHost.h@{src/Server/GameHost.h}}
+\mbox{\hyperlink{_game_host_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <SFML/Network.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_game_state_8h}{Common/GlobalGameState.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_state_8h}{Common/GameState.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_manager_8h}{GameManager.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_the_traitor}{TheTraitor}}\{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_the_traitor_1_1_game_host_a5994123e1f97871825f0fd87edcb4ec5}{GameHost}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ clientConnectionTimeout;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isGameStarted;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ sf::IpAddress\ serverIp;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ serverPort;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ kickDisconnectedClient();}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_the_traitor_1_1_game_state}{GameState}}*\ prepareGameStateForClient(\textcolor{keywordtype}{int}\ clientID);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ updateGlobalGameState();}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_the_traitor_1_1_game_host_a5994123e1f97871825f0fd87edcb4ec5}{GameHost}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_host_a5519d136c89e61fb00d0198105d097ee}{establishConnectionWithClients}}(\mbox{\hyperlink{struct_the_traitor_1_1_global_game_state}{GlobalGameState}}\&\ state);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_host_a4a5c7da14893e3829751364046f550fa}{receivePacket}}(sf::TcpSocket*\ socket);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_host_a8589f08850b1002ec1292514f9238c8a}{sendPacket}}(sf::TcpSocket*\ socket,\ sf::Packet\&\ packet);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_traitor_1_1_game_host_ab9f5c6f3be35a2b6a830cfbc6a49b5a6}{setIpAndPort}}(sf::IpAddress\ ip,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ port);}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}

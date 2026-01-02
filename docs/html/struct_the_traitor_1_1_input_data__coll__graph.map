@@ -1,0 +1,9 @@
+<map id="TheTraitor::InputData" name="TheTraitor::InputData">
+<area shape="rect" id="Node000001" title="Struct holding input data from the user." alt="" coords="95,168,230,237"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,40,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="24,72,34,109,50,142,83,170,78,172,46,146,29,111,24,77"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="134,5,192,75"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,73,165,152,160,150,161,76"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="278,5,314,75"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="295,72,287,111,269,146,245,168,242,163,265,142,282,109,291,76"/>
+</map>

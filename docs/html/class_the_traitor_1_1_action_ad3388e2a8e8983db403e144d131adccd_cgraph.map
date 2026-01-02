@@ -1,0 +1,9 @@
+<map id="TheTraitor::Action::execute" name="TheTraitor::Action::execute">
+<area shape="rect" id="Node000001" title="Executes the action, modifying the player&#39;s and target&#39;s stats." alt="" coords="5,72,131,115"/>
+<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_country.html#a354f5c37bc18a37a7b78295e56a906e7" title="Checks and updates the destroyed status based on stats. Usually called when stats change to see if an..." alt="" coords="181,5,315,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,69,176,52,172,55,129,74"/>
+<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_player.html#a4849e646a184b59e9ea7060dca8b1706" title="Gets the player&#39;s country." alt="" coords="185,72,310,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,91,172,92,167,94,132,96"/>
+<area shape="rect" id="Node000004" href="$class_the_traitor_1_1_player.html#ade80c6da1ccef9c3dbad4013c67618fb" title="Updates a specific statistic of the player&#39;s country." alt="" coords="179,139,317,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="128,113,177,132,172,133,127,118"/>
+</map>
