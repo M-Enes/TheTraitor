@@ -21,7 +21,6 @@ namespace TheTraitor {
 	}
 
 	void GameManager::update() {
-		std::vector<ActionPacket> actionPackets;
 		switch (state.currentPhase) {
 			case LOBBY: {
 				std::cout << "All players connected. Starting the game..." << std::endl;
@@ -180,7 +179,7 @@ namespace TheTraitor {
 				break;
 			}
 			case RESOLUTION_PHASE: {
-				// Process actions and update game state
+				// Check for win conditions
 				if (state.players[traitorIndex].getCountry()->isDestroyed()) {
 					// Traitor lost, innocents win
 					state.currentPhase = WIN; // win for innocents
@@ -354,8 +353,7 @@ namespace TheTraitor {
 				}
 			}
 		}
-
-		std::cout << "Action packets sent to all players." << std::endl;
+		std::cout << actionPackets.size() << " action packets sent to all players." << std::endl;
 	}
 
 }

@@ -33,6 +33,7 @@ namespace TheTraitor {
 		void renderDiscussionPhase(const GameState& gameState, int localPlayerID);
 		void renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
 		void renderResolutionPhase(const GameState& gameState, int localPlayerID);
+		void setResolutionActions(const std::vector<ActionPacket>& actions);
 		void renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
 		void renderWin(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
 		

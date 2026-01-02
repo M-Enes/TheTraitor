@@ -172,26 +172,106 @@ namespace TheTraitor {
 				else if (newGameState.currentPhase == GAMEOVER) {
 					gameoverMusic.play();
 				}
+
+				// If phase changed, break to process state transition properly (e.g. to ResolutionPhase)
+				// without consuming subsequent packets meant for the new phase.
+				if (gameState.currentPhase != ACTION_PHASE) {
+					packetsReceived.erase(packetsReceived.begin() + i);
+					return;
+				}
 			}
 			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
 	}
 
 	void ClientApp::updateResolutionPhase() {
-		unsigned long int packetCount = 0;
-
+		// std::cout << "Updating Resolution Phase..." << std::endl; // Too verbose for every frame
 		for (int i = 0; i < packetsReceived.size(); ++i) {
+			sf::Packet& packet = packetsReceived[i];
+			
+			sf::Packet packetCopy = packet;
 			PacketType packetType;
-			packetsReceived[i] >> packetType;
-			if (packetType == PacketType::ACTION_PACKET) packetCount++;
+			if (!(packetCopy >> packetType)) {
+				std::cout << "ResolutionPhase: Invalid packet received, discarding." << std::endl;
+				packetsReceived.erase(packetsReceived.begin() + i--);
+				continue;
+			}
+
+			if (packetType == PacketType::INT) {
+				if (expectedResolutionActionCount == -1) {
+					int count;
+					packetCopy >> count;
+					expectedResolutionActionCount = count;
+					resolutionActions.clear();
+					std::cout << "ResolutionPhase: Received Action Count = " << count << std::endl;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+				else {
+					std::cout << "ResolutionPhase: Ignored extra INT packet." << std::endl;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+			}
+			else if (packetType == PacketType::ACTION_PACKET) {
+				ActionPacket ap;
+				packetCopy >> ap;
+				resolutionActions.push_back(ap);
+				std::cout << "ResolutionPhase: Received ActionPacket. Total collected: " << resolutionActions.size() << "/" << expectedResolutionActionCount << std::endl;
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
 			else if (packetType == PacketType::GAMESTATE) {
 				GameState newGameState;
-				packetsReceived[i] >> newGameState;
-				gameState = newGameState;
+				packetCopy >> newGameState;
+				
+				pendingGameState = newGameState;
+				hasPendingGameState = true;
+				std::cout << "ResolutionPhase: Received pending GameState. Next Phase: " << (int)newGameState.currentPhase << std::endl;
+				
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
+			else {
+				std::cout << "ResolutionPhase: Unknown packet type " << (int)packetType << " received." << std::endl;
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 		}
 
+		if (expectedResolutionActionCount != -1 && resolutionActions.size() >= expectedResolutionActionCount) {
+			if (!resolutionActionsReceived) {
+				std::cout << "ResolutionPhase: All actions received (" << resolutionActions.size() << "). Starting timer." << std::endl;
+				gameView.setResolutionActions(resolutionActions);
+				resolutionActionsReceived = true;
+				phaseTimer.restart(); 
+				resolutionTimerStarted = true;
+			}
+		}
+
+		if (resolutionTimerStarted) {
+			float elapsed = phaseTimer.getElapsedTime().asSeconds();
+			// std::cout << "Resolution Timer: " << elapsed << "/10.0" << std::endl; 
+			if (elapsed >= 10.0f) {
+				std::cout << "ResolutionPhase: Timer finished." << std::endl;
+				if (hasPendingGameState) {
+					std::cout << "ResolutionPhase: Applying pending GameState." << std::endl;
+					gameState = pendingGameState;
+					
+					expectedResolutionActionCount = -1;
+					resolutionActions.clear();
+					resolutionActionsReceived = false;
+					hasPendingGameState = false;
+					resolutionTimerStarted = false;
+					
+					if (gameState.currentPhase == ACTION_PHASE) { 
+						// This branch seems odd if next phase is usually Discussion which leads to Action? 
+						// But if we go back to Action directly:
+						menuMusic.stop();
+						actionPhaseMusic.play();
+						totalTimer.restart(); 
+						phaseTimer.restart();
+					}
+				} else {
+					// std::cout << "ResolutionPhase: Timer done but no pending GameState." << std::endl;
+				}
+			}
+		}
 	}
 
 	void ClientApp::updateGameover() {

@@ -15,6 +15,7 @@ namespace TheTraitor{
             sf::Clock currentPhaseTimer;
             GlobalGameState state;
             sf::SocketSelector selector;
+            std::vector<ActionPacket> actionPackets;
 
         private:
             void goToNextPhase();

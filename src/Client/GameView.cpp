@@ -26,7 +26,7 @@ namespace TheTraitor {
 		lobbyPhase(window, font, avatarTextures),
 		discussionPhase(),
 		actionPhase(window, font, avatarTextures, executableFolderPath),
-		resolutionPhase(),
+		resolutionPhase(window, font, avatarTextures),
 		gameoverPhase(window, font),
 		winPhase(window, font)
 	{
@@ -73,6 +73,10 @@ namespace TheTraitor {
 
 	void GameView::renderResolutionPhase(const GameState& gameState, int localPlayerID) {
 		resolutionPhase.render(gameState, localPlayerID);
+	}
+	
+	void GameView::setResolutionActions(const std::vector<ActionPacket>& actions) {
+		resolutionPhase.setActions(actions);
 	}
 
 	void GameView::renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter) {
