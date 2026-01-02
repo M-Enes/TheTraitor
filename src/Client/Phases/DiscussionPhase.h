@@ -38,6 +38,7 @@ namespace TheTraitor {
 			sf::Text education;
 		} playerInfo;
 
+
 		sf::Texture economyIconTexture;
 		sf::Texture healthIconTexture;
 		sf::Texture educationIconTexture;
@@ -49,6 +50,8 @@ namespace TheTraitor {
 		sf::Color countryNormalColor;
 		sf::Color countryHoverColor; // Not used for map interaction here but maybe for highlighting?
 		sf::Color countrySelectedColor;
+		
+		int currentRound = 0;
 	};
 
 }

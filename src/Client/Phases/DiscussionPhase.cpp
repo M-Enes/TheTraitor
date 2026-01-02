@@ -27,6 +27,14 @@ namespace TheTraitor {
 	}
 
 	void DiscussionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
+	// Inside render or similar logic that runs per frame
+	if (roundCounter != currentRound) {
+		currentRound = roundCounter;
+		isReady = false;
+		readyButton.setDisabled(false);
+		readyButton.setLabelString("Ready");
+	}
+
 		window.draw(titleLabel);
 
 		int remainingSeconds = 120 - (int)elapsedTime;
