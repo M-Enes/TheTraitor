@@ -28,6 +28,12 @@ namespace TheTraitor {
 		//window.create(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen, windowSettings);
 
 		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
+
+		menuMusic.setVolume(0.5);
+		actionPhaseMusic.setVolume(0.5);
+		winMusic.setVolume(0.5);
+		gameoverMusic.setVolume(0.5);
+
 		menuMusic.play();
 
 		window.setFramerateLimit(60);
