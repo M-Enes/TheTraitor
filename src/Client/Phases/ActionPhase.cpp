@@ -228,6 +228,12 @@ namespace TheTraitor {
 			currentRound = roundCounter;
 			publicActionUsed = false;
 			secretActionUsed = false;
+
+			for (auto& countryPair : allCountries) {
+				for (long unsigned int i = 0; i < (*countryPair.second).getVertexCount(); i++) {
+					(*countryPair.second)[i].color = countryNormalColor;
+				}
+			}
 		}
 
 		if (updateLogString) {
