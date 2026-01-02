@@ -24,7 +24,7 @@ namespace TheTraitor {
 		avatarTextures(loadTextures(executableFolderPath)),
 		menuPhase(window, font, avatarTextures),
 		lobbyPhase(window, font, avatarTextures),
-		discussionPhase(),
+		discussionPhase(window, font, avatarTextures, executableFolderPath),
 		actionPhase(window, font, avatarTextures, executableFolderPath),
 		resolutionPhase(window, font, avatarTextures),
 		gameoverPhase(window, font),
@@ -63,8 +63,8 @@ namespace TheTraitor {
 		lobbyPhase.render(gameState, localPlayerID);
 	}
 
-	void GameView::renderDiscussionPhase(const GameState& gameState, int localPlayerID) {
-		discussionPhase.render(gameState, localPlayerID);
+	void GameView::renderDiscussionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter) {
+		discussionPhase.render(gameState, localPlayerID, elapsedTimeSeconds, roundCounter);
 	}
 
 	void GameView::renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter) {

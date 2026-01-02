@@ -119,6 +119,42 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateDiscussionPhase() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleDiscussionPhaseInput(inputData);
+
+		if (viewData.isReady) {
+			sf::Packet packet;
+			PacketType type = PacketType::READY;
+			packet << type;
+			packetsToSend.push_back(packet);
+			std::cout << "Sent READY packet." << std::endl;
+		}
+
+		for (int i = 0; i < packetsReceived.size(); ++i) {
+			sf::Packet& packet = packetsReceived[i];
+			sf::Packet packetCopy = packet;
+			PacketType packetType;
+			if (packetCopy >> packetType) {
+				if (packetType == PacketType::GAMESTATE) {
+					GameState newGameState;
+					packetCopy >> newGameState;
+					gameState = newGameState;
+
+					if (gameState.currentPhase == ACTION_PHASE) {
+						actionPhaseMusic.play();
+						phaseTimer.restart();
+						roundCounter++;
+					}
+					
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+				else {
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+			} else {
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
+		}
 	}
 
 	void ClientApp::updateActionPhase() {
@@ -185,7 +221,6 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateResolutionPhase() {
-		// std::cout << "Updating Resolution Phase..." << std::endl; // Too verbose for every frame
 		for (int i = 0; i < packetsReceived.size(); ++i) {
 			sf::Packet& packet = packetsReceived[i];
 			
@@ -335,7 +370,7 @@ namespace TheTraitor {
 			gameView.renderLobby(gameState, playerID);
 			break;
 		case DISCUSSION_PHASE:
-			gameView.renderDiscussionPhase(gameState, playerID);
+			gameView.renderDiscussionPhase(gameState, playerID, static_cast<int>(phaseTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case ACTION_PHASE:
 			gameView.renderActionPhase(gameState, playerID, static_cast<int>(phaseTimer.getElapsedTime().asSeconds()), roundCounter);

@@ -13,6 +13,7 @@ namespace TheTraitor {
 		GamePhase gotoState;
 		std::string enteredPlayerName;
 		int avatarID;
+		bool isReady;
 	};
 
 	struct InputData {

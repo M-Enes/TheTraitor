@@ -15,6 +15,7 @@ namespace TheTraitor {
 		void setShapeOutlineColor(sf::Color color);
 		void setLabelFillColor(sf::Color color);
 		void setDisabled(bool disabled);
+		void setLabelString(std::string labelString);
 	private:
 		sf::RectangleShape shape;
 		sf::Text label;

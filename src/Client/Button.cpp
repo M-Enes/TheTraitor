@@ -96,4 +96,8 @@ namespace TheTraitor {
 	void Button::setLabelFillColor(sf::Color color) {
 		label.setFillColor(color);
 	}
+
+	void Button::setLabelString(std::string labelString) {
+		label.setString(labelString);
+	}
 }

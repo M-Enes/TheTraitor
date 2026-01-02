@@ -30,7 +30,7 @@ namespace TheTraitor {
 		
 		void renderMenu();
 		void renderLobby(const GameState& gameState, int localPlayerID);
-		void renderDiscussionPhase(const GameState& gameState, int localPlayerID);
+		void renderDiscussionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
 		void renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
 		void renderResolutionPhase(const GameState& gameState, int localPlayerID);
 		void setResolutionActions(const std::vector<ActionPacket>& actions);
