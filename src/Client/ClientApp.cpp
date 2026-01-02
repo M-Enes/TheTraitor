@@ -145,13 +145,14 @@ namespace TheTraitor {
 						phaseTimer.restart();
 						roundCounter++;
 					}
-					
+
 					packetsReceived.erase(packetsReceived.begin() + i--);
 				}
 				else {
 					packetsReceived.erase(packetsReceived.begin() + i--);
 				}
-			} else {
+			}
+			else {
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 		}
@@ -169,7 +170,7 @@ namespace TheTraitor {
 						break;
 					}
 				}
-				
+
 				// Action is already validated by ActionPhase::handleInput
 				ActionPacket actionPacket{ viewData.actionType, playerID, actionTargetPlayerID };
 				sendActionToServer(actionPacket);
@@ -184,30 +185,7 @@ namespace TheTraitor {
 			if (packetType == PacketType::GAMESTATE) {
 				GameState newGameState;
 				packet >> newGameState;
-				Role* role;
-				for (const auto& player : newGameState.players) {
-					if (player.getPlayerID() == playerID) {
-						std::cout << "player found" << std::endl;
-						role = player.getRole();
-					}
-				}
-				if (role->getName() == "Traitor") {
-					if (newGameState.currentPhase == WIN) {
-						newGameState.currentPhase = GAMEOVER;
-					}
-					else if (newGameState.currentPhase == GAMEOVER) {
-						newGameState.currentPhase = WIN;
-					}
-				}
 				gameState = newGameState;
-				actionPhaseMusic.stop();
-				totalTimer.stop();
-				if (newGameState.currentPhase == WIN) {
-					winMusic.play();
-				}
-				else if (newGameState.currentPhase == GAMEOVER) {
-					gameoverMusic.play();
-				}
 
 				// If phase changed, break to process state transition properly (e.g. to ResolutionPhase)
 				// without consuming subsequent packets meant for the new phase.
@@ -223,7 +201,7 @@ namespace TheTraitor {
 	void ClientApp::updateResolutionPhase() {
 		for (int i = 0; i < packetsReceived.size(); ++i) {
 			sf::Packet& packet = packetsReceived[i];
-			
+
 			sf::Packet packetCopy = packet;
 			PacketType packetType;
 			if (!(packetCopy >> packetType)) {
@@ -256,11 +234,47 @@ namespace TheTraitor {
 			else if (packetType == PacketType::GAMESTATE) {
 				GameState newGameState;
 				packetCopy >> newGameState;
-				
+
 				pendingGameState = newGameState;
 				hasPendingGameState = true;
 				std::cout << "ResolutionPhase: Received pending GameState. Next Phase: " << (int)newGameState.currentPhase << std::endl;
-				
+
+				if (pendingGameState.currentPhase == WIN || pendingGameState.currentPhase == GAMEOVER) {
+
+					Role* role;
+					for (const auto& player : newGameState.players) {
+						if (player.getPlayerID() == playerID) {
+							std::cout << "player found" << std::endl;
+							role = player.getRole();
+						}
+					}
+					if (role->getName() == "Traitor") {
+						if (newGameState.currentPhase == WIN) {
+							newGameState.currentPhase = GAMEOVER;
+						}
+						else if (newGameState.currentPhase == GAMEOVER) {
+							newGameState.currentPhase = WIN;
+						}
+					}
+					gameState = newGameState;
+					actionPhaseMusic.stop();
+					totalTimer.stop();
+					if (newGameState.currentPhase == WIN) {
+						winMusic.play();
+					}
+					else if (newGameState.currentPhase == GAMEOVER) {
+						gameoverMusic.play();
+					}
+
+					expectedResolutionActionCount = -1;
+					resolutionActions.clear();
+					resolutionActionsReceived = false;
+					hasPendingGameState = false;
+					resolutionTimerStarted = false;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+					return;
+				}
+
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 			else {
@@ -274,7 +288,7 @@ namespace TheTraitor {
 				std::cout << "ResolutionPhase: All actions received (" << resolutionActions.size() << "). Starting timer." << std::endl;
 				gameView.setResolutionActions(resolutionActions);
 				resolutionActionsReceived = true;
-				phaseTimer.restart(); 
+				phaseTimer.restart();
 				resolutionTimerStarted = true;
 			}
 		}
@@ -287,22 +301,23 @@ namespace TheTraitor {
 				if (hasPendingGameState) {
 					std::cout << "ResolutionPhase: Applying pending GameState." << std::endl;
 					gameState = pendingGameState;
-					
+
 					expectedResolutionActionCount = -1;
 					resolutionActions.clear();
 					resolutionActionsReceived = false;
 					hasPendingGameState = false;
 					resolutionTimerStarted = false;
-					
-					if (gameState.currentPhase == ACTION_PHASE) { 
+
+					if (gameState.currentPhase == ACTION_PHASE) {
 						// This branch seems odd if next phase is usually Discussion which leads to Action? 
 						// But if we go back to Action directly:
 						menuMusic.stop();
 						actionPhaseMusic.play();
-						totalTimer.restart(); 
+						totalTimer.restart();
 						phaseTimer.restart();
 					}
-				} else {
+				}
+				else {
 					// std::cout << "ResolutionPhase: Timer done but no pending GameState." << std::endl;
 				}
 			}
