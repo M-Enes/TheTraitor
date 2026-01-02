@@ -59,5 +59,13 @@ namespace TheTraitor {
 		void openTCPSocket(sf::IpAddress ip, unsigned short port);
 		void receivePackets();
 		void sendPackets();
+
+		// Resolution Phase State
+		int expectedResolutionActionCount = -1;
+		std::vector<ActionPacket> resolutionActions;
+		bool resolutionActionsReceived = false;
+		GameState pendingGameState;
+		bool hasPendingGameState = false;
+		bool resolutionTimerStarted = false;
 	};
 }

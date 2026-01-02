@@ -20,7 +20,7 @@ namespace TheTraitor {
 		int getEffectToTarget() const;
 		CountryStatType getEffectedStatType() const;
 	protected:
-		Action() = default; // allow derived classes to construct
+		Action(int effectPlayer, int effectTarget, CountryStatType type);
 	private:
 		int effectToPlayer;
 		int effectToTarget;
@@ -31,60 +31,60 @@ namespace TheTraitor {
 	public:
 		virtual ~SecretAction() = default;
 	protected:
-		SecretAction() = default;
+		SecretAction(int effectPlayer, int effectTarget, CountryStatType type);
 	};
 
 	class TradePact : public virtual Action {
 	public:
-		TradePact() = default;
+		TradePact();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class TradeEmbargo : public virtual Action {
 	public:
-		TradeEmbargo() = default;
+		TradeEmbargo();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class JointResearch : public virtual Action {
 	public:
-		JointResearch() = default;
+		JointResearch();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class SpreadMisinfo : public virtual Action {
 	public:
-		SpreadMisinfo() = default;
+		SpreadMisinfo();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class HealthAid : public virtual Action {
 	public:
-		HealthAid() = default;
+		HealthAid();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class PoisonResources : public virtual Action {
 	public:
-		PoisonResources() = default;
+		PoisonResources();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class SabotageFactory : public virtual SecretAction {
 	public:
-		SabotageFactory() = default;
+		SabotageFactory();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
 	class DestroySchool : public virtual SecretAction {
 	public:
-		DestroySchool() = default;
+		DestroySchool();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 
-	class SpreadPlague : public SecretAction {
+	class SpreadPlague : public virtual SecretAction {
 	public:
-		SpreadPlague() = default;
+		SpreadPlague();
 		std::string getLogMessage(const Player& player, const Player& target) const override;
 	};
 }

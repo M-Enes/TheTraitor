@@ -119,15 +119,61 @@ namespace TheTraitor {
 	}
 
 	void ClientApp::updateDiscussionPhase() {
+		const InputData& inputData = inputHandler.getInputData();
+		const ViewData& viewData = gameView.handleDiscussionPhaseInput(inputData);
+
+		if (viewData.isReady) {
+			sf::Packet packet;
+			PacketType type = PacketType::READY;
+			packet << type;
+			packetsToSend.push_back(packet);
+			std::cout << "Sent READY packet." << std::endl;
+		}
+
+		for (int i = 0; i < packetsReceived.size(); ++i) {
+			sf::Packet& packet = packetsReceived[i];
+			sf::Packet packetCopy = packet;
+			PacketType packetType;
+			if (packetCopy >> packetType) {
+				if (packetType == PacketType::GAMESTATE) {
+					GameState newGameState;
+					packetCopy >> newGameState;
+					gameState = newGameState;
+
+					if (gameState.currentPhase == ACTION_PHASE) {
+						actionPhaseMusic.play();
+						phaseTimer.restart();
+						roundCounter++;
+					}
+					
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+				else {
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+			} else {
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
+		}
 	}
 
 	void ClientApp::updateActionPhase() {
 		const InputData& inputData = inputHandler.getInputData();
 		const ViewData& viewData = gameView.handleActionPhaseInput(inputData);
 		if (viewData.isActionRequested) {
-			// TODO: send action packet
-			ActionPacket actionPacket{ viewData.actionType, playerID, playerID }; // TODO: fill targetID correctly
-			sendActionToServer(actionPacket);
+			if (static_cast<int>(viewData.actionTargetCountryType) != -1) {
+				int actionTargetPlayerID = -1;
+				for (const auto& player : gameState.players) {
+					if (player.getCountry()->getType() == static_cast<CountryType>(viewData.actionTargetCountryType)) {
+						actionTargetPlayerID = player.getPlayerID();
+						break;
+					}
+				}
+				
+				// Action is already validated by ActionPhase::handleInput
+				ActionPacket actionPacket{ viewData.actionType, playerID, actionTargetPlayerID };
+				sendActionToServer(actionPacket);
+			}
 		}
 
 		for (int i = 0; i < packetsReceived.size(); ++i) {
@@ -162,26 +208,105 @@ namespace TheTraitor {
 				else if (newGameState.currentPhase == GAMEOVER) {
 					gameoverMusic.play();
 				}
+
+				// If phase changed, break to process state transition properly (e.g. to ResolutionPhase)
+				// without consuming subsequent packets meant for the new phase.
+				if (gameState.currentPhase != ACTION_PHASE) {
+					packetsReceived.erase(packetsReceived.begin() + i);
+					return;
+				}
 			}
 			packetsReceived.erase(packetsReceived.begin() + i--);
 		}
 	}
 
 	void ClientApp::updateResolutionPhase() {
-		unsigned long int packetCount = 0;
-
 		for (int i = 0; i < packetsReceived.size(); ++i) {
+			sf::Packet& packet = packetsReceived[i];
+			
+			sf::Packet packetCopy = packet;
 			PacketType packetType;
-			packetsReceived[i] >> packetType;
-			if (packetType == PacketType::ACTION_PACKET) packetCount++;
+			if (!(packetCopy >> packetType)) {
+				std::cout << "ResolutionPhase: Invalid packet received, discarding." << std::endl;
+				packetsReceived.erase(packetsReceived.begin() + i--);
+				continue;
+			}
+
+			if (packetType == PacketType::INT) {
+				if (expectedResolutionActionCount == -1) {
+					int count;
+					packetCopy >> count;
+					expectedResolutionActionCount = count;
+					resolutionActions.clear();
+					std::cout << "ResolutionPhase: Received Action Count = " << count << std::endl;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+				else {
+					std::cout << "ResolutionPhase: Ignored extra INT packet." << std::endl;
+					packetsReceived.erase(packetsReceived.begin() + i--);
+				}
+			}
+			else if (packetType == PacketType::ACTION_PACKET) {
+				ActionPacket ap;
+				packetCopy >> ap;
+				resolutionActions.push_back(ap);
+				std::cout << "ResolutionPhase: Received ActionPacket. Total collected: " << resolutionActions.size() << "/" << expectedResolutionActionCount << std::endl;
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
 			else if (packetType == PacketType::GAMESTATE) {
 				GameState newGameState;
-				packetsReceived[i] >> newGameState;
-				gameState = newGameState;
+				packetCopy >> newGameState;
+				
+				pendingGameState = newGameState;
+				hasPendingGameState = true;
+				std::cout << "ResolutionPhase: Received pending GameState. Next Phase: " << (int)newGameState.currentPhase << std::endl;
+				
+				packetsReceived.erase(packetsReceived.begin() + i--);
+			}
+			else {
+				std::cout << "ResolutionPhase: Unknown packet type " << (int)packetType << " received." << std::endl;
 				packetsReceived.erase(packetsReceived.begin() + i--);
 			}
 		}
 
+		if (expectedResolutionActionCount != -1 && resolutionActions.size() >= expectedResolutionActionCount) {
+			if (!resolutionActionsReceived) {
+				std::cout << "ResolutionPhase: All actions received (" << resolutionActions.size() << "). Starting timer." << std::endl;
+				gameView.setResolutionActions(resolutionActions);
+				resolutionActionsReceived = true;
+				phaseTimer.restart(); 
+				resolutionTimerStarted = true;
+			}
+		}
+
+		if (resolutionTimerStarted) {
+			float elapsed = phaseTimer.getElapsedTime().asSeconds();
+			// std::cout << "Resolution Timer: " << elapsed << "/10.0" << std::endl; 
+			if (elapsed >= 10.0f) {
+				std::cout << "ResolutionPhase: Timer finished." << std::endl;
+				if (hasPendingGameState) {
+					std::cout << "ResolutionPhase: Applying pending GameState." << std::endl;
+					gameState = pendingGameState;
+					
+					expectedResolutionActionCount = -1;
+					resolutionActions.clear();
+					resolutionActionsReceived = false;
+					hasPendingGameState = false;
+					resolutionTimerStarted = false;
+					
+					if (gameState.currentPhase == ACTION_PHASE) { 
+						// This branch seems odd if next phase is usually Discussion which leads to Action? 
+						// But if we go back to Action directly:
+						menuMusic.stop();
+						actionPhaseMusic.play();
+						totalTimer.restart(); 
+						phaseTimer.restart();
+					}
+				} else {
+					// std::cout << "ResolutionPhase: Timer done but no pending GameState." << std::endl;
+				}
+			}
+		}
 	}
 
 	void ClientApp::updateGameover() {
@@ -242,22 +367,22 @@ namespace TheTraitor {
 			gameView.renderMenu();
 			break;
 		case LOBBY:
-			gameView.renderLobby(gameState);
+			gameView.renderLobby(gameState, playerID);
 			break;
 		case DISCUSSION_PHASE:
-			gameView.renderDiscussionPhase(gameState);
+			gameView.renderDiscussionPhase(gameState, playerID, static_cast<int>(phaseTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case ACTION_PHASE:
-			gameView.renderActionPhase(gameState, phaseTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderActionPhase(gameState, playerID, static_cast<int>(phaseTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case RESOLUTION_PHASE:
-			gameView.renderResolutionPhase(gameState);
+			gameView.renderResolutionPhase(gameState, playerID);
 			break;
 		case GAMEOVER:
-			gameView.renderGameover(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderGameover(gameState, playerID, static_cast<int>(totalTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case WIN:
-			gameView.renderWin(gameState, totalTimer.getElapsedTime().asSeconds(), roundCounter);
+			gameView.renderWin(gameState, playerID, static_cast<int>(totalTimer.getElapsedTime().asSeconds()), roundCounter);
 			break;
 		case NONE:
 			// Do nothing
@@ -291,6 +416,10 @@ namespace TheTraitor {
 		PacketType packetType = PacketType::ACTION_PACKET;
 		packet << packetType;
 		packet << actionPacket;
+		std::cout << "action packet sent" << std::endl;
+		std::cout << "action packet type: " << static_cast<int>(actionPacket.actionType) << std::endl;
+		std::cout << "action packet source ID: " << actionPacket.sourceID << std::endl;
+		std::cout << "action packet target ID: " << actionPacket.targetID << std::endl;
 		packetsToSend.push_back(packet);
 	}
 

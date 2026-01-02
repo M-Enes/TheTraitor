@@ -12,11 +12,16 @@ namespace TheTraitor {
 		bool isMouseOver(sf::Vector2f mousePosition) const;
 		void updateHoverEffect(bool isHovered);
 		void render();
+		void setShapeOutlineColor(sf::Color color);
+		void setLabelFillColor(sf::Color color);
+		void setDisabled(bool disabled);
+		void setLabelString(std::string labelString);
 	private:
 		sf::RectangleShape shape;
 		sf::Text label;
 		sf::RenderWindow& window;
 		sf::Color shapeFillColor;
 		sf::Color shapeHoverColor;
+		bool isDisabled = false;
 	};
 }

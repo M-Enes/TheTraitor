@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <ctime>
+#include <SFML/Network.hpp>
 
 #include "Common/ActionPacket.h"
 #include "Common/GlobalGameState.h"
@@ -13,6 +14,8 @@ namespace TheTraitor{
             int currentPhaseIndex;
             sf::Clock currentPhaseTimer;
             GlobalGameState state;
+            sf::SocketSelector selector;
+            std::vector<ActionPacket> actionPackets;
 
         private:
             void goToNextPhase();

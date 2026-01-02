@@ -31,6 +31,8 @@ namespace TheTraitor {
 
 	void Button::updateHoverEffect(bool isHovered)
 	{
+		if (isDisabled) return;
+
 		if (isHovered) {
 			shape.setFillColor(shapeHoverColor);
 		}
@@ -39,8 +41,63 @@ namespace TheTraitor {
 		}
 	}
 
+	void Button::setDisabled(bool disabled) {
+		if (isDisabled == disabled) return;
+		isDisabled = disabled;
+		if (isDisabled) {
+			sf::Color fill = shape.getFillColor();
+			fill.a = 100;
+			shape.setFillColor(fill);
+			
+			sf::Color outline = shape.getOutlineColor();
+			outline.a = 100;
+			shape.setOutlineColor(outline);
+
+			sf::Color textFill = label.getFillColor();
+			textFill.a = 100;
+			label.setFillColor(textFill);
+
+			sf::Color textOutline = label.getOutlineColor();
+			textOutline.a = 100;
+			label.setOutlineColor(textOutline);
+		} else {
+			// Restore alpha
+			sf::Color fill = shape.getFillColor();
+			fill.a = 255;
+			shape.setFillColor(fill);
+
+			sf::Color outline = shape.getOutlineColor();
+			outline.a = 255;
+			shape.setOutlineColor(outline);
+			
+			sf::Color textFill = label.getFillColor();
+			textFill.a = 255;
+			label.setFillColor(textFill);
+			
+			sf::Color textOutline = label.getOutlineColor();
+			textOutline.a = 255;
+			label.setOutlineColor(textOutline);
+			
+			// Reset color to base to avoid stuck hover state
+			shape.setFillColor(shapeFillColor);
+		}
+	}
+
+
 	void Button::render() {
 		window.draw(shape);
 		window.draw(label);
+	}
+
+	void Button::setShapeOutlineColor(sf::Color color) {
+		shape.setOutlineColor(color);
+	}
+
+	void Button::setLabelFillColor(sf::Color color) {
+		label.setFillColor(color);
+	}
+
+	void Button::setLabelString(std::string labelString) {
+		label.setString(labelString);
 	}
 }

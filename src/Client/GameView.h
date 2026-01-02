@@ -3,9 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include "Common/ActionPacket.h"
 #include "BridgeTypes.h"
-#include "Button.h"
 #include <vector>
 #include "Common/Player.h"
+
+#include "Client/Phases/MenuPhase.h"
+#include "Client/Phases/LobbyPhase.h"
+#include "Client/Phases/DiscussionPhase.h"
+#include "Client/Phases/ActionPhase.h"
+#include "Client/Phases/ResolutionPhase.h"
+#include "Client/Phases/GameoverPhase.h"
+#include "Client/Phases/WinPhase.h"
 
 namespace TheTraitor {
 
@@ -20,68 +27,31 @@ namespace TheTraitor {
 		const ViewData& handleResolutionPhaseInput(const InputData& inputData);
 		const ViewData& handleGameoverInput(const InputData& inputData);
 		const ViewData& handleWinInput(const InputData& inputData);
+		
 		void renderMenu();
-		void renderLobby(const GameState& gameState);
-		void renderDiscussionPhase(const GameState& gameState);
-		void renderActionPhase(const GameState& gameState, int elapsedTimeSeconds, int roundCounter);
-		void renderResolutionPhase(const GameState& gameState);
-		void renderGameover(const GameState& gameState, int totalTimeSeconds, int roundCounter);
-		void renderWin(const GameState& gameState, int totalTimeSeconds, int roundCounter);
-		const ViewData& getViewData();
+		void renderLobby(const GameState& gameState, int localPlayerID);
+		void renderDiscussionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
+		void renderActionPhase(const GameState& gameState, int localPlayerID, int elapsedTimeSeconds, int roundCounter);
+		void renderResolutionPhase(const GameState& gameState, int localPlayerID);
+		void setResolutionActions(const std::vector<ActionPacket>& actions);
+		void renderGameover(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
+		void renderWin(const GameState& gameState, int localPlayerID, int totalTimeSeconds, int roundCounter);
+		
+		const ViewData& getViewData(); // Needed? ClientApp doesn't seem to use it except via return values of handlers.
 	private:
 		sf::RenderWindow& window;
-		ViewData viewData;
 		sf::Font font;
-		Button joinGameButton;
-		sf::Text playerNameInputLabel;
-		sf::Text playerNameInputTextBox;
-		std::string playerNameInputTextBoxString;
-		const unsigned long int playerNameCharLimit = 15;
-		std::array<sf::Text, 5> playerLabels;
-		sf::RectangleShape actionMenu;
-		std::vector<std::tuple<std::string, Button, ActionType>> actionMenuButtons;
-		sf::RectangleShape eventLogMenu;
-		std::string eventLogString;
-		sf::Text eventLogMenuLabel;
-		sf::Text eventLogLabel;
-		sf::RectangleShape infoMenu;
-		sf::RectangleShape topBar;
-		sf::Text roundLabel;
-		sf::Text phaseLabel;
-		sf::Text timerLabel;
-		sf::VertexArray americaVertices;
-		sf::VertexArray africaVertices;
-		sf::VertexArray asiaVertices;
-		sf::VertexArray australiaVertices;
-		sf::VertexArray europeVertices;
-		std::array<std::pair<const std::vector<sf::Vector2f>*, sf::VertexArray*>, 5> allCountries;
-		std::array<std::array<sf::Text, 4>, 5> playerInfo;
-		sf::Texture economyIconTexture;
-		sf::Texture healthIconTexture;
-		sf::Texture educationIconTexture;
-		sf::Sprite economyIconSprite;
-		sf::Sprite healthIconSprite;
-		sf::Sprite educationIconSprite;
-		sf::Color countryNormalColor;
-		sf::Color countryHoverColor;
-		sf::Color countrySelectedColor;
-		sf::Vector2f countriesOffset;
-
-		// Avatar UI
-		sf::Text avatarLabel;
+		
+		// Resources shared with phases
 		std::vector<sf::Texture> avatarTextures;
-		std::vector<sf::Sprite> avatarSprites;
-		int currentSelectedAvatarIndex;
 
-		// Gameover and Win screen elements
-		sf::Text gameoverTitle;
-		sf::Text winTitle;
-		sf::Text totalRoundsLabel;
-		sf::Text totalTimeLabel;
-		Button quitGameButton;
-
-		void resetViewData();
-		bool isPointInPolygon(const std::vector<sf::Vector2f>& polygonPoints, sf::Vector2f point);
-		void calculateCountries();
+		// Phases
+		MenuPhase menuPhase;
+		LobbyPhase lobbyPhase;
+		DiscussionPhase discussionPhase;
+		ActionPhase actionPhase;
+		ResolutionPhase resolutionPhase;
+		GameoverPhase gameoverPhase;
+		WinPhase winPhase;
 	};
 }

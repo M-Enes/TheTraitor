@@ -1,78 +1,92 @@
 #include <iostream>
 #include "Country.h"
 
-TheTraitor::Country::Country(int economy, int health, int education) {
-    this->economy = economy;
-    this->health = health;
-    this->education = education;
-    this->destroyed = false;
-}
+namespace TheTraitor {
+
+	Country::Country(int economy, int health, int education, CountryType type) {
+		this->economy = economy;
+		this->health = health;
+		this->education = education;
+		this->destroyed = false;
+		this->type = type;
+	}
 
 
-TheTraitor::Country::Country() {
-    this->economy = 0;
-    this->health = 0;
-    this->education = 0;
-    this->destroyed = false;
-}
+	Country::Country() {
+		this->economy = 0;
+		this->health = 0;
+		this->education = 0;
+		this->destroyed = false;
+		this->type = CountryType::NONE;
+	}
 
-int TheTraitor::Country::getEconomy() {
-    return this->economy;
-}
+	CountryType Country::getType() const {
+		return this->type;
+	}
 
-int TheTraitor::Country::getHealth() {
-    return this->health;
-}
+	void Country::setType(CountryType type) {
+		this->type = type;
+	}
 
-int TheTraitor::Country::getEducation() {
-    return this->education;
-}
+	int Country::getEconomy() const {
+		return this->economy;
+	}
 
-bool TheTraitor::Country::isDestroyed() {
-    return this->destroyed;
-}
+	int Country::getHealth() const {
+		return this->health;
+	}
 
-void TheTraitor::Country::setEconomy(int economy) {
-    if (economy < 0) {
-        economy = 0;
-    }
-    else if (economy > 100) {
-        economy = 100;
-    }
-    this->economy = economy;
-}
+	int Country::getEducation() const {
+		return this->education;
+	}
 
-void TheTraitor::Country::setHealth(int health) {
-    if (health < 0) {
-        health = 0;
-    }
-    else if (health > 100) {
-        health = 100;
-    }
-    this->health = health;
-}
+	bool Country::isDestroyed() const {
+		return this->destroyed;
+	}
 
-void TheTraitor::Country::setEducation(int education) {
-    if (education < 0) {
-        education = 0;
-    }
-    else if (education > 100) {
-        education = 100;
-    }
-    this->education = education;
-}
+	void Country::setEconomy(int economy) {
+		if (economy < 0) {
+			economy = 0;
+		}
+		else if (economy > 100) {
+			economy = 100;
+		}
+		this->economy = economy;
+	}
+
+	void Country::setHealth(int health) {
+		if (health < 0) {
+			health = 0;
+		}
+		else if (health > 100) {
+			health = 100;
+		}
+		this->health = health;
+	}
+
+	void Country::setEducation(int education) {
+		if (education < 0) {
+			education = 0;
+		}
+		else if (education > 100) {
+			education = 100;
+		}
+		this->education = education;
+	}
 
 
-void TheTraitor::Country::checkDestroyed() {
-    // Destroyed if any stat reaches 0
-    // Maybe change this condition later
-    if (economy == 0 || health == 0 || education == 0) {
-        destroyed = true;
-    } else {
-        destroyed = false;
-    }
-}
+	void Country::checkDestroyed() {
+		// Destroyed if any stat reaches 0
+		// Maybe change this condition later
+		if (economy == 0 || health == 0 || education == 0) {
+			destroyed = true;
+		}
+		else {
+			destroyed = false;
+		}
+	}
 
-void TheTraitor::Country::setDestroyed(bool destroyed) {
-    this->destroyed = destroyed;
+	void Country::setDestroyed(bool destroyed) {
+		this->destroyed = destroyed;
+	}
 }
