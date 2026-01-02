@@ -12,13 +12,24 @@ namespace TheTraitor {
 		playerNameInputTextBox(font),
 		playerNameInputTextBoxString(""),
 		avatarLabel(font, "Select Avatar", 24),
-		currentSelectedAvatarIndex(-1)
+		currentSelectedAvatarIndex(-1),
+		titleLabel(font, "The Traitor", 60),
+		howToPlayLabel(font, "", 24),
+		showCursor(true)
 	{
-		playerNameInputLabel.setPosition(sf::Vector2f(600, 500));
-		playerNameInputLabel.setString("Player name");
+		playerNameInputLabel.setPosition(sf::Vector2f(600, 400));
+		playerNameInputLabel.setString("Type your player name");
 
-		playerNameInputTextBox.setPosition(sf::Vector2f(600, 300));
+		playerNameInputTextBox.setPosition(sf::Vector2f(600, 500));
 		playerNameInputTextBox.setString(playerNameInputTextBoxString);
+
+		titleLabel.setPosition(sf::Vector2f(50, 50));
+		titleLabel.setFillColor(sf::Color::Red);
+		titleLabel.setStyle(sf::Text::Bold);
+
+		howToPlayLabel.setString("How to play:\n\nYou will have a country and a role.\nIf you're an innocent, you need to destroy traitors country.\nIf you're the traitor, you need to destroy innocent countries.");
+		howToPlayLabel.setPosition(sf::Vector2f(50, 150));
+		howToPlayLabel.setFillColor(sf::Color::White);
 
 		initAvatarSprites(avatarTextures);
 	}
@@ -62,6 +73,14 @@ namespace TheTraitor {
 	}
 
 	void MenuPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
+		if (blinkClock.getElapsedTime().asSeconds() > 0.5f) {
+			showCursor = !showCursor;
+			blinkClock.restart();
+		}
+		playerNameInputTextBox.setString(playerNameInputTextBoxString + (showCursor ? "|" : ""));
+
+		window.draw(titleLabel);
+		window.draw(howToPlayLabel);
 		window.draw(playerNameInputLabel);
 		window.draw(playerNameInputTextBox);
 

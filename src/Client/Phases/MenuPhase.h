@@ -31,8 +31,14 @@ namespace TheTraitor {
 		std::vector<sf::Sprite> avatarSprites;
 		int currentSelectedAvatarIndex;
 
+		sf::Text titleLabel;
+		sf::Text howToPlayLabel;
+
 		void resetViewData();
 		void initAvatarSprites(const std::vector<sf::Texture>& avatarTextures);
+
+		sf::Clock blinkClock;
+		bool showCursor;
 	};
 
 }
