@@ -234,6 +234,15 @@ namespace TheTraitor {
 					(*countryPair.second)[i].color = countryNormalColor;
 				}
 			}
+
+			if (isLocalPlayerDestroyed) {
+
+				for (auto& [name, button, actionType] : actionMenuButtons) {
+					button.setDisabled(false);
+					button.updateHoverEffect(false);
+					button.setDisabled(true);
+				}
+			}
 		}
 
 		if (updateLogString) {
