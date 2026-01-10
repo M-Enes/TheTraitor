@@ -1,7 +1,0 @@
-<map id="TheTraitor::ActionPacket" name="TheTraitor::ActionPacket">
-<area shape="rect" id="Node000001" title="Struct representing a packet sent to perform an action." alt="" coords="20,168,176,237"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,81,75"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="38,72,39,108,47,143,52,154,47,155,42,145,34,109,37,77"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="140,5,165,75"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,73,126,145,122,154,118,151,121,143,142,76"/>
-</map>

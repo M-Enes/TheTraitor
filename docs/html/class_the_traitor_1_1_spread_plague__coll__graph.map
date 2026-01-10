@@ -1,7 +1,0 @@
-<map id="TheTraitor::SpreadPlague" name="TheTraitor::SpreadPlague">
-<area shape="rect" id="Node000001" title="Represents a Spread Plague action (Secret)." alt="" coords="8,597,195,736"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_secret_action.html" title="Abstract base class for secret actions (actions performed by the Traitor)." alt="" coords="22,411,181,549"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,562,104,598,99,597,100,567"/>
-<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_action.html" title="Abstract base class for all actions in the game." alt="" coords="5,5,197,363"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,375,104,411,99,411,101,380"/>
-</map>

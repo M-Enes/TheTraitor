@@ -1,5 +1,0 @@
-<map id="TheTraitor::SabotageFactory::getLogMessage" name="TheTraitor::SabotageFactory::getLogMessage">
-<area shape="rect" id="Node000001" title="Gets the log message describing the action result." alt="" coords="5,5,193,48"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_player.html#a3af74015bc37dd404005821bec30a036" title="Gets the player&#39;s name." alt="" coords="241,5,366,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,24,228,26,223,27,193,29"/>
-</map>
