@@ -1,7 +1,0 @@
-<map id="TheTraitor::ResolutionPhase::render" name="TheTraitor::ResolutionPhase::render">
-<area shape="rect" id="Node000001" title="Renders the Resolution Phase UI (Action results)." alt="" coords="5,39,193,81"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_player.html#ab3a56e3e106897fb9f461db7efad0aee" title="Gets the avatar ID of the player." alt="" coords="241,5,366,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,42,228,39,223,40,194,47"/>
-<area shape="rect" id="Node000003" href="$class_the_traitor_1_1_player.html#a3af74015bc37dd404005821bec30a036" title="Gets the player&#39;s name." alt="" coords="241,72,366,115"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,73,228,81,223,81,193,78"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="TheTraitor::LobbyPhase" name="TheTraitor::LobbyPhase">
-<area shape="rect" id="Node000001" title="Phase where players wait for the game to start." alt="" coords="8,261,258,501"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_i_game_phase.html" title="Interface for game phases." alt="" coords="5,5,260,213"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,226,135,262,130,261,132,231"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="TheTraitor::Traitor" name="TheTraitor::Traitor">
-<area shape="rect" id="Node000001" title="Class representing the Traitor role." alt="" coords="15,309,188,432"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_role.html" title="Abstract base class representing a player&#39;s role." alt="" coords="5,5,197,261"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,274,104,310,99,309,100,279"/>
-</map>

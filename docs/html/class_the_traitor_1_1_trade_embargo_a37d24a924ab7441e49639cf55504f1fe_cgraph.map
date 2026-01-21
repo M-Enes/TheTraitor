@@ -1,5 +1,0 @@
-<map id="TheTraitor::TradeEmbargo::getLogMessage" name="TheTraitor::TradeEmbargo::getLogMessage">
-<area shape="rect" id="Node000001" title="Gets the log message describing the action result." alt="" coords="5,5,179,48"/>
-<area shape="rect" id="Node000002" href="$class_the_traitor_1_1_player.html#a3af74015bc37dd404005821bec30a036" title="Gets the player&#39;s name." alt="" coords="227,5,352,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,24,214,26,209,27,179,29"/>
-</map>

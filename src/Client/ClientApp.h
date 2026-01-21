@@ -12,32 +12,13 @@
 
 namespace TheTraitor {
 
-	/**
-	 * @brief The main application class for the Client.
-	 * 
-	 * Handles the game loop, network communication, input, and rendering.
-	 */
 	class ClientApp
 	{
 	public:
-		/**
-		 * @brief Constructor for ClientApp.
-		 * @param executableFolderPath The path to the executable folder, used for loading assets.
-		 */
 		ClientApp(std::string executableFolderPath);
-
 		ClientApp(const ClientApp&) = delete;
 		ClientApp& operator=(const ClientApp&) = delete;
-
-		/**
-		 * @brief Runs the main application loop.
-		 */
 		void run();
-
-		/**
-		 * @brief Sends an action packet to the server.
-		 * @param actionPacket The action packet to send.
-		 */
 		void sendActionToServer(ActionPacket actionPacket);
 	private:
 		sf::ContextSettings windowSettings;
@@ -66,10 +47,6 @@ namespace TheTraitor {
 		sf::Clock phaseTimer;
 		int roundCounter = 1;
 	private:
-		/**
-		 * @brief Updates the application state.
-		 * @param deltaTime Time elapsed since the last frame.
-		 */
 		void update(sf::Time deltaTime);
 		void updateMenu();
 		void updateLobby();

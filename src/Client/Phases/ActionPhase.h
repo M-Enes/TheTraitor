@@ -10,34 +10,11 @@
 
 namespace TheTraitor {
 
-	/**
-	 * @brief Phase where players perform actions (Attack, Trade, etc.).
-	 */
 	class ActionPhase : public IGamePhase {
 	public:
-		/**
-		 * @brief Constructor for ActionPhase.
-		 * @param window The render window.
-		 * @param font The font resource.
-		 * @param avatarTextures The avatar textures resource.
-		 * @param executableFolderPath Path to usage resources.
-		 */
 		ActionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath);
 
-		/**
-		 * @brief Renders the Action Phase UI (Map, Buttons, Stats).
-		 * @param gameState The current game state.
-		 * @param localPlayerID The ID of the local player.
-		 * @param elapsedTime Time elapsed in the phase.
-		 * @param roundCounter Current round number.
-		 */
 		void render(const GameState& gameState, int localPlayerID, float elapsedTime = 0, int roundCounter = 0) override;
-
-		/**
-		 * @brief Handles input for the Action Phase (Selecting actions, targets).
-		 * @param inputData The raw input data.
-		 * @return The resulting view data with requested action.
-		 */
 		const ViewData& handleInput(const InputData& inputData) override;
 
 	private:
@@ -121,10 +98,6 @@ namespace TheTraitor {
 		std::vector<ActionPacket> lastRoundActions;
 		bool updateLogString = false;
 	public:
-		/**
-		 * @brief Sets the event log actions from the previous round.
-		 * @param actions The list of actions to display in the log.
-		 */
 		void setEventLog(const std::vector<ActionPacket>& actions);
 	};
 
