@@ -27,17 +27,17 @@ namespace TheTraitor {
 	ActionPhase::ActionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath)
 		: window(window), font(font), avatarTextures(avatarTextures),
 		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
-		actionMenu({ 310, (float)window.getSize().y - 40 }),
-		eventLogMenu({ (float)window.getSize().x - 870, 300 }),
+		actionMenu({ 310, 1080 - 40 }),
+		eventLogMenu({ 1920 - 870, 300 }),
 		eventLogString(""),
 		eventLogMenuLabel(font, "Event Log"),
 		eventLogLabel(font, eventLogString, 20),
-		infoMenu({ 480, (float)window.getSize().y - 40 }),
+		infoMenu({ 480, 1080 - 40 }),
 		topBar({ 1050, 120 }),
 		roundLabel(font, "Round 1"),
 		phaseLabel(font, "Action Phase"),
 		timerLabel(font, "01:02"),
-		playerInfo({ {font, font, font, font}}),
+		playerInfo({ {font, font, font, font} }),
 		economyIconTexture(executableFolderPath + "/assets/icons/icons8-cash-64.png"),
 		healthIconTexture(executableFolderPath + "/assets/icons/icons8-medical-kit-64.png"),
 		educationIconTexture(executableFolderPath + "/assets/icons/icons8-book-64.png"),
@@ -96,17 +96,17 @@ namespace TheTraitor {
 			buttonIndex++;
 		}
 
-		eventLogMenu.setPosition({ 350, (float)window.getSize().y - 320 });
+		eventLogMenu.setPosition({ 350, 1080 - 320 });
 		eventLogMenu.setFillColor(sf::Color::Black);
 		eventLogMenu.setOutlineThickness(5);
 		eventLogMenu.setOutlineColor(sf::Color::White);
 
 
-		eventLogMenuLabel.setPosition({ 370, (float)window.getSize().y - 300 });
-		eventLogLabel.setPosition({ 370, (float)window.getSize().y - 250 });
+		eventLogMenuLabel.setPosition({ 370, 1080 - 300 });
+		eventLogLabel.setPosition({ 370, 1080 - 250 });
 
 
-		infoMenu.setPosition({ (float)window.getSize().x - 500, 20 });
+		infoMenu.setPosition({ 1920 - 500, 20 });
 		infoMenu.setFillColor(sf::Color::Black);
 		infoMenu.setOutlineThickness(5);
 		infoMenu.setOutlineColor(sf::Color::White);
@@ -212,11 +212,12 @@ namespace TheTraitor {
 				if (player.getRole()->getName() == "Traitor") {
 					isTraitor = true;
 					cachedIsTraitor = true;
-				} else {
+				}
+				else {
 					isTraitor = false;
 					cachedIsTraitor = false;
 				}
-				
+
 				if (player.getCountry()->isDestroyed()) {
 					isLocalPlayerDestroyed = true;
 				}
@@ -290,7 +291,8 @@ namespace TheTraitor {
 			// Logic to visually fade buttons if not allowed
 			if (!isActionAllowed(type)) {
 				btn.setDisabled(true);
-			} else {
+			}
+			else {
 				btn.setDisabled(false);
 			}
 
@@ -299,7 +301,7 @@ namespace TheTraitor {
 				type == ActionType::SpreadPlague)) {
 				btn.setShapeOutlineColor(sf::Color(255, 255, 255, 128));
 				btn.setLabelFillColor(sf::Color(255, 255, 255, 128));
-				
+
 				// Ensure innocent secret buttons are disabled (logic covered by isActionAllowed too)
 				btn.setDisabled(true);
 			}
@@ -332,14 +334,14 @@ namespace TheTraitor {
 
 			// Highlight player info if country is hovered or selected
 			sf::RectangleShape highlightRect;
-			highlightRect.setPosition({ (float)window.getSize().x - 500, (float)posY - 10 });
+			highlightRect.setPosition({ 1920 - 500, (float)posY - 10 });
 			highlightRect.setSize({ 480, 190 });
 			highlightRect.setFillColor(sf::Color::Transparent);
 
 			CountryType type = player.getCountry()->getType();
 			int typeIndex = static_cast<int>(type);
 			bool isTarget = false;
-			
+
 			// Cache local player country type
 			if (isLocal) {
 				cachedLocalPlayerCountryType = type;
@@ -348,9 +350,10 @@ namespace TheTraitor {
 			if (type != CountryType::NONE && typeIndex >= 0 && typeIndex < 5) {
 				sf::Color currentColor = (*allCountries[typeIndex].second)[0].color;
 				if (currentColor == countrySelectedColor) {
-					highlightRect.setFillColor(sf::Color(150, 0, 50, 128)); 
+					highlightRect.setFillColor(sf::Color(150, 0, 50, 128));
 					isTarget = true;
-				} else if (currentColor == countryHoverColor) {
+				}
+				else if (currentColor == countryHoverColor) {
 					highlightRect.setFillColor(sf::Color(0, 150, 50, 128));
 				}
 			}
@@ -358,19 +361,19 @@ namespace TheTraitor {
 
 			name.setString(displayName);
 			name.setCharacterSize(30);
-			name.setPosition({ (float)window.getSize().x - 480, (float)posY });
-			economyIconSprite.setPosition({ (float)window.getSize().x - 480, (float)posY + 80 });
+			name.setPosition({ 1920 - 480, (float)posY });
+			economyIconSprite.setPosition({ 1920 - 480, (float)posY + 80 });
 			economy.setString(std::to_string(player.getCountry()->getEconomy()));
 			economy.setCharacterSize(25);
-			economy.setPosition({ (float)window.getSize().x - 400, (float)posY + 110 });
-			healthIconSprite.setPosition({ (float)window.getSize().x - 360, (float)posY + 80 });
+			economy.setPosition({ 1920 - 400, (float)posY + 110 });
+			healthIconSprite.setPosition({ 1920 - 360, (float)posY + 80 });
 			health.setString(std::to_string(player.getCountry()->getHealth()));
 			health.setCharacterSize(25);
-			health.setPosition({ (float)window.getSize().x - 280, (float)posY + 110 });
-			educationIconSprite.setPosition({ (float)window.getSize().x - 240, (float)posY + 90 });
+			health.setPosition({ 1920 - 280, (float)posY + 110 });
+			educationIconSprite.setPosition({ 1920 - 240, (float)posY + 90 });
 			education.setString(std::to_string(player.getCountry()->getEducation()));
 			education.setCharacterSize(25);
-			education.setPosition({ (float)window.getSize().x - 160, (float)posY + 110 });
+			education.setPosition({ 1920 - 160, (float)posY + 110 });
 
 			// Draw Avatar in Action Phase
 			int avatarID = player.getAvatarID();
@@ -382,7 +385,7 @@ namespace TheTraitor {
 					avatarSprite.setScale({ size / texSize.x, size / texSize.y });
 				}
 				// Position to the right of the name (Fixed column)
-				avatarSprite.setPosition({ (float)window.getSize().x - 120.0f, (float)posY + 80.0f });
+				avatarSprite.setPosition({ 1920 - 120.0f, (float)posY + 80.0f });
 				window.draw(avatarSprite);
 			}
 
@@ -403,7 +406,7 @@ namespace TheTraitor {
 				// But we need to make sure we only show effects if SOME country is selected.
 				// However, if isTarget is true, then a country IS selected (this one).
 				// We also need to know if ANY country is selected to show Local Player effects.
-				
+
 				bool anyCountrySelected = false;
 				for (const auto& cPair : allCountries) {
 					if ((*cPair.second)[0].color == countrySelectedColor) {
@@ -419,19 +422,19 @@ namespace TheTraitor {
 					if (isLocal) value += effect.playerEffect;
 					// If this is target player, add target effect
 					if (isTarget) value += effect.targetEffect;
-					
+
 					// Only draw if non-zero AND if the stat type matches
 					// Effects should be below "related stats".
-					
+
 					if (value != 0) {
 						std::string valStr = (value > 0 ? "+" : "") + std::to_string(value);
 						effectText.setString(valStr);
 						effectText.setFillColor(value > 0 ? sf::Color::Green : sf::Color::Red);
-						
+
 						float xPos = 0;
-						if (effect.statType == CountryStatType::Economy) xPos = (float)window.getSize().x - 400;
-						else if (effect.statType == CountryStatType::Health) xPos = (float)window.getSize().x - 280;
-						else if (effect.statType == CountryStatType::Education) xPos = (float)window.getSize().x - 160;
+						if (effect.statType == CountryStatType::Economy) xPos = 1920 - 400;
+						else if (effect.statType == CountryStatType::Health) xPos = 1920 - 280;
+						else if (effect.statType == CountryStatType::Education) xPos = 1920 - 160;
 
 						effectText.setPosition({ xPos, (float)(posY - 200) + 135 }); // posY was incremented already
 						window.draw(effectText);
@@ -468,7 +471,7 @@ namespace TheTraitor {
 			isHovered = button.isMouseOver(position);
 
 			button.updateHoverEffect(isHovered);
-			
+
 			if (isHovered) {
 				isActionHovered = true;
 				hoveredAction = actionType;
@@ -504,18 +507,18 @@ namespace TheTraitor {
 				// 2. Self-Targeting Validation
 				if (targetType == cachedLocalPlayerCountryType) {
 					// Logic: Only Traitor can self-target with specific secret actions
-					
+
 					bool isTraitorSelfTargetAllowed = false;
 					if (cachedIsTraitor && (actionType == ActionType::SpreadPlague ||
-											actionType == ActionType::DestroySchool ||
-											actionType == ActionType::SabotageFactory)) {
+						actionType == ActionType::DestroySchool ||
+						actionType == ActionType::SabotageFactory)) {
 						isTraitorSelfTargetAllowed = true;
 					}
 
 					if (!isTraitorSelfTargetAllowed) {
 						// Invalid self-target. Do NOT consume action. Do NOT send packet.
 						viewData.isActionRequested = false;
-						return viewData; 
+						return viewData;
 					}
 				}
 
@@ -536,7 +539,7 @@ namespace TheTraitor {
 			if (isPointInPolygon(*countryPair.first, position - countriesOffset)) {
 				sf::Color fillColor = (inputData.isMouseClicked && canInteract) ? countrySelectedColor : countryHoverColor;
 				if ((*countryPair.second)[0].color == countrySelectedColor) fillColor = countryHoverColor;
-				
+
 				// Destroyed Override
 				if (isDestroyed) fillColor = countryDestroyedColor;
 

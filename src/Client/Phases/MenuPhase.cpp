@@ -61,7 +61,7 @@ namespace TheTraitor {
 		// Calculate total width to right-align
 		float totalGridWidth = cols * avatarDisplaySize + (cols - 1) * gap;
 
-		float startX = window.getSize().x - totalGridWidth - 150.0f;
+		float startX = 1920 - totalGridWidth - 150.0f;
 		float startY = 350.0f;
 
 		avatarSprites.reserve(avatarTextures.size());

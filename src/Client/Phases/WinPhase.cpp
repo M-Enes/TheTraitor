@@ -11,7 +11,7 @@ namespace TheTraitor {
 		totalRoundsLabel(font),
 		totalTimeLabel(font),
 		traitorInfoLabel(font),
-		quitGameButton(sf::Vector2f(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f + 150),
+		quitGameButton(sf::Vector2f(1920 / 2.0f - 100, 1080 / 2.0f + 150),
 			sf::Vector2f(200, 60), 
 			sf::Vector2f(45, 15), 
 			"Quit Game",
@@ -26,14 +26,14 @@ namespace TheTraitor {
 	{
 		title.setFillColor(sf::Color::Green);
 		title.setPosition(sf::Vector2f(
-			window.getSize().x / 2.0f - title.getGlobalBounds().size.x / 2.0f,
-			window.getSize().y / 2.0f - 200));
+			1920 / 2.0f - title.getGlobalBounds().size.x / 2.0f,
+			1080 / 2.0f - 200));
 	}
 
 	void WinPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
 		int totalTimeSeconds = static_cast<int>(elapsedTime);
 
-		sf::RectangleShape overlay(sf::Vector2f((float)window.getSize().x, (float)window.getSize().y));
+		sf::RectangleShape overlay(sf::Vector2f(1920, 1080));
 		overlay.setFillColor(sf::Color(0, 0, 0, 200));
 		window.draw(overlay);
 
@@ -43,16 +43,16 @@ namespace TheTraitor {
 		totalRoundsLabel.setCharacterSize(30);
 		totalRoundsLabel.setFillColor(sf::Color::White);
 		totalRoundsLabel.setPosition(sf::Vector2f(
-			window.getSize().x / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
-			window.getSize().y / 2.0f - 50));
+			1920 / 2.0f - totalRoundsLabel.getGlobalBounds().size.x / 2.0f,
+			1080 / 2.0f - 50));
 		window.draw(totalRoundsLabel);
 
 		totalTimeLabel.setString("Total Time: " + std::to_string(totalTimeSeconds / 60) + ":" + std::to_string(totalTimeSeconds % 60));
 		totalTimeLabel.setCharacterSize(30);
 		totalTimeLabel.setFillColor(sf::Color::White);
 		totalTimeLabel.setPosition(sf::Vector2f(
-			window.getSize().x / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
-			window.getSize().y / 2.0f + 20));
+			1920 / 2.0f - totalTimeLabel.getGlobalBounds().size.x / 2.0f,
+			1080 / 2.0f + 20));
 		window.draw(totalTimeLabel);
 
 		std::string traitorName = "Unknown";
@@ -67,8 +67,8 @@ namespace TheTraitor {
 		traitorInfoLabel.setCharacterSize(30);
 		traitorInfoLabel.setFillColor(sf::Color::Red);
 		traitorInfoLabel.setPosition(sf::Vector2f(
-			window.getSize().x / 2.0f - traitorInfoLabel.getGlobalBounds().size.x / 2.0f,
-			window.getSize().y / 2.0f + 80));
+			1920 / 2.0f - traitorInfoLabel.getGlobalBounds().size.x / 2.0f,
+			1080 / 2.0f + 80));
 		window.draw(traitorInfoLabel);
 
 		quitGameButton.render();
