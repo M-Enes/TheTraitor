@@ -13,6 +13,11 @@ Ahmet Yasin Çetinkaya
 To triangulate map parts, we used earcut.hpp from https://github.com/mapbox/earcut.hpp. \
 Icons by https://icons8.com/.
 
+## How to Run
+Run the server (optionally with the command line parameter to specify the port like `.\Server.exe 53002`). \
+Run clients. Type player name, server ip, server port and select avatar. \
+After all of 5 clients connected to the server, server automatically starts the game.
+
 ## How to Build
 
 ### On Linux
