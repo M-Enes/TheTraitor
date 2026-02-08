@@ -16,7 +16,7 @@
 
 namespace TheTraitor {
 
-	GameManager::GameManager() : currentPhaseIndex(0) {
+	GameManager::GameManager(unsigned short serverPort) : currentPhaseIndex(0), serverPort(serverPort) {
 
 	}
 
@@ -299,7 +299,7 @@ namespace TheTraitor {
 	}
 
 	void GameManager::run() {
-		GameHost host;
+		GameHost host(serverPort);
 		host.establishConnectionWithClients(state);
 		for (auto& player : state.players) {
 			selector.add(*player.getSocket());

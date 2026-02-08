@@ -22,7 +22,7 @@ namespace TheTraitor{
         void updateGlobalGameState();
         
     public:
-        GameHost();
+        GameHost(unsigned short serverPort);
         void establishConnectionWithClients(GlobalGameState& state);
         void receivePacket(sf::TcpSocket* socket);
         void sendPacket(sf::TcpSocket* socket, sf::Packet& packet);

@@ -12,7 +12,7 @@
 
 namespace TheTraitor {
 
-	GameHost::GameHost() : serverIp(sf::IpAddress::LocalHost), serverPort(53000) {
+	GameHost::GameHost(unsigned short serverPort) : serverIp(sf::IpAddress::LocalHost), serverPort(serverPort) {
 		clientConnectionTimeout = 30; //seconds
 		isGameStarted = false;
 

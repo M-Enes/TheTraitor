@@ -5,7 +5,7 @@ namespace TheTraitor {
 	DiscussionPhase::DiscussionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath) 
 		: window(window), font(font), avatarTextures(avatarTextures), 
 		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
-		  readyButton(sf::Vector2f(window.getSize().x / 2 - 100, window.getSize().y - 100), sf::Vector2f(200, 60), sf::Vector2f(10, 10), "Ready", font, window, 30, sf::Color::Black, sf::Color::White, 5, sf::Color(100,100,100), sf::Color::White),
+		  readyButton(sf::Vector2f(1920 / 2 - 100, 1080 - 100), sf::Vector2f(200, 60), sf::Vector2f(10, 10), "Ready", font, window, 30, sf::Color::Black, sf::Color::White, 5, sf::Color(100,100,100), sf::Color::White),
 		  isReady(false),
 		  titleLabel(font, "Discussion Phase", 40),
 		  timerLabel(font, "00:00", 30),
@@ -23,7 +23,7 @@ namespace TheTraitor {
 		titleLabel.setPosition({ 50, 30 });
 		titleLabel.setStyle(sf::Text::Bold);
 		
-		timerLabel.setPosition({ (float)window.getSize().x - 150, 30 });
+		timerLabel.setPosition({ 1920 - 150, 30 });
 	}
 
 	void DiscussionPhase::render(const GameState& gameState, int localPlayerID, float elapsedTime, int roundCounter) {
@@ -56,7 +56,7 @@ namespace TheTraitor {
 			}
 
 			// We put them in a column on the right side, similar to Action Phase but maybe simpler
-			float rightColumnX = (float)window.getSize().x - 550;
+			float rightColumnX = 1920 - 550;
 			
 			// Name
 			name.setString(displayName);
