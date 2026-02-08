@@ -4,7 +4,7 @@ namespace TheTraitor {
 
 	DiscussionPhase::DiscussionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath) 
 		: window(window), font(font), avatarTextures(avatarTextures), 
-		  viewData{ false, ActionType::TradePact, CountryType::NONE, NONE, "", 0, false},
+		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
 		  readyButton(sf::Vector2f(window.getSize().x / 2 - 100, window.getSize().y - 100), sf::Vector2f(200, 60), sf::Vector2f(10, 10), "Ready", font, window, 30, sf::Color::Black, sf::Color::White, 5, sf::Color(100,100,100), sf::Color::White),
 		  isReady(false),
 		  titleLabel(font, "Discussion Phase", 40),

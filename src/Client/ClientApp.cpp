@@ -59,6 +59,13 @@ namespace TheTraitor {
 
 		if (viewData.gotoState == LOBBY) {
 			gameState.currentPhase = LOBBY;
+			auto serverIPResolve = sf::IpAddress::resolve(viewData.enteredServerIP);
+			if (serverIPResolve == std::nullopt) {
+				std::cout << "Invalid IP" << std::endl;
+				return;
+			}
+			serverIp = serverIPResolve.value();
+			serverPort = std::stoi(viewData.enteredServerPort);
 			openTCPSocket(serverIp, serverPort);
 		}
 	}

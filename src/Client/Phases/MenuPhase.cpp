@@ -4,13 +4,19 @@
 namespace TheTraitor {
 
 	MenuPhase::MenuPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures)
-		: window(window), font(font), 
-		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0},
-		joinGameButton(sf::Vector2f(800, 600), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window,
+		: window(window), font(font),
+		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
+		joinGameButton(sf::Vector2f(700, 800), sf::Vector2f(150, 50), sf::Vector2f(10, 10), "Join Game", font, window,
 			24, sf::Color::Black, sf::Color::White, 5, sf::Color(200, 200, 200), sf::Color::White),
 		playerNameInputLabel(font),
 		playerNameInputTextBox(font),
 		playerNameInputTextBoxString(""),
+		serverIPLabel(font),
+		serverIPTextBox(font),
+		serverIPTextBoxString(""),
+		serverPortLabel(font),
+		serverPortTextBox(font),
+		serverPortTextBoxString(""),
 		avatarLabel(font, "Select Avatar", 24),
 		currentSelectedAvatarIndex(-1),
 		titleLabel(font, "The Traitor", 60),
@@ -23,11 +29,23 @@ namespace TheTraitor {
 		playerNameInputTextBox.setPosition(sf::Vector2f(600, 500));
 		playerNameInputTextBox.setString(playerNameInputTextBoxString);
 
+		serverIPLabel.setPosition(sf::Vector2f(350, 600));
+		serverIPLabel.setString("Server IP:");
+
+		serverPortLabel.setPosition(sf::Vector2f(350, 700));
+		serverPortLabel.setString("Server Port:");
+
+		serverIPTextBox.setPosition(sf::Vector2f(600, 600));
+		serverIPTextBox.setString(serverIPTextBoxString);
+
+		serverPortTextBox.setPosition(sf::Vector2f(600, 700));
+		serverPortTextBox.setString(serverPortTextBoxString);
+
 		titleLabel.setPosition(sf::Vector2f(50, 50));
 		titleLabel.setFillColor(sf::Color::Red);
 		titleLabel.setStyle(sf::Text::Bold);
 
-		howToPlayLabel.setString("How to play:\n\nYou will have a country and a role.\nIf you're an innocent, you need to destroy traitors country.\nIf you're the traitor, you need to destroy innocent countries.");
+		howToPlayLabel.setString("How to play:\n\nYou will have a country and a role.\nIf you're an innocent, you need to destroy traitors country.\nIf you're the traitor, you need to destroy innocent countries.\n\nUse Tab to move between input textboxes.");
 		howToPlayLabel.setPosition(sf::Vector2f(50, 150));
 		howToPlayLabel.setFillColor(sf::Color::White);
 
@@ -36,15 +54,15 @@ namespace TheTraitor {
 
 	void MenuPhase::initAvatarSprites(const std::vector<sf::Texture>& avatarTextures) {
 		// Avatar Layout Configuration
-		const float avatarDisplaySize = 80.0f; 
+		const float avatarDisplaySize = 80.0f;
 		const float gap = 20.0f;
 		const int cols = 5;
 
 		// Calculate total width to right-align
 		float totalGridWidth = cols * avatarDisplaySize + (cols - 1) * gap;
 
-		float startX = window.getSize().x - totalGridWidth - 150.0f; 
-		float startY = 350.0f; 
+		float startX = window.getSize().x - totalGridWidth - 150.0f;
+		float startY = 350.0f;
 
 		avatarSprites.reserve(avatarTextures.size());
 		for (size_t i = 0; i < avatarTextures.size(); ++i) {
@@ -77,12 +95,24 @@ namespace TheTraitor {
 			showCursor = !showCursor;
 			blinkClock.restart();
 		}
-		playerNameInputTextBox.setString(playerNameInputTextBoxString + (showCursor ? "|" : ""));
+		if (tabIndex == 0) {
+			playerNameInputTextBox.setString(playerNameInputTextBoxString + (showCursor ? "|" : ""));
+		}
+		else if (tabIndex == 1) {
+			serverIPTextBox.setString(serverIPTextBoxString + (showCursor ? "|" : ""));
+		}
+		else {
+			serverPortTextBox.setString(serverPortTextBoxString + (showCursor ? "|" : ""));
+		}
 
 		window.draw(titleLabel);
 		window.draw(howToPlayLabel);
 		window.draw(playerNameInputLabel);
 		window.draw(playerNameInputTextBox);
+		window.draw(serverIPLabel);
+		window.draw(serverIPTextBox);
+		window.draw(serverPortLabel);
+		window.draw(serverPortTextBox);
 
 		// Draw Avatar Background (Table feel)
 		if (!avatarSprites.empty()) {
@@ -137,12 +167,14 @@ namespace TheTraitor {
 
 		sf::Vector2f position = window.mapPixelToCoords(inputData.mousePosition);
 
-		bool isHovered = joinGameButton.isMouseOver(position);
-		joinGameButton.updateHoverEffect(isHovered);
+		bool isJoinGameButtonHovered = joinGameButton.isMouseOver(position);
+		joinGameButton.updateHoverEffect(isJoinGameButtonHovered);
 
 		if (inputData.isMouseClicked) {
-			if (isHovered) {
+			if (isJoinGameButtonHovered) {
 				viewData.enteredPlayerName = playerNameInputTextBoxString;
+				viewData.enteredServerIP = serverIPTextBoxString;
+				viewData.enteredServerPort = serverPortTextBoxString;
 				viewData.gotoState = LOBBY;
 			}
 
@@ -156,20 +188,54 @@ namespace TheTraitor {
 
 		if (inputData.isKeyEntered) {
 			char key = inputData.keyEntered;
-			if (key == 8) { // Backspace
-				if (!playerNameInputTextBoxString.empty()) {
-					playerNameInputTextBoxString.pop_back();
+
+			if (tabIndex == 1) { // Server IP
+				if (key == 8) { // Backspace
+					if (!serverIPTextBoxString.empty()) {
+						serverIPTextBoxString.pop_back();
+					}
 				}
+				else if (key == 9) { // Tab
+					tabIndex = (tabIndex + 1) % 3;
+				}
+				else {
+					serverIPTextBoxString += key;
+				}
+				serverIPTextBox.setString(serverIPTextBoxString);
 			}
-			else if (key == 13) { // Enter
-				// Optional: Trigger join if Name is valid
+			else if (tabIndex == 2) { // Server Port
+				if (key == 8) { // Backspace
+					if (!serverPortTextBoxString.empty()) {
+						serverPortTextBoxString.pop_back();
+					}
+				}
+				else if (key == 9) { // Tab
+					tabIndex = (tabIndex + 1) % 3;
+				}
+				else {
+					serverPortTextBoxString += key;
+				}
+				serverPortTextBox.setString(serverPortTextBoxString);
 			}
 			else {
-				if (playerNameInputTextBoxString.size() < playerNameCharLimit) {
-					playerNameInputTextBoxString += key;
+				if (key == 8) { // Backspace
+					if (!playerNameInputTextBoxString.empty()) {
+						playerNameInputTextBoxString.pop_back();
+					}
 				}
+				else if (key == 13) { // Enter
+					// Optional: Trigger join if Name is valid
+				}
+				else if (key == 9) { // Tab
+					tabIndex = (tabIndex + 1) % 3;
+				}
+				else {
+					if (playerNameInputTextBoxString.size() < playerNameCharLimit) {
+						playerNameInputTextBoxString += key;
+					}
+				}
+				playerNameInputTextBox.setString(playerNameInputTextBoxString);
 			}
-			playerNameInputTextBox.setString(playerNameInputTextBoxString);
 		}
 
 		return viewData;
