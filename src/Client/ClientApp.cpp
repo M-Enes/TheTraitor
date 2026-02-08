@@ -12,7 +12,7 @@
 namespace TheTraitor {
 
 	ClientApp::ClientApp(std::string executableFolderPath)
-		: window(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen),
+		: window(sf::VideoMode({ 1920, 1080 }), "The Traitor", sf::Style::Default, sf::State::Windowed),
 		inputHandler(window),
 		gameView(window, executableFolderPath),
 		serverPort(53000),
@@ -26,8 +26,9 @@ namespace TheTraitor {
 		// TODO: add antialiasing option
 		//windowSettings.antiAliasingLevel = 4;
 		//window.create(sf::VideoMode::getFullscreenModes()[0], "The Traitor", sf::Style::None, sf::State::Fullscreen, windowSettings);
+		window.setSize({1280, 720});
 
-		gameState.currentPhase = MENU; // Test: Change to GAMEOVER or WIN to test end screens. Currently it is ACT
+		gameState.currentPhase = MENU;
 
 		menuMusic.setVolume(0.5);
 		actionPhaseMusic.setVolume(0.5);
@@ -58,6 +59,13 @@ namespace TheTraitor {
 
 		if (viewData.gotoState == LOBBY) {
 			gameState.currentPhase = LOBBY;
+			auto serverIPResolve = sf::IpAddress::resolve(viewData.enteredServerIP);
+			if (serverIPResolve == std::nullopt) {
+				std::cout << "Invalid IP" << std::endl;
+				return;
+			}
+			serverIp = serverIPResolve.value();
+			serverPort = std::stoi(viewData.enteredServerPort);
 			openTCPSocket(serverIp, serverPort);
 		}
 	}

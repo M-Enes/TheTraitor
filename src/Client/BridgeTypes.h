@@ -12,6 +12,8 @@ namespace TheTraitor {
 		CountryType actionTargetCountryType;
 		GamePhase gotoState;
 		std::string enteredPlayerName;
+		std::string enteredServerIP;
+		std::string enteredServerPort;
 		int avatarID;
 		bool isReady;
 	};

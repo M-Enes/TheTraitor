@@ -5,7 +5,7 @@ namespace TheTraitor {
 
 	ResolutionPhase::ResolutionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures) 
 		: window(window), font(font), avatarTextures(avatarTextures), 
-		  viewData{ false, ActionType::TradePact, CountryType::NONE, NONE, "", 0}
+		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false }
 	{
 	}
 

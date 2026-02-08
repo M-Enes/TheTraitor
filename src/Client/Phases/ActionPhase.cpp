@@ -26,7 +26,7 @@ namespace TheTraitor {
 
 	ActionPhase::ActionPhase(sf::RenderWindow& window, sf::Font& font, const std::vector<sf::Texture>& avatarTextures, std::string executableFolderPath)
 		: window(window), font(font), avatarTextures(avatarTextures),
-		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0},
+		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
 		actionMenu({ 310, (float)window.getSize().y - 40 }),
 		eventLogMenu({ (float)window.getSize().x - 870, 300 }),
 		eventLogString(""),

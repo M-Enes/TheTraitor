@@ -26,6 +26,15 @@ namespace TheTraitor {
 		std::string playerNameInputTextBoxString;
 		const unsigned long int playerNameCharLimit = 15;
 
+		sf::Text serverIPLabel;
+		sf::Text serverIPTextBox;
+		std::string serverIPTextBoxString;
+		sf::Text serverPortLabel;
+		sf::Text serverPortTextBox;
+		std::string serverPortTextBoxString;
+		
+		int tabIndex = 0;
+
 		// Avatar UI
 		sf::Text avatarLabel;
 		std::vector<sf::Sprite> avatarSprites;

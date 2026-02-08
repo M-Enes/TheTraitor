@@ -6,7 +6,7 @@ namespace TheTraitor {
 
 	WinPhase::WinPhase(sf::RenderWindow& window, sf::Font& font)
 		: window(window), font(font), 
-		viewData{ false, ActionType::TradePact, CountryType(NONE), NONE, "", 0 },
+		viewData{ false, ActionType::TradePact, CountryType(NONE), GamePhase(NONE), "", "", "", 0, false },
 		title(font, "VICTORY!", 80),
 		totalRoundsLabel(font),
 		totalTimeLabel(font),
