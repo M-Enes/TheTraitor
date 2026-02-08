@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstdbool>
-
 namespace TheTraitor {
 	enum class CountryType {
 		AMERICA, // 0
