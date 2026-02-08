@@ -16,6 +16,7 @@ namespace TheTraitor{
             GlobalGameState state;
             sf::SocketSelector selector;
             std::vector<ActionPacket> actionPackets;
+            unsigned short serverPort;
 
         private:
             void goToNextPhase();
@@ -24,7 +25,7 @@ namespace TheTraitor{
             void sendActionPacketToAllPlayers(std::vector<ActionPacket> actionPackets);
 
         public:
-            GameManager();
+            GameManager(unsigned short serverPort);
             void update();
             void processAction(ActionPacket actionPacket);
             void run();
