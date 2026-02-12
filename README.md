@@ -1,5 +1,5 @@
 # The Traitor
-A 5-player multiplayer strategy party game.
+A 5-player online strategy party game.
 
 ## Demo
 [Demo video](https://drive.google.com/file/d/1e18D3aSvErqhNpVGPptM73z1QTmkKOoB/view?usp=drivesdk)
