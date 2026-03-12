@@ -47,6 +47,20 @@ namespace TheTraitor {
 			sf::Time deltaTime = clock.restart();
 
 			update(deltaTime);
+
+			if (window.hasFocus()) {
+				menuMusic.setVolume(0.5);
+				actionPhaseMusic.setVolume(0.5);
+				winMusic.setVolume(0.5);
+				gameoverMusic.setVolume(0.5);
+			}
+			else {
+				menuMusic.setVolume(0);
+				actionPhaseMusic.setVolume(0);
+				winMusic.setVolume(0);
+				gameoverMusic.setVolume(0);
+			}
+
 			render();
 			sendPackets();
 			receivePackets();
