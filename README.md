@@ -2,7 +2,7 @@
 A 5-player online strategy party game.
 
 ## Demo
-[Demo video](https://drive.google.com/file/d/1e18D3aSvErqhNpVGPptM73z1QTmkKOoB/view?usp=drivesdk)
+[![Demo Video](http://img.youtube.com/vi/biMN7pQ5MRU/maxresdefault.jpg)](https://www.youtube.com/watch?v=biMN7pQ5MRU)
 
 ## Credits
 Muhammed Enes Karaca \
